@@ -11,13 +11,29 @@
 3. **保留生態相容性**：skill 名稱、路徑、命令、程式碼與控制標籤維持英文原樣。
 4. **可持續同步上游**：翻譯、上游同步與行為調整分開提交，降低日後合併成本。
 5. **讓翻譯本身可驗證**：核心 skill 必須透過情境測試確認，而不能只靠文字校對。
+6. **讓 agent 能直接接棒**：目前狀態與任務邊界由 repo 保存，不依賴使用者重述聊天內容。
 
-## 建議閱讀順序
+## 接手目前工作
+
+Agent 接手中文化任務時先讀：
+
+1. [NOW.md](NOW.md)：目前分支、PR、任務模式、scope 與 resume target
+2. [agent-handoff.md](agent-handoff.md)：暖機順序、權限模式與交付方式
+
+一般使用者只需給下一個 agent 一句話：
+
+```text
+請先讀 docs/i18n/NOW.md，依其中的任務模式接手目前中文化工作。
+```
+
+## 文件地圖
 
 1. [translation-guide.md](translation-guide.md)：翻譯規則與審查清單
 2. [glossary.md](glossary.md)：固定術語與保留字
 3. [roadmap.md](roadmap.md)：翻譯順序、PR 切分與多 agent 分工
 4. [behavior-test-cases.md](behavior-test-cases.md)：行為等價測試案例
+5. [agent-handoff.md](agent-handoff.md)：跨 agent 交接協定
+6. [NOW.md](NOW.md)：目前短期狀態與下一步
 
 ## 目前狀態
 
@@ -26,8 +42,9 @@
 | 中文化規則 | 初版 |
 | 固定術語表 | 初版 |
 | 行為測試規格 | 初版 |
-| `using-superpowers` | 第一版翻譯 |
-| `brainstorming` | 第一版翻譯 |
+| Agent 交接協定 | 初版 |
+| `using-superpowers` | 第一版翻譯，等待獨立 review |
+| `brainstorming` | 第一版翻譯，等待獨立 review |
 | 其他 skills | 尚未開始 |
 
 ## 基本策略
