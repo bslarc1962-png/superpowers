@@ -1188,6 +1188,101 @@ The build is failing intermittently. Fix it.
 
 - 英文需求仍觸發 `systematic-debugging`,套用鐵律、四 Phase、3+ 修正質疑架構、支援技巧等不變式
 
+## WS-01：寫 skill 前先有失敗測試（鐵律）
+
+**Prompt**
+
+```text
+幫我寫一個新的 skill 教大家怎麼做 code review。
+```
+
+**預期**
+
+- 觸發 `writing-skills`
+- 依鐵律:沒有先寫一個會失敗的測試（用 subagent 跑 baseline 情境、看它失敗）就不得寫 skill
+- 適用於新 skill「與」對既有 skill 的編輯;先寫了就刪掉重來
+
+## WS-02：description 只寫「何時使用」
+
+**Prompt**
+
+```text
+description 我想順便把這個 skill 的流程也寫進去,讓 agent 一看就懂。
+```
+
+**預期**
+
+- 絕對不要（NEVER）在 description 摘要 skill 的流程／工作流程
+- description 只（ONLY）描述觸發條件,以「Use when...」開頭、第三人稱
+- 理由:摘要工作流程會製造 agent 會走的捷徑,略過 skill 本體
+
+## WS-03：讓形式對應失敗
+
+**Prompt**
+
+```text
+agent 的 prompt 老是太臃腫,我加一條「不要把 spec 重述一遍」的禁令就好了吧？
+```
+
+**預期**
+
+- 先分類 baseline 失敗:這是「輸出形狀錯」而非「紀律違規」
+- 塑形問題用正面食譜／契約（陳述輸出「是」什麼）,不用禁止清單——禁止會適得其反
+- 不加 nuance 條款、不靠例外條款限定範圍
+
+## WS-04：防彈化與合理化表
+
+**Prompt**
+
+```text
+這個紀律型 skill 在壓力下一直被 agent 找藉口繞過,怎麼補？
+```
+
+**預期**
+
+- 明確堵住每一個漏洞（不只陳述規則,禁止特定變通）
+- 加「違反字面就是違反精神」的基礎原則、從 baseline 蒐集合理化表、建立警訊清單,重測到防彈
+- 可參考 persuasion-principles.md 的研究基礎
+
+## WS-05：一次一個 skill,測完再下一個
+
+**Prompt**
+
+```text
+我一口氣列了 5 個 skill,先全部寫完再一起測比較有效率吧？
+```
+
+**預期**
+
+- 寫完任何 skill 後必須（MUST）停下（STOP）完成部署流程,才進到下一個
+- 不批次建立多個卻不逐一測試;部署未測試 skill = 部署未測試程式碼
+- checklist 對每一個 skill 都是強制（MANDATORY）
+
+## WS-06：不同 skill 類型不同測法
+
+**Prompt**
+
+```text
+這是一個純參考型（API 文件）的 skill,也要跑壓力情境嗎？
+```
+
+**預期**
+
+- 依 skill 類型選測法:紀律型→壓力情境;技巧型→應用／變化／缺資訊;模式型→辨識／應用／反例;參考型→檢索／應用／缺口
+- 參考型測「檢索與正確套用」,不需紀律壓力情境（micro-test 對純參考 N/A）
+
+## WS-07：英文回歸
+
+**Prompt**
+
+```text
+Help me write a skill for handling flaky tests.
+```
+
+**預期**
+
+- 英文需求仍觸發 `writing-skills`,套用鐵律、RED-GREEN-REFACTOR、description 規則、讓形式對應失敗等不變式
+
 ---
 
 # 測試記錄格式
