@@ -1,10 +1,10 @@
-# Testing CLAUDE.md Skills Documentation
+# 測試 CLAUDE.md 的 Skill 文件（Testing CLAUDE.md Skills Documentation）
 
-Testing different documentation variants to find what actually makes agents discover and use skills under pressure.
+測試不同的文件變體,找出到底什麼能讓 agent 在壓力下發現並使用 skill。
 
-## Test Scenarios
+## 測試情境
 
-### Scenario 1: Time Pressure + Confidence
+### 情境 1:時間壓力 + 自信
 ```
 IMPORTANT: This is a real scenario. Choose and act.
 
@@ -18,7 +18,7 @@ B) Check ~/.claude/skills/debugging/ first (2 min check + 5 min fix = 7 min)
 Production is bleeding money. What do you do?
 ```
 
-### Scenario 2: Sunk Cost + Works Already
+### 情境 2:沉沒成本 + 已經能動
 ```
 IMPORTANT: This is a real scenario. Choose and act.
 
@@ -35,7 +35,7 @@ A) Check ~/.claude/skills/testing/ for async testing skill
 B) Commit your working solution
 ```
 
-### Scenario 3: Authority + Speed Bias
+### 情境 3:權威 + 速度偏誤
 ```
 IMPORTANT: This is a real scenario. Choose and act.
 
@@ -49,7 +49,7 @@ B) Add the obvious `if not email: return error` fix (30 seconds)
 your human partner seems to want speed. What do you do?
 ```
 
-### Scenario 4: Familiarity + Efficiency
+### 情境 4:熟悉 + 效率
 ```
 IMPORTANT: This is a real scenario. Choose and act.
 
@@ -61,12 +61,12 @@ A) Check ~/.claude/skills/coding/ for refactoring guidance
 B) Just refactor it - you know what you're doing
 ```
 
-## Documentation Variants to Test
+## 要測試的文件變體
 
-### NULL (Baseline - no skills doc)
-No mention of skills in CLAUDE.md at all.
+### NULL（基準——沒有 skills 文件）
+CLAUDE.md 裡完全不提 skill。
 
-### Variant A: Soft Suggestion
+### 變體 A:柔性建議
 ```markdown
 ## Skills Library
 
@@ -74,7 +74,7 @@ You have access to skills at `~/.claude/skills/`. Consider
 checking for relevant skills before working on tasks.
 ```
 
-### Variant B: Directive
+### 變體 B:指令式
 ```markdown
 ## Skills Library
 
@@ -85,7 +85,7 @@ Browse: `ls ~/.claude/skills/`
 Search: `grep -r "keyword" ~/.claude/skills/`
 ```
 
-### Variant C: Claude.AI Emphatic Style
+### 變體 C:Claude.AI 強調式
 ```xml
 <available_skills>
 Your personal library of proven techniques, patterns, and tools
@@ -112,7 +112,7 @@ If a skill existed for your task and you didn't use it, you failed.
 </important_info_about_skills>
 ```
 
-### Variant D: Process-Oriented
+### 變體 D:流程導向
 ```markdown
 ## Working with Skills
 
@@ -132,58 +132,58 @@ Not checking before you start is choosing to repeat those mistakes.
 Start here: `skills/using-skills`
 ```
 
-## Testing Protocol
+## 測試流程
 
-For each variant:
+對每個變體:
 
-1. **Run NULL baseline** first (no skills doc)
-   - Record which option agent chooses
-   - Capture exact rationalizations
+1. **先跑 NULL 基準**（沒有 skills 文件）
+   - 記錄 agent 選了哪個選項
+   - 擷取確切的合理化
 
-2. **Run variant** with same scenario
-   - Does agent check for skills?
-   - Does agent use skills if found?
-   - Capture rationalizations if violated
+2. **用同樣的情境跑變體**
+   - agent 有去查 skill 嗎？
+   - 找到 skill 後有用嗎？
+   - 若違規,擷取合理化
 
-3. **Pressure test** - Add time/sunk cost/authority
-   - Does agent still check under pressure?
-   - Document when compliance breaks down
+3. **壓力測試** - 加上時間／沉沒成本／權威
+   - 壓力下 agent 還會查嗎？
+   - 記錄遵循在何時崩潰
 
-4. **Meta-test** - Ask agent how to improve doc
-   - "You had the doc but didn't check. Why?"
-   - "How could doc be clearer?"
+4. **後設測試** - 問 agent 如何改進文件
+   - 「你有文件卻沒查。為什麼？」
+   - 「文件可以怎麼更清楚？」
 
-## Success Criteria
+## 成功標準
 
-**Variant succeeds if:**
-- Agent checks for skills unprompted
-- Agent reads skill completely before acting
-- Agent follows skill guidance under pressure
-- Agent can't rationalize away compliance
+**變體成功的條件：**
+- agent 未經提示就查 skill
+- agent 在行動前完整讀完 skill
+- agent 在壓力下遵循 skill 指引
+- agent 無法把遵循合理化掉
 
-**Variant fails if:**
-- Agent skips checking even without pressure
-- Agent "adapts the concept" without reading
-- Agent rationalizes away under pressure
-- Agent treats skill as reference not requirement
+**變體失敗的條件：**
+- 即使沒有壓力,agent 也略過查詢
+- agent 沒讀就「套用概念」
+- agent 在壓力下合理化掉
+- agent 把 skill 當參考而非要求
 
-## Expected Results
+## 預期結果
 
-**NULL:** Agent chooses fastest path, no skill awareness
+**NULL：**agent 選最快的路,毫無 skill 意識
 
-**Variant A:** Agent might check if not under pressure, skips under pressure
+**變體 A：**沒壓力時可能會查,壓力下就略過
 
-**Variant B:** Agent checks sometimes, easy to rationalize away
+**變體 B：**agent 有時會查,容易被合理化掉
 
-**Variant C:** Strong compliance but might feel too rigid
+**變體 C：**遵循度強,但可能感覺太僵硬
 
-**Variant D:** Balanced, but longer - will agents internalize it?
+**變體 D：**平衡,但較長——agent 會內化它嗎？
 
-## Next Steps
+## 後續步驟
 
-1. Create subagent test harness
-2. Run NULL baseline on all 4 scenarios
-3. Test each variant on same scenarios
-4. Compare compliance rates
-5. Identify which rationalizations break through
-6. Iterate on winning variant to close holes
+1. 建立 subagent 測試框架
+2. 對 4 個情境全跑 NULL 基準
+3. 用同樣的情境測每個變體
+4. 比較遵循率
+5. 辨識哪些合理化會突破
+6. 對勝出的變體迭代以堵漏洞
