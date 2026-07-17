@@ -1,59 +1,54 @@
 ---
 name: writing-plans
-description: Use when you have a spec or requirements for a multi-step task, before touching code
+description: "Use when you have a spec or requirements for a multi-step task, before touching code. 適用於已有多步驟任務的規格或需求、開始動手寫程式碼之前。"
 ---
 
-# Writing Plans
+# 撰寫實作計畫
 
-## Overview
+## 概觀
 
-Write comprehensive implementation plans assuming the engineer has zero context for our codebase and questionable taste. Document everything they need to know: which files to touch for each task, code, testing, docs they might need to check, how to test it. Give them the whole plan as bite-sized tasks. DRY. YAGNI. TDD. Frequent commits.
+撰寫完整的實作計畫（implementation plan），假設接手的工程師對我們的程式碼庫毫無背景，品味也不一定可靠。把他們需要知道的一切都寫清楚：每個 task 要動哪些檔案、程式碼、測試、可能要查閱的文件，以及如何測試。把整份計畫拆成一口大小的 task 交給他們。DRY、YAGNI、TDD、頻繁 commit。
 
-Assume they are a skilled developer, but know almost nothing about our toolset or problem domain. Assume they don't know good test design very well.
+假設對方是熟練的開發者，但對我們的工具鏈與問題領域幾乎一無所知。假設他們不太擅長良好的測試設計。
 
-**Announce at start:** "I'm using the writing-plans skill to create the implementation plan."
+**開始時宣告：**「我正在使用 writing-plans skill 來建立實作計畫。」
 
-**Context:** If working in an isolated worktree, it should have been created via the `superpowers:using-git-worktrees` skill at execution time.
+**背景：**如果在隔離的 Git worktree 中工作，該 worktree 應已在執行階段透過 `superpowers:using-git-worktrees` skill 建立。
 
-**Save plans to:** `docs/superpowers/plans/YYYY-MM-DD-<feature-name>.md`
-- (User preferences for plan location override this default)
+**計畫儲存位置：**`docs/superpowers/plans/YYYY-MM-DD-<feature-name>.md`
+- （使用者對計畫位置的偏好優先於此預設值）
 
-## Scope Check
+## 範圍檢查
 
-If the spec covers multiple independent subsystems, it should have been broken into sub-project specs during brainstorming. If it wasn't, suggest breaking this into separate plans — one per subsystem. Each plan should produce working, testable software on its own.
+如果規格涵蓋多個彼此獨立的子系統，它應該在 brainstorming 階段就被拆成各個子專案規格。如果沒有，建議把它拆成多份計畫——每個子系統一份。每份計畫都應能各自產出可運作、可測試的軟體。
 
-## File Structure
+## 檔案結構
 
-Before defining tasks, map out which files will be created or modified and what each one is responsible for. This is where decomposition decisions get locked in.
+在定義 task 之前，先規劃哪些檔案會被建立或修改，以及每個檔案負責什麼。分解決策就是在這裡定案的。
 
-- Design units with clear boundaries and well-defined interfaces. Each file should have one clear responsibility.
-- You reason best about code you can hold in context at once, and your edits are more reliable when files are focused. Prefer smaller, focused files over large ones that do too much.
-- Files that change together should live together. Split by responsibility, not by technical layer.
-- In existing codebases, follow established patterns. If the codebase uses large files, don't unilaterally restructure - but if a file you're modifying has grown unwieldy, including a split in the plan is reasonable.
+- 設計出邊界清楚、介面定義明確的單元。每個檔案只有一個明確責任。
+- 你對能一次完整放進 context 的程式碼推理得最好，而且當檔案聚焦時，你的修改也更可靠。優先使用較小、聚焦的檔案，而不是包山包海的大檔案。
+- 會一起改動的檔案應放在一起。依責任拆分，而不是依技術分層拆分。
+- 在既有程式碼庫中，遵循已建立的模式。如果程式碼庫使用大檔案，不要擅自重構——但如果你正在修改的檔案已經變得難以維護，把拆分納入計畫是合理的。
 
-This structure informs the task decomposition. Each task should produce self-contained changes that make sense independently.
+這個結構會影響 task 的分解。每個 task 都應產出可獨立成立的變更。
 
-## Task Right-Sizing
+## Task 大小拿捏
 
-A task is the smallest unit that carries its own test cycle and is worth a
-fresh reviewer's gate. When drawing task boundaries: fold setup,
-configuration, scaffolding, and documentation steps into the task whose
-deliverable needs them; split only where a reviewer could meaningfully
-reject one task while approving its neighbor. Each task ends with an
-independently testable deliverable.
+一個 task 是能自帶測試週期、且值得一位全新 reviewer 把關的最小單位。畫定 task 邊界時：把 setup、設定、鷹架與文件步驟折進真正需要它們的那個 task；只有在 reviewer 可能會有意義地拒絕其中一個 task、卻批准其相鄰 task 時，才拆開。每個 task 都以一個可獨立測試的交付物作結。
 
-## Bite-Sized Task Granularity
+## 一口大小的 Task 顆粒度
 
-**Each step is one action (2-5 minutes):**
-- "Write the failing test" - step
-- "Run it to make sure it fails" - step
-- "Implement the minimal code to make the test pass" - step
-- "Run the tests and make sure they pass" - step
-- "Commit" - step
+**每個步驟是一個動作（2–5 分鐘）：**
+- 「撰寫會失敗的測試」——一個步驟
+- 「執行它以確認它會失敗」——一個步驟
+- 「撰寫讓測試通過的最小程式碼」——一個步驟
+- 「執行測試並確認它們通過」——一個步驟
+- 「Commit」——一個步驟
 
-## Plan Document Header
+## 計畫文件標頭
 
-**Every plan MUST start with this header:**
+**每份計畫都必須（MUST）以下列標頭開頭：**
 
 ```markdown
 # [Feature Name] Implementation Plan
@@ -76,7 +71,7 @@ include this section.]
 ---
 ```
 
-## Task Structure
+## Task 結構
 
 ````markdown
 ### Task N: [Component Name]
@@ -125,50 +120,50 @@ git commit -m "feat: add specific feature"
 ```
 ````
 
-## No Placeholders
+## 不得留下 Placeholder
 
-Every step must contain the actual content an engineer needs. These are **plan failures** — never write them:
-- "TBD", "TODO", "implement later", "fill in details"
-- "Add appropriate error handling" / "add validation" / "handle edge cases"
-- "Write tests for the above" (without actual test code)
-- "Similar to Task N" (repeat the code — the engineer may be reading tasks out of order)
-- Steps that describe what to do without showing how (code blocks required for code steps)
-- References to types, functions, or methods not defined in any task
+每個步驟都必須包含工程師實際需要的內容。下列都是**計畫失誤**——絕對不要這樣寫：
+- 「TBD」、「TODO」、「implement later」、「fill in details」
+- 「Add appropriate error handling」／「add validation」／「handle edge cases」
+- 「Write tests for the above」（沒有實際測試程式碼）
+- 「Similar to Task N」（把程式碼重寫一遍——工程師可能不按順序閱讀 task）
+- 只描述要做什麼、卻沒有示範怎麼做的步驟（涉及程式碼的步驟必須附程式碼區塊）
+- 引用了任何 task 都未定義的型別、function 或 method
 
-## Remember
-- Exact file paths always
-- Complete code in every step — if a step changes code, show the code
-- Exact commands with expected output
-- DRY, YAGNI, TDD, frequent commits
+## 謹記
+- 永遠寫出精確的檔案路徑
+- 每個步驟都要有完整程式碼——如果步驟會改動程式碼，就把程式碼寫出來
+- 精確的命令與預期輸出
+- DRY、YAGNI、TDD、頻繁 commit
 
-## Self-Review
+## 自我審查
 
-After writing the complete plan, look at the spec with fresh eyes and check the plan against it. This is a checklist you run yourself — not a subagent dispatch.
+寫完整份計畫後，用全新的角度重看規格，並拿計畫和它對照。這是一份你自己執行的 checklist——不是派發 subagent。
 
-**1. Spec coverage:** Skim each section/requirement in the spec. Can you point to a task that implements it? List any gaps.
+**1. 規格覆蓋度：**逐一略讀規格中的每個章節／需求。你能指出哪個 task 實作了它嗎？列出任何缺口。
 
-**2. Placeholder scan:** Search your plan for red flags — any of the patterns from the "No Placeholders" section above. Fix them.
+**2. Placeholder 掃描：**在你的計畫中搜尋警訊——上方「不得留下 Placeholder」章節列出的任何模式。修正它們。
 
-**3. Type consistency:** Do the types, method signatures, and property names you used in later tasks match what you defined in earlier tasks? A function called `clearLayers()` in Task 3 but `clearFullLayers()` in Task 7 is a bug.
+**3. 型別一致性：**你在後面 task 使用的型別、method 簽章與屬性名稱，是否和你在前面 task 定義的一致？在 Task 3 叫 `clearLayers()`、在 Task 7 卻叫 `clearFullLayers()`，就是一個 bug。
 
-If you find issues, fix them inline. No need to re-review — just fix and move on. If you find a spec requirement with no task, add the task.
+如果發現問題，就地修正即可。不需要再審查一輪——修好就往下走。如果發現某個規格需求沒有對應 task，補上該 task。
 
-## Execution Handoff
+## 執行交接
 
-After saving the plan, offer execution choice:
+儲存計畫後，提供執行方式的選擇：
 
-**"Plan complete and saved to `docs/superpowers/plans/<filename>.md`. Two execution options:**
+**「計畫已完成並儲存至 `docs/superpowers/plans/<filename>.md`。有兩種執行選項：**
 
-**1. Subagent-Driven (recommended)** - I dispatch a fresh subagent per task, review between tasks, fast iteration
+**1. Subagent 驅動（推薦）**——我為每個 task 派發一個全新的 subagent，在 task 之間審查，迭代快速
 
-**2. Inline Execution** - Execute tasks in this session using executing-plans, batch execution with checkpoints
+**2. Inline 執行**——在本 session 中使用 executing-plans 執行 task，以批次搭配 checkpoint 執行
 
-**Which approach?"**
+**要用哪一種？」**
 
-**If Subagent-Driven chosen:**
-- **REQUIRED SUB-SKILL:** Use superpowers:subagent-driven-development
-- Fresh subagent per task + two-stage review
+**若選擇 Subagent 驅動：**
+- **REQUIRED SUB-SKILL：**使用 superpowers:subagent-driven-development
+- 每個 task 一個全新 subagent ＋ 兩階段審查
 
-**If Inline Execution chosen:**
-- **REQUIRED SUB-SKILL:** Use superpowers:executing-plans
-- Batch execution with checkpoints for review
+**若選擇 Inline 執行：**
+- **REQUIRED SUB-SKILL：**使用 superpowers:executing-plans
+- 以批次搭配 checkpoint 執行，供審查
