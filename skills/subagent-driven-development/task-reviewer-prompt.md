@@ -1,11 +1,8 @@
-# Task Reviewer Prompt Template
+# Task Reviewer 提示模板（Prompt Template）
 
-Use this template when dispatching a task reviewer subagent. The reviewer
-reads the task's diff once and returns two verdicts: spec compliance and
-code quality.
+派遣 task reviewer subagent 時使用這個模板。reviewer 讀一次任務的 diff,並回傳兩個裁決：規格符合度與程式碼品質。（以下 ``` 區塊是實際要送給 subagent 的 prompt 內容,保留英文原樣。）
 
-**Purpose:** Verify one task's implementation matches its requirements (nothing
-more, nothing less) and is well-built (clean, tested, maintainable)
+**目的：**驗證一個任務的實作符合其需求（不多不少）且建造得好（乾淨、有測試、可維護）
 
 ```
 Subagent (general-purpose):
@@ -165,24 +162,21 @@ Subagent (general-purpose):
     **Reasoning:** [1-2 sentence technical assessment]
 ```
 
-**Placeholders:**
-- `[MODEL]` — REQUIRED: reviewer model per SKILL.md Model Selection
-- `[BRIEF_FILE]` — REQUIRED: the task brief file (`scripts/task-brief PLAN N`
-  prints the path; same file the implementer worked from)
-- `[GLOBAL_CONSTRAINTS]` — the binding requirements copied verbatim from
-  the plan's Global Constraints section or the spec: exact values, formats,
-  and stated relationships between components (not process rules — those
-  are already in this template)
-- `[REPORT_FILE]` — REQUIRED: the file the implementer wrote its detailed
-  report to
-- `[BASE_SHA]` — commit before this task
-- `[HEAD_SHA]` — current commit
-- `[DIFF_FILE]` — REQUIRED: the path the controller wrote the review
-  package to (`scripts/review-package BASE HEAD` prints the unique path it
-  wrote; the package never enters the controller's context)
+**佔位符（Placeholders）：**
+- `[MODEL]` — 必要（REQUIRED）：依 SKILL.md 模型選擇決定的 reviewer 模型
+- `[BRIEF_FILE]` — 必要（REQUIRED）：task brief 檔（`scripts/task-brief PLAN N`
+  會印出路徑;與 implementer 使用的是同一個檔案）
+- `[GLOBAL_CONSTRAINTS]` — 從計畫的 Global Constraints 段落或規格逐字
+  （verbatim）複製的具約束力需求：確切的值、格式,以及元件之間所陳述的
+  關係（不是流程規則——那些已在本模板裡）
+- `[REPORT_FILE]` — 必要（REQUIRED）：implementer 寫入其詳細報告的檔案
+- `[BASE_SHA]` — 這個任務之前的 commit
+- `[HEAD_SHA]` — 目前的 commit
+- `[DIFF_FILE]` — 必要（REQUIRED）：controller 寫入 review package 的路徑
+  （`scripts/review-package BASE HEAD` 會印出它所寫入的唯一路徑;該 package
+  永遠不會進入 controller 的 context）
 
-**Reviewer returns:** Spec Compliance verdict (✅/❌/⚠️), Strengths, Issues
-(Critical/Important/Minor), Task quality verdict
+**Reviewer 回傳：**規格符合度裁決（✅/❌/⚠️）、優點（Strengths）、問題
+（Critical/Important/Minor）、任務品質裁決
 
-A fix dispatch can address spec gaps and quality findings together;
-re-review after fixes covers both verdicts.
+一次 fix 派遣可以同時處理規格缺口與品質發現;修正後的 re-review 涵蓋兩個裁決。
