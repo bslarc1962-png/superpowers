@@ -30,6 +30,12 @@ Phase 1 已全部合併。Phase 2（實作與驗證主迴圈）進行中:`execut
 - `skills/finishing-a-development-branch/SKILL.md`（初譯）
 - `docs/i18n/behavior-test-cases.md`（新增 `finishing-a-development-branch` FDB-01–07 情境測試規格）
 
+## 本批獨立 review 結果
+
+由未參與初譯的 reviewer 對 `finishing-a-development-branch` 做中英逐段對照:**0 blocker、0 major、0 minor、2 note**,行為層面完全等價,**本批無需修改**。已驗證:4／3 選項選單完整、環境偵測表 3 列、清理 provenance(只在選項 1／4、只清 `.worktrees/`／`worktrees/` 自建、harness 擁有不移除、先 merge 再移 worktree 再刪 branch、移除前 cd 主 repo、移除後 prune)、`discard` literal token 保留、快速參考 4 列 yes/- 對映、常見錯誤 7、Red Flags Never 7／Always 7、所有 git 命令與 placeholder 原樣。
+
+- 兩個 note 皆為 casing 風格觀察(小寫 `only`→「只」而非「只能（ONLY）」;`Never`／`Always` 保留原文 title-case)。與本專案既定政策一致(小寫 inline 詞不加大寫英文錨點),reviewer 判定無行為影響、不需修改。
+
 ## Current Task
 
 ### Owner
@@ -54,7 +60,7 @@ Claude／Anthropic
 
 ## Resume Target
 
-1. 由未參與本輪初譯的 reviewer 對 `finishing-a-development-branch` 做獨立語意 review(4／3 選項選單、環境偵測表、清理 provenance、強制詞與命令識別字)。
+1. ~~獨立語意 review~~（已完成,0 blocker／0 major／0 minor,本批無需修改）。
 2. 執行實際 harness 行為 eval:依 `behavior-test-cases.md` 的 FDB-01–07 跑中文觸發、壓力、反例與英文回歸。**本 session 無法執行**——`evals/`(superpowers-evals)未 clone,需 tmux Claude Code／Codex 環境。
 3. 使用者決定是否為本批開 PR 並合併。
 4. Phase 2 剩餘批次:`test-driven-development`(＋ `testing-anti-patterns.md` 大型 reference)、`subagent-driven-development`(＋ implementer/task-reviewer prompt 與 scripts)。之後進入 Phase 3(除錯與協作)與 Phase 4(meta 與大型 reference)。
