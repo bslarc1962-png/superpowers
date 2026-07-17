@@ -1,26 +1,26 @@
-# Defense-in-Depth Validation
+# 縱深防禦驗證（Defense-in-Depth Validation）
 
-## Overview
+## 概觀
 
-When you fix a bug caused by invalid data, adding validation at one place feels sufficient. But that single check can be bypassed by different code paths, refactoring, or mocks.
+當你修好一個由無效資料造成的 bug 時,在單一處加上驗證感覺就夠了。但那個單一檢查可能被不同的程式碼路徑、重構,或 mock 繞過。
 
-**Core principle:** Validate at EVERY layer data passes through. Make the bug structurally impossible.
+**核心原則：**在資料經過的「每一層」都驗證。讓 bug 在結構上不可能發生。
 
-## Why Multiple Layers
+## 為何要多層
 
-Single validation: "We fixed the bug"
-Multiple layers: "We made the bug impossible"
+單一驗證:「我們修好了 bug」
+多層:「我們讓 bug 不可能發生」
 
-Different layers catch different cases:
-- Entry validation catches most bugs
-- Business logic catches edge cases
-- Environment guards prevent context-specific dangers
-- Debug logging helps when other layers fail
+不同的層攔截不同的情況:
+- 進入點驗證攔截大多數 bug
+- 業務邏輯攔截邊界情況
+- 環境 guard 防止特定情境下的危險
+- Debug logging 在其他層失效時提供幫助
 
-## The Four Layers
+## 四層
 
-### Layer 1: Entry Point Validation
-**Purpose:** Reject obviously invalid input at API boundary
+### Layer 1：進入點驗證
+**目的：**在 API 邊界拒絕明顯無效的輸入
 
 ```typescript
 function createProject(name: string, workingDirectory: string) {
@@ -37,8 +37,8 @@ function createProject(name: string, workingDirectory: string) {
 }
 ```
 
-### Layer 2: Business Logic Validation
-**Purpose:** Ensure data makes sense for this operation
+### Layer 2：業務邏輯驗證
+**目的：**確保資料對這個操作而言合理
 
 ```typescript
 function initializeWorkspace(projectDir: string, sessionId: string) {
@@ -49,8 +49,8 @@ function initializeWorkspace(projectDir: string, sessionId: string) {
 }
 ```
 
-### Layer 3: Environment Guards
-**Purpose:** Prevent dangerous operations in specific contexts
+### Layer 3：環境 Guard
+**目的：**在特定情境中防止危險操作
 
 ```typescript
 async function gitInit(directory: string) {
@@ -69,8 +69,8 @@ async function gitInit(directory: string) {
 }
 ```
 
-### Layer 4: Debug Instrumentation
-**Purpose:** Capture context for forensics
+### Layer 4：Debug Instrumentation
+**目的：**擷取 context 供事後鑑識
 
 ```typescript
 async function gitInit(directory: string) {
@@ -84,39 +84,39 @@ async function gitInit(directory: string) {
 }
 ```
 
-## Applying the Pattern
+## 套用這個模式
 
-When you find a bug:
+當你找到一個 bug 時:
 
-1. **Trace the data flow** - Where does bad value originate? Where used?
-2. **Map all checkpoints** - List every point data passes through
-3. **Add validation at each layer** - Entry, business, environment, debug
-4. **Test each layer** - Try to bypass layer 1, verify layer 2 catches it
+1. **追蹤資料流** - 壞值從哪裡來？在哪裡被使用？
+2. **標出所有檢查點** - 列出資料經過的每一個點
+3. **在每一層加上驗證** - 進入點、業務、環境、debug
+4. **測試每一層** - 試著繞過 layer 1,驗證 layer 2 會攔到它
 
-## Example from Session
+## 來自 Session 的範例
 
-Bug: Empty `projectDir` caused `git init` in source code
+Bug：空的 `projectDir` 導致 `git init` 在原始碼中執行
 
-**Data flow:**
-1. Test setup → empty string
+**資料流：**
+1. 測試 setup → 空字串
 2. `Project.create(name, '')`
 3. `WorkspaceManager.createWorkspace('')`
-4. `git init` runs in `process.cwd()`
+4. `git init` 在 `process.cwd()` 執行
 
-**Four layers added:**
-- Layer 1: `Project.create()` validates not empty/exists/writable
-- Layer 2: `WorkspaceManager` validates projectDir not empty
-- Layer 3: `WorktreeManager` refuses git init outside tmpdir in tests
-- Layer 4: Stack trace logging before git init
+**加上的四層：**
+- Layer 1：`Project.create()` 驗證非空／存在／可寫
+- Layer 2：`WorkspaceManager` 驗證 projectDir 不為空
+- Layer 3：`WorktreeManager` 在測試中拒絕在 tmpdir 之外執行 git init
+- Layer 4：git init 之前記錄 stack trace
 
-**Result:** All 1847 tests passed, bug impossible to reproduce
+**結果：**全部 1847 個測試通過,bug 不可能重現
 
-## Key Insight
+## 關鍵洞見
 
-All four layers were necessary. During testing, each layer caught bugs the others missed:
-- Different code paths bypassed entry validation
-- Mocks bypassed business logic checks
-- Edge cases on different platforms needed environment guards
-- Debug logging identified structural misuse
+四層全都是必要的。測試期間,每一層都攔到了其他層漏掉的 bug:
+- 不同的程式碼路徑繞過了進入點驗證
+- Mock 繞過了業務邏輯檢查
+- 不同平台上的邊界情況需要環境 guard
+- Debug logging 辨識出結構性的誤用
 
-**Don't stop at one validation point.** Add checks at every layer.
+**不要停在單一驗證點。**在每一層都加上檢查。

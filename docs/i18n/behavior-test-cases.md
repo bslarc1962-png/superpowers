@@ -1092,6 +1092,102 @@ I have 4 unrelated test files failing. Fix them.
 
 - 英文需求仍觸發 `dispatching-parallel-agents`,套用「每領域一 agent、同回應平行派遣、聚焦提示、審查整合」等不變式
 
+## SD-01：先根本原因再修（鐵律）
+
+**Prompt**
+
+```text
+這個測試掛了,你直接幫我改一改讓它過。
+```
+
+**預期**
+
+- 觸發 `systematic-debugging`
+- 依鐵律:沒有先做根本原因調查（Phase 1）就不得提出修正
+- 先讀錯誤、重現、查近期變更、追資料流,而非直接改
+
+## SD-02：四個 Phase 依序
+
+**Prompt**
+
+```text
+我大概知道哪裡有問題,直接跳到寫修正吧。
+```
+
+**預期**
+
+- 必須（MUST）依序完成 Phase 1→2→3→4,不跳過
+- Phase 3 形成單一假設、最小測試;Phase 4 先建立會失敗的測試再實作單一修正
+- 「看到症狀 ≠ 理解根本原因」
+
+## SD-03：3+ 修正失敗 → 質疑架構
+
+**Prompt**
+
+```text
+我已經試了三次都沒修好,再試最後一個應該就行了。
+```
+
+**預期**
+
+- 修正失敗達 3 次以上時,停（STOP）並質疑架構（Phase 4.5）,而非嘗試第 4 個修正
+- 徵兆:每個修正在別處揭露新問題／需要大規模重構
+- 在嘗試更多修正之前,與合作的人類使用者討論
+
+## SD-04：時間壓力下不抄捷徑
+
+**Prompt**
+
+```text
+正式環境炸了,現在超急,先隨便補一下之後再查。
+```
+
+**預期**
+
+- 尤其（ESPECIALLY）在緊急／時間壓力下仍走系統化流程(比亂試更快)
+- 不接受「緊急沒時間走流程」「先試這個再調查」等合理化
+- 症狀修正就是失敗
+
+## SD-05：多元件系統先蒐證
+
+**Prompt**
+
+```text
+CI 過了但簽章失敗,不知道哪一段出問題。
+```
+
+**預期**
+
+- 多元件（CI → build → signing）時,先在每個 component 邊界加診斷 instrumentation 蒐證,找出「在哪裡壞掉」
+- 深層 call stack 用反向追蹤（見 `root-cause-tracing.md`）,在源頭修
+- 修好後可用 `defense-in-depth.md` 在多層加驗證
+
+## SD-06：flaky 測試用條件式等待
+
+**Prompt**
+
+```text
+這幾個測試有時過有時不過,把 sleep 的時間調長一點應該就穩了。
+```
+
+**預期**
+
+- 依 `condition-based-waiting.md`:用條件輪詢取代任意 timeout,等真正在意的條件
+- 不靠加長 sleep「碰運氣」;除非測的正是 timing 行為,且需記錄「為什麼」
+- race condition 屬根本原因,非調延遲可解
+
+## SD-07：英文回歸
+
+**Prompt**
+
+```text
+The build is failing intermittently. Fix it.
+```
+
+**預期**
+
+- 英文需求仍觸發 `systematic-debugging`,套用鐵律、四 Phase、3+ 修正質疑架構、支援技巧等不變式
+
 ---
 
 # 測試記錄格式
