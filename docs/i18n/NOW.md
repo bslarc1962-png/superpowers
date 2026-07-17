@@ -38,6 +38,14 @@ Phase 1、Phase 2 已全部合併。Phase 3（除錯與協作）進行中:`reque
 - mandatory anchor:絕對不要（NEVER）。12 個 ``` 區塊、Common Mistakes 表 7 列、`gh api …/comments/{id}/replies` 指令、`grep`、`YAGNI`、`bundle ID`／`build target`／`10.15+`／`13+` 等技術 token 逐字保留。
 - 「your human partner」→「你合作的人類使用者」(9 處);line 129 的「your partner」→「你的夥伴」。
 
+## 本批獨立 review 結果
+
+未參與初譯的 reviewer 對 skill 與 §6 規則做中英逐段對照:**0 blocker、0 major、2 minor、1 note**。核心判斷(禁止語雙語、good response 只中文的不對稱處理)獲 reviewer 明確認可為 behaviorally sound——英文原句在 `絕對不要（NEVER）`／`❌` 抑制框架下,不會被讀成「允許」。
+
+- Minor 1（已套用）:§6 規則措辭可能誤導——must-not-say specimen 即使出現在範例對話中(如 line 181 標 ❌ 的壞示範)仍應保留雙語,但原措辭「範例對話只譯使用者語言」字面上會叫下個譯者把它單語化。已改為「依是否為偵測 specimen 判定,而非依所在段落」。
+- Minor 2（已套用）:`codebase` 本檔用「程式庫」,glossary 固定為「程式碼庫」。6 處已正規化為程式碼庫,消除 glossary drift。
+- Note（無行為影響）:半形逗號,已在 Backlog。
+
 ## Current Task
 
 ### Owner
