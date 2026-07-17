@@ -4,59 +4,53 @@
 
 ## Current Mode
 
-Phase 1、Phase 2 已全部合併。Phase 3（除錯與協作）本批為**最後一個 skill**:`systematic-debugging`（＋ 3 個技巧 reference）已於目前分支完成初譯,尚待獨立語意 review 與合併。合併後 Phase 3 全數完成,只剩 Phase 4（meta 與大型 reference）。
+Phase 1–3 已全部合併。Phase 4（meta 與大型 reference）開始:`writing-skills` 是主體,但**很大**,拆成多個子批。**本批＝ writing-skills 的 SKILL.md（689 行）本體**,已於目前分支完成初譯,尚待獨立語意 review 與合併。其 4 個大型 reference 留給後續子批。
 
 ## Active Branch / PR
 
-- Branch: `claude/pr2-review-zh-localization-koxhdq`（前一批 PR 合併後,已從最新 `main` 重開,HEAD＝4a8855d）
+- Branch: `claude/pr2-review-zh-localization-koxhdq`（前一批 PR 合併後,已從最新 `main` 重開,HEAD＝1ef568f）
 - Base: `main`
 - PR: 尚未開啟
 - Previous delivery:
   - PR #1–#3 已合併:基礎文件、handoff、Phase 1 全部。
   - PR #4–#7 已合併:Phase 2 全部。
-  - PR #8 已合併:`requesting-code-review`（＋ `code-reviewer.md`）。
-  - PR #9 已合併:`receiving-code-review`（＋ translation-guide §6 雙語 blocklist 規則）。
-  - PR #10 已合併:`dispatching-parallel-agents`,reviewer 0/0/1-minor/3-note。
+  - PR #8–#11 已合併:Phase 3 全部（`requesting-code-review`、`receiving-code-review`、`dispatching-parallel-agents`、`systematic-debugging`＋3 refs）。
 
 ## Current Scope
 
 已進入 `main`:
 
 - `docs/i18n/` 全部文件
-- Phase 1、Phase 2 全部 skill
-- Phase 3 skill:`requesting-code-review`（＋ `code-reviewer.md`）、`receiving-code-review`、`dispatching-parallel-agents`
+- Phase 1、Phase 2、Phase 3 全部 skill
 
-目前分支尚未合併（Phase 3 第四批,最後一批）:
+目前分支尚未合併（Phase 4 第一批）:
 
-- `skills/systematic-debugging/SKILL.md`（初譯,296 行）
-- `skills/systematic-debugging/root-cause-tracing.md`（初譯）
-- `skills/systematic-debugging/defense-in-depth.md`（初譯）
-- `skills/systematic-debugging/condition-based-waiting.md`（初譯）
-- `docs/i18n/behavior-test-cases.md`（新增 SD-01–07 情境測試規格）
+- `skills/writing-skills/SKILL.md`（初譯,689 行）
+- `docs/i18n/behavior-test-cases.md`（新增 WS-01–07 情境測試規格）
 
-**未翻譯（刻意,已判定範圍）**:
+**writing-skills 後續子批（尚未翻譯）**:
 
-- `test-academic.md`、`test-pressure-1/2/3.md` — eval harness 的測試 fixture（考核／壓力情境輸入,非 skill 行為本身),屬 eval 材料不在本地化範圍。
-- `CREATION-LOG.md` — 歷史／meta 開發紀錄（Phase 4 才考慮）。
-- `condition-based-waiting-example.ts`、`find-polluter.sh` — 程式碼／腳本,不翻譯。
+- `anthropic-best-practices.md`（1150 行,Anthropic 官方指引的 vendored 副本——最大;需判定是否／如何在地化,注意 CLAUDE.md 對「compliance 改動」的立場,翻譯屬中立在地化而非改philosophy）
+- `testing-skills-with-subagents.md`（384 行,測試方法論 reference）
+- `persuasion-principles.md`（187 行,研究基礎 reference）
+- `examples/CLAUDE_MD_TESTING.md`（189 行,範例）
+- **不譯（程式碼）**:`graphviz-conventions.dot`（171,graphviz 原始檔）、`render-graphs.js`（168,JS）
 
 ## 本批翻譯不變式（自查已過）
 
 - description 加中英雙段,分隔用「`. `」。
-- 鐵律雙語框:「沒有先做根本原因調查，就不得進行任何修正 / NO FIXES WITHOUT ROOT CAUSE INVESTIGATION FIRST」（英文行逐字保留）。
-- 四個 Phase 標題與順序、Phase 4.5「3+ 修正質疑架構」、`≥ 3`／`< 3` 邏輯保留。
-- 3 個 Graphviz `dot` 圖（rct 2、cbw 1）整塊保留英文,含紅色 octagon「NEVER fix just the symptom」。
-- 所有 bash／typescript 程式碼區塊逐字保留（含註解、`execFileAsync`、`waitFor` 簽章、`NODE_ENV` guard、`1847 tests`、instrumentation）。SKILL 內的多元件 bash 蒐證區塊與縮排的 pseudocode 區塊保留。
-- mandatory anchor:一律（ALWAYS）、必須（MUST）、尤其（ESPECIALLY）、一次一個（ONE）、完整（COMPLETELY）、絕對不要（NEVER,rct）。
-- 合理化表 8 列、Quick Reference 4 列保留;reference 檔名（`root-cause-tracing.md` 等）、`find-polluter.sh`、`condition-based-waiting-example.ts`、skill ID 逐字保留。
-- 「your human partner」→「你合作的人類使用者」(2 處:Phase 4.5、訊號段標題)。Red Flags 內心獨白與人類訊號 cue 譯為中文（人類訊號附原英文於 Ultra-think 一項）。
+- 鐵律雙語框:「沒有先寫一個會失敗的測試，就不得寫任何 skill / NO SKILL WITHOUT A FAILING TEST FIRST」（英文行逐字）。
+- **全部 42 個 fenced marker 數量與原文一致**;所有 ``` 區塊保留英文原樣——含:markdown skill 模板、yaml ❌BAD／✅GOOD description 範例、bash（含 `wc -w`、`--help`）、壓縮範例區塊（其英文字數 42／20 是示範重點,絕不可改）、2 個 dot 圖、目錄樹、`<Bad>`／`<Good>` 範例、合理化表範例、Red Flags 範例。
+- 3 個內容表格（TDD 對應、略過測試合理化 8 列、讓形式對應失敗 4 列）翻譯內文。
+- mandatory anchor:必要背景（REQUIRED BACKGROUND）、必須（MUST）、絕對不要（NEVER）、只（ONLY）、關鍵（CRITICAL）、強制（MANDATORY）、停下（STOP）。
+- skill ID（`superpowers:*`）、reference 檔名、`agentskills.io/specification`、citation `(Cialdini, 2021; Meincke et al., 2025)`、RED-GREEN-REFACTOR／TDD／YAGNI／SDO 保留。
+- 「your human partner」:prose 一處→「你合作的人類使用者」;壓縮範例 ``` 區塊內一處保留英文（示範字數）。
 
 ## 本批獨立 review 結果
 
-未參與初譯的 reviewer 對 4 個檔案做中英逐段對照＋fenced 區塊逐位 diff:**0 blocker、0 major、0 minor、2 note**,無需修改。3 個 reference 的所有 code block **byte-identical**;SKILL 的多元件 bash 蒐證區塊逐字相同;鐵律雙語框、四 Phase 與計數（P1=5／P2=4／P3=4/P4=5）、`≥ 3`／`< 3` gate、3 個 dot 圖（含紅色 octagon）、合理化表 8 列、mandatory anchor、glossary 詞（`程式碼庫`、`重構（refactor）` 首次 anchor）皆等價。
+未參與初譯的 reviewer 逐位 diff 21 個 fenced 區塊＋逐段對照:**0 blocker、0 major、0 minor、1 note**,無需修改。20/21 區塊 byte-identical(第 21 為刻意的鐵律雙語);壓縮範例的「42 words／20 words」與區塊內 `your human partner:` 逐字保留;3 個表格(TDD 對應 10／略過測試 8／讓形式對應失敗 4)結構與四個 failure→right→wrong 對應皆等價,禁止適得其反的論述方向無反轉;27 個 checkbox、mandatory anchor、skill ID／refs／URL／citation 皆等價。
 
-- Note 1（不動作）:Phase 1.4「For EACH component boundary」pseudocode 區塊譯為中文——reviewer 判定 defensible（人類可讀 pseudocode 非可執行碼,`component`／`environment`／`config` 等 token 仍保留英文,`THEN…THEN`→`接著…接著` 順序保留),與本專案「行為 pseudocode 譯、真實 code 逐字」慣例一致。相鄰的真實 bash 區塊維持逐字。
-- Note 2（入 Backlog）:半形逗號,house-style,無行為影響。
+- Note（不動作,reviewer 標明「Not required」）:line 213 標題「Token 效率（關鍵）」的英文為 title-case「(Critical)」屬標題註解而非 all-caps mandatory keyword,語氣強度未弱化,行為等價;補英文 anchor 會使標題略顯累贅,故保留原樣。
 
 ## Current Task
 
@@ -70,34 +64,34 @@ Claude／Anthropic
 
 ### Assignment
 
-初譯 `systematic-debugging` 與其 3 個技巧 reference;補情境測試規格;測試 fixture／CREATION-LOG／程式碼刻意不譯。
+初譯 `writing-skills` 的 SKILL.md 本體並補情境測試規格;4 個大型 reference 與程式碼留給後續子批。
 
 ## Boundaries
 
 - 不修改根目錄 `AGENTS.md` 或 `CLAUDE.md`。
 - 不把本 fork 的中文化內容提交到上游。
-- 不以 Anthropic 官方 skill guidance 重構 Superpowers 原有內容。
-- 3 個 dot 圖、所有程式碼區塊、鐵律英文行、Phase 結構與計數邏輯皆不可改。
-- test-*.md、CREATION-LOG.md、.ts、.sh 不在本批範圍。
+- 不以 Anthropic 官方 skill guidance 重構 Superpowers 原有內容（翻譯 ≠ 改 philosophy）。
+- 所有 fenced 區塊（尤其壓縮範例的英文字數、模板、dot、命令）皆不可改。
+- `.dot`／`.js` 為程式碼,不在本批範圍。
 - description 中英段刻意不逐字對稱為合規（translation-guide §2）。
 
 ## Resume Target
 
-1. 獨立語意 review（未參與初譯的 reviewer 做中英逐段對照,含 3 個 reference 的程式碼區塊逐字性）。
-2. 執行實際 harness 行為 eval:依 `behavior-test-cases.md` 的 SD-01–07 跑中文觸發、壓力、反例與英文回歸。**本 session 無法執行**——`evals/`(superpowers-evals)未 clone,需 tmux Claude Code／Codex 環境。
+1. 獨立語意 review（未參與初譯的 reviewer 做中英逐段對照,特別檢查 42 個 fenced 區塊逐字性與壓縮範例字數）。
+2. 執行實際 harness 行為 eval:依 `behavior-test-cases.md` 的 WS-01–07 跑中文觸發、壓力、反例與英文回歸。**本 session 無法執行**——`evals/` 未 clone,需 tmux 環境。
 3. 使用者決定是否為本批開 PR 並合併。
-4. 本批合併後 **Phase 3 全數完成**。接著 Phase 4:`writing-skills`（meta,最大）、平台 reference、README／install;以及是否要處理 `CREATION-LOG.md`、eval fixtures 的在地化。
+4. writing-skills 後續子批:`testing-skills-with-subagents.md`、`persuasion-principles.md`、`examples/CLAUDE_MD_TESTING.md`、`anthropic-best-practices.md`（最大,可能單獨一批;或與使用者確認是否要譯此 vendored 官方文件）。之後平台 reference、README／install。
 
 ## Backlog（跨檔待整理，非本批 blocker）
 
-- glossary 首次出現 gloss 慣例執行寬鬆:`baseline`、`harness`、`checkpoint` 等在多個 skill 以裸英文出現,未於各檔首次出現處補中文 gloss。建議累積後一次統一整理。
-- 全形／半形逗號跨檔不一致:PR #1 用全形「，」;PR #3 起多用半形「,」。屬排版一致性,無行為影響。列為專門 typography 批次（只改散文、跳過 ``` 區塊）。
-- description 分隔符不一致:多數 skill 用「`. `」,但 `subagent-driven-development`（PR #7）用全形「。」無空格。留待與逗號一起做 typography 掃描時一併正規化。
+- glossary 首次出現 gloss 慣例執行寬鬆:`baseline`、`harness`、`checkpoint` 等在多個 skill 以裸英文出現。建議累積後一次統一整理。
+- 全形／半形逗號跨檔不一致:PR #3 起多用半形「,」。列為專門 typography 批次（只改散文、跳過 ``` 區塊）。
+- description 分隔符:多數用「`. `」,`subagent-driven-development`（PR #7）用全形「。」無空格。留待 typography 掃描一併正規化。
 
 ## Last Handoff
 
 - Handled by: Claude／Anthropic
 - Date: 2026-07-17
-- Task: 初譯 Phase 3 第四批（最後一批,`systematic-debugging` ＋ 3 個技巧 reference）並補情境測試規格
+- Task: 初譯 Phase 4 第一批（`writing-skills` 的 SKILL.md 本體）並補情境測試規格
 - Required first read: `docs/i18n/agent-handoff.md`
 - Current discussion surface: 目前分支（尚未開 PR）
