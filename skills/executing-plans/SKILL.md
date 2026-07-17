@@ -1,6 +1,6 @@
 ---
 name: executing-plans
-description: "Use when you have a written implementation plan to execute in a separate session with review checkpoints. 適用於已有寫好的實作計畫、要在獨立 session 中搭配審查 checkpoint 執行時。"
+description: "Use when you have a written implementation plan to execute in a separate session with review checkpoints. 適用於已有寫好的實作計畫、要在獨立 session 中搭配審查檢查點（checkpoint）執行時。"
 ---
 
 # 執行計畫

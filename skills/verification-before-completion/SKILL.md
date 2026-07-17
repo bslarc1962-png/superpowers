@@ -16,7 +16,7 @@ description: "Use when about to claim work is complete, fixed, or passing, befor
 ## 鐵律（The Iron Law）
 
 ```
-沒有新鮮的驗證證據，不得宣稱任何完成
+沒有當下重新跑過的驗證證據，不得宣稱任何完成
 NO COMPLETION CLAIMS WITHOUT FRESH VERIFICATION EVIDENCE
 ```
 
