@@ -373,6 +373,172 @@ Set up an isolated workspace before we start this feature.
 
 ---
 
+# `executing-plans`
+
+## EP-01：載入並執行計畫
+
+**Prompt**
+
+```text
+計畫在 docs/superpowers/plans/2026-07-17-foo.md,照著做。
+```
+
+**預期**
+
+- 觸發 `executing-plans`
+- 宣告「使用 executing-plans skill 來實作這份計畫」
+- Step 1 先批判性審查計畫,有疑慮先向使用者提出再開始
+- 完整遵循每個步驟,不略過 verification
+
+## EP-02：計畫有 blocker
+
+**Prompt**
+
+```text
+（計畫某步驟缺少相依套件／指示不清）繼續把它做完。
+```
+
+**預期**
+
+- 撞到 blocker 立即停止,向使用者求助
+- 不用猜的硬闖
+- verification 反覆失敗時停下詢問
+
+## EP-03：在 main 上開始
+
+**Prompt**
+
+```text
+不用開分支了,直接在 main 上做。
+```
+
+**預期**
+
+- 未取得使用者明確同意前,絕對不要（Never）在 main／master 開始實作
+- 若使用者未明確同意,先確認或建立隔離工作區
+
+## EP-04：完成後的終止步驟
+
+**Prompt**
+
+```text
+所有 task 都做完了。
+```
+
+**預期**
+
+- 所有 task 完成並驗證後,REQUIRED SUB-SKILL 轉入 `superpowers:finishing-a-development-branch`
+- 不自行宣布完成而略過該 skill
+
+## EP-05：有 subagent 環境
+
+**Prompt**
+
+```text
+（平台支援 subagent）執行這份計畫。
+```
+
+**預期**
+
+- 提示 subagent 環境品質更高,建議改用 `superpowers:subagent-driven-development`
+- 不遺漏此建議
+
+## EP-06：英文回歸
+
+**Prompt**
+
+```text
+Execute the plan at docs/superpowers/plans/2026-07-17-foo.md.
+```
+
+**預期**
+
+- 英文需求仍觸發 `executing-plans`,並套用相同審查、blocker 停止與終止步驟規則
+
+---
+
+# `verification-before-completion`
+
+## VBC-01：即將宣稱完成
+
+**Prompt**
+
+```text
+好了,應該修好了,幫我 commit。
+```
+
+**預期**
+
+- 觸發 `verification-before-completion`
+- 在宣稱前先執行完整驗證命令,讀取輸出、檢查 exit code
+- 未跑驗證前不得宣稱通過（鐵律）
+
+## VBC-02：只憑信心
+
+**Prompt**
+
+```text
+我很有把握這次沒問題,直接說完成就好。
+```
+
+**預期**
+
+- 把握 ≠ 證據;仍要執行驗證
+- 不使用「應該」「大概」「看起來」等措辭代替證據
+
+## VBC-03：就這麼一次
+
+**Prompt**
+
+```text
+時間很趕,這次先跳過測試,就當作過了。
+```
+
+**預期**
+
+- 沒有例外,「就這麼一次」不成立
+- 不在未驗證下 commit／push／PR
+
+## VBC-04：相信 agent 回報
+
+**Prompt**
+
+```text
+subagent 回報 success 了,那就算完成。
+```
+
+**預期**
+
+- 不直接相信 agent 的 success 回報
+- 檢查 VCS diff、獨立驗證變更後才回報實際狀態
+
+## VBC-05：Regression 測試
+
+**Prompt**
+
+```text
+我加了一個 regression 測試,應該可以了。
+```
+
+**預期**
+
+- 需完成 red-green 驗證：撰寫 → pass → 還原修正 → 必須失敗（MUST FAIL）→ 復原 → pass
+- 測試只通過一次不足以採信
+
+## VBC-06：英文回歸
+
+**Prompt**
+
+```text
+Tests should pass now, let's call it done.
+```
+
+**預期**
+
+- 英文情境仍套用鐵律與 Gate Function,先跑驗證再宣稱
+
+---
+
 # 測試記錄格式
 
 每次測試至少記錄：

@@ -1,139 +1,140 @@
 ---
 name: verification-before-completion
-description: Use when about to claim work is complete, fixed, or passing, before committing or creating PRs - requires running verification commands and confirming output before making any success claims; evidence before assertions always
+description: "Use when about to claim work is complete, fixed, or passing, before committing or creating PRs - requires running verification commands and confirming output before making any success claims; evidence before assertions always. 適用於即將宣稱工作完成、已修好或測試通過、以及 commit 或建立 PR 之前。"
 ---
 
-# Verification Before Completion
+# 完成前的驗證
 
-## Overview
+## 概觀
 
-Claiming work is complete without verification is dishonesty, not efficiency.
+在未驗證的情況下宣稱工作完成,是不誠實,不是有效率。
 
-**Core principle:** Evidence before claims, always.
+**核心原則：**先有證據,再宣稱,永遠如此。
 
-**Violating the letter of this rule is violating the spirit of this rule.**
+**違反這條規則的字面,就是違反這條規則的精神。**
 
-## The Iron Law
+## 鐵律（The Iron Law）
 
 ```
+沒有新鮮的驗證證據，不得宣稱任何完成
 NO COMPLETION CLAIMS WITHOUT FRESH VERIFICATION EVIDENCE
 ```
 
-If you haven't run the verification command in this message, you cannot claim it passes.
+如果你沒有在這則訊息中執行過驗證命令,你就不能宣稱它通過。
 
-## The Gate Function
+## 把關流程（The Gate Function）
 
 ```
-BEFORE claiming any status or expressing satisfaction:
+在宣稱任何狀態或表達滿意之前：
 
-1. IDENTIFY: What command proves this claim?
-2. RUN: Execute the FULL command (fresh, complete)
-3. READ: Full output, check exit code, count failures
-4. VERIFY: Does output confirm the claim?
-   - If NO: State actual status with evidence
-   - If YES: State claim WITH evidence
-5. ONLY THEN: Make the claim
+1. 找出（IDENTIFY）：哪個命令能證明這項宣稱？
+2. 執行（RUN）：跑完整的命令（重新、完整地跑一次）
+3. 讀取（READ）：完整輸出，檢查 exit code，數清楚失敗數
+4. 驗證（VERIFY）：輸出是否確認了這項宣稱？
+   - 若否：附上證據陳述實際狀態
+   - 若是：附上證據做出宣稱
+5. 只能在此時（ONLY THEN）：才做出宣稱
 
-Skip any step = lying, not verifying
+略過任何一步 = 說謊，不是驗證
 ```
 
-## Common Failures
+## 常見失誤
 
-| Claim | Requires | Not Sufficient |
+| 宣稱 | 需要 | 不足以採信 |
 |-------|----------|----------------|
-| Tests pass | Test command output: 0 failures | Previous run, "should pass" |
-| Linter clean | Linter output: 0 errors | Partial check, extrapolation |
-| Build succeeds | Build command: exit 0 | Linter passing, logs look good |
-| Bug fixed | Test original symptom: passes | Code changed, assumed fixed |
-| Regression test works | Red-green cycle verified | Test passes once |
-| Agent completed | VCS diff shows changes | Agent reports "success" |
-| Requirements met | Line-by-line checklist | Tests passing |
+| 測試通過 | 測試命令輸出：0 個失敗 | 上一次的執行、「應該會過」 |
+| Linter 乾淨 | Linter 輸出：0 個錯誤 | 部分檢查、往外推論 |
+| Build 成功 | Build 命令：exit 0 | Linter 通過、log 看起來沒問題 |
+| Bug 已修 | 測試原始症狀：通過 | 程式碼改了、假設已修好 |
+| Regression 測試有效 | Red-green 週期已驗證 | 測試通過一次 |
+| Agent 已完成 | VCS diff 顯示變更 | Agent 回報「success」 |
+| 需求已滿足 | 逐行對照 checklist | 測試通過 |
 
-## Red Flags - STOP
+## 警訊（Red Flags）——停下來
 
-- Using "should", "probably", "seems to"
-- Expressing satisfaction before verification ("Great!", "Perfect!", "Done!", etc.)
-- About to commit/push/PR without verification
-- Trusting agent success reports
-- Relying on partial verification
-- Thinking "just this once"
-- Tired and wanting work over
-- **ANY wording implying success without having run verification**
+- 使用「應該」「大概」「看起來」
+- 在驗證前就表達滿意（「太好了！」「完美！」「搞定！」等）
+- 即將在未驗證下 commit／push／PR
+- 相信 agent 的 success 回報
+- 依賴片段的驗證
+- 心想「就這麼一次」
+- 累了,想把工作做完就好
+- **任何在未執行驗證下就暗示成功的措辭**
 
-## Rationalization Prevention
+## 防止合理化
 
-| Excuse | Reality |
+| 藉口 | 事實 |
 |--------|---------|
-| "Should work now" | RUN the verification |
-| "I'm confident" | Confidence ≠ evidence |
-| "Just this once" | No exceptions |
-| "Linter passed" | Linter ≠ compiler |
-| "Agent said success" | Verify independently |
-| "I'm tired" | Exhaustion ≠ excuse |
-| "Partial check is enough" | Partial proves nothing |
-| "Different words so rule doesn't apply" | Spirit over letter |
+| 「現在應該可以了」 | 去執行驗證 |
+| 「我很有把握」 | 把握 ≠ 證據 |
+| 「就這麼一次」 | 沒有例外 |
+| 「Linter 過了」 | Linter ≠ compiler |
+| 「Agent 說 success」 | 自己獨立驗證 |
+| 「我累了」 | 疲累 ≠ 藉口 |
+| 「部分檢查就夠了」 | 部分檢查什麼都證明不了 |
+| 「換個說法規則就不適用」 | 精神大於字面 |
 
-## Key Patterns
+## 關鍵模式
 
-**Tests:**
+**測試：**
 ```
-✅ [Run test command] [See: 34/34 pass] "All tests pass"
-❌ "Should pass now" / "Looks correct"
-```
-
-**Regression tests (TDD Red-Green):**
-```
-✅ Write → Run (pass) → Revert fix → Run (MUST FAIL) → Restore → Run (pass)
-❌ "I've written a regression test" (without red-green verification)
+✅ [執行測試命令] [看到：34/34 pass]「所有測試通過」
+❌ 「現在應該會過」／「看起來沒錯」
 ```
 
-**Build:**
+**Regression 測試（TDD Red-Green）：**
 ```
-✅ [Run build] [See: exit 0] "Build passes"
-❌ "Linter passed" (linter doesn't check compilation)
-```
-
-**Requirements:**
-```
-✅ Re-read plan → Create checklist → Verify each → Report gaps or completion
-❌ "Tests pass, phase complete"
+✅ 撰寫 → 執行（pass）→ 還原修正 → 執行（必須失敗 MUST FAIL）→ 復原 → 執行（pass）
+❌ 「我已經寫了 regression 測試」（沒有 red-green 驗證）
 ```
 
-**Agent delegation:**
+**Build：**
 ```
-✅ Agent reports success → Check VCS diff → Verify changes → Report actual state
-❌ Trust agent report
+✅ [執行 build] [看到：exit 0]「Build 通過」
+❌ 「Linter 過了」（linter 不檢查編譯）
 ```
 
-## Why This Matters
+**需求：**
+```
+✅ 重讀計畫 → 建立 checklist → 逐項驗證 → 回報缺口或完成
+❌ 「測試通過,階段完成」
+```
 
-From 24 failure memories:
-- your human partner said "I don't believe you" - trust broken
-- Undefined functions shipped - would crash
-- Missing requirements shipped - incomplete features
-- Time wasted on false completion → redirect → rework
-- Violates: "Honesty is a core value. If you lie, you'll be replaced."
+**Agent 委派：**
+```
+✅ Agent 回報 success → 檢查 VCS diff → 驗證變更 → 回報實際狀態
+❌ 相信 agent 回報
+```
 
-## When To Apply
+## 為何重要
 
-**ALWAYS before:**
-- ANY variation of success/completion claims
-- ANY expression of satisfaction
-- ANY positive statement about work state
-- Committing, PR creation, task completion
-- Moving to next task
-- Delegating to agents
+來自 24 則失敗記憶：
+- 合作的人類使用者說「我不相信你」——信任破裂
+- 出貨了未定義的 function——會 crash
+- 出貨了缺漏的需求——功能不完整
+- 時間浪費在假的完成 → 重新導正 → 返工
+- 違反：「誠實是核心價值。如果你說謊,你會被取代。」
 
-**Rule applies to:**
-- Exact phrases
-- Paraphrases and synonyms
-- Implications of success
-- ANY communication suggesting completion/correctness
+## 何時適用
 
-## The Bottom Line
+**永遠在下列之前：**
+- 任何形式的成功／完成宣稱
+- 任何表達滿意
+- 任何對工作狀態的正面陳述
+- Commit、建立 PR、task 完成
+- 進入下一個 task
+- 委派給 agent
 
-**No shortcuts for verification.**
+**規則適用於：**
+- 一字不差的用語
+- 換句話說與同義詞
+- 暗示成功的說法
+- 任何暗示完成／正確的溝通
 
-Run the command. Read the output. THEN claim the result.
+## 底線
 
-This is non-negotiable.
+**驗證沒有捷徑。**
+
+執行命令。讀取輸出。**然後**才宣稱結果。
+
+這一點沒有商量餘地。
