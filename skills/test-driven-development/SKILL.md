@@ -1,48 +1,49 @@
 ---
 name: test-driven-development
-description: Use when implementing any feature or bugfix, before writing implementation code
+description: "Use when implementing any feature or bugfix, before writing implementation code. 適用於實作任何功能或修 bug、在寫實作程式碼之前。"
 ---
 
-# Test-Driven Development (TDD)
+# 測試驅動開發（Test-Driven Development, TDD）
 
-## Overview
+## 概觀
 
-Write the test first. Watch it fail. Write minimal code to pass.
+先寫測試。看著它失敗。再寫最小程式碼讓它通過。
 
-**Core principle:** If you didn't watch the test fail, you don't know if it tests the right thing.
+**核心原則：**如果你沒有親眼看著測試失敗,你就不知道它測的是不是對的東西。
 
-**Violating the letter of the rules is violating the spirit of the rules.**
+**違反規則的字面,就是違反規則的精神。**
 
-## When to Use
+## 何時使用
 
-**Always:**
-- New features
-- Bug fixes
-- Refactoring
-- Behavior changes
+**一律（Always）：**
+- 新功能
+- 修 bug
+- 重構（refactor）
+- 行為變更
 
-**Exceptions (ask your human partner):**
-- Throwaway prototypes
-- Generated code
-- Configuration files
+**例外（先詢問你合作的人類使用者）：**
+- 用完即丟的原型
+- 產生器產出的程式碼
+- 設定檔
 
-Thinking "skip TDD just this once"? Stop. That's rationalization.
+心想「就這麼一次跳過 TDD」？停。那是合理化藉口。
 
-## The Iron Law
+## 鐵律（The Iron Law）
 
 ```
+沒有先寫一個會失敗的測試，就不得寫任何正式程式碼
 NO PRODUCTION CODE WITHOUT A FAILING TEST FIRST
 ```
 
-Write code before the test? Delete it. Start over.
+在測試之前就寫了程式碼？刪掉它。重新開始。
 
-**No exceptions:**
-- Don't keep it as "reference"
-- Don't "adapt" it while writing tests
-- Don't look at it
-- Delete means delete
+**沒有例外：**
+- 不要把它留著當「參考」
+- 不要在寫測試時「順手改用」它
+- 不要看它
+- 刪除就是刪除
 
-Implement fresh from tests. Period.
+從測試重新實作。就這樣。
 
 ## Red-Green-Refactor
 
@@ -68,9 +69,9 @@ digraph tdd_cycle {
 }
 ```
 
-### RED - Write Failing Test
+### RED——撰寫會失敗的測試
 
-Write one minimal test showing what should happen.
+寫一個最小的測試,表達應該發生什麼。
 
 <Good>
 ```typescript
@@ -88,7 +89,7 @@ test('retries failed operations 3 times', async () => {
   expect(attempts).toBe(3);
 });
 ```
-Clear name, tests real behavior, one thing
+名稱清楚、測真實行為、只測一件事
 </Good>
 
 <Bad>
@@ -102,34 +103,34 @@ test('retry works', async () => {
   expect(mock).toHaveBeenCalledTimes(3);
 });
 ```
-Vague name, tests mock not code
+名稱含糊、測的是 mock 而非程式碼
 </Bad>
 
-**Requirements:**
-- One behavior
-- Clear name
-- Real code (no mocks unless unavoidable)
+**要求：**
+- 一個行為
+- 名稱清楚
+- 真實程式碼（除非不得已,否則不用 mock）
 
-### Verify RED - Watch It Fail
+### 驗證 RED——看著它失敗
 
-**MANDATORY. Never skip.**
+**強制,絕對不要（Never）略過。**
 
 ```bash
 npm test path/to/test.test.ts
 ```
 
-Confirm:
-- Test fails (not errors)
-- Failure message is expected
-- Fails because feature missing (not typos)
+確認：
+- 測試 fail（不是 error）
+- 失敗訊息符合預期
+- 失敗是因為功能還沒做（不是打錯字）
 
-**Test passes?** You're testing existing behavior. Fix test.
+**測試通過了？**你測的是既有行為。修正測試。
 
-**Test errors?** Fix error, re-run until it fails correctly.
+**測試 error？**修正 error,重跑到它正確地失敗為止。
 
-### GREEN - Minimal Code
+### GREEN——最小程式碼
 
-Write simplest code to pass the test.
+寫最簡單、能讓測試通過的程式碼。
 
 <Good>
 ```typescript
@@ -144,7 +145,7 @@ async function retryOperation<T>(fn: () => Promise<T>): Promise<T> {
   throw new Error('unreachable');
 }
 ```
-Just enough to pass
+剛好夠讓測試通過
 </Good>
 
 <Bad>
@@ -160,136 +161,136 @@ async function retryOperation<T>(
   // YAGNI
 }
 ```
-Over-engineered
+過度設計
 </Bad>
 
-Don't add features, refactor other code, or "improve" beyond the test.
+不要加功能、不要重構其他程式碼,也不要做超出測試需要的「改進」。
 
-### Verify GREEN - Watch It Pass
+### 驗證 GREEN——看著它通過
 
-**MANDATORY.**
+**強制。**
 
 ```bash
 npm test path/to/test.test.ts
 ```
 
-Confirm:
-- Test passes
-- Other tests still pass
-- Output pristine (no errors, warnings)
+確認：
+- 測試通過
+- 其他測試仍然通過
+- 輸出乾淨（沒有 error、warning）
 
-**Test fails?** Fix code, not test.
+**測試 fail？**修正程式碼,不是測試。
 
-**Other tests fail?** Fix now.
+**其他測試 fail？**現在就修。
 
-### REFACTOR - Clean Up
+### REFACTOR——整理
 
-After green only:
-- Remove duplication
-- Improve names
-- Extract helpers
+只在 green 之後：
+- 移除重複
+- 改善命名
+- 抽出 helper
 
-Keep tests green. Don't add behavior.
+保持測試 green。不要加行為。
 
-### Repeat
+### 重複
 
-Next failing test for next feature.
+為下一個功能寫下一個會失敗的測試。
 
-## Good Tests
+## 好的測試
 
-| Quality | Good | Bad |
+| 特質 | 好 | 壞 |
 |---------|------|-----|
-| **Minimal** | One thing. "and" in name? Split it. | `test('validates email and domain and whitespace')` |
-| **Clear** | Name describes behavior | `test('test1')` |
-| **Shows intent** | Demonstrates desired API | Obscures what code should do |
+| **最小** | 只測一件事。名稱裡有「and」？拆開它。 | `test('validates email and domain and whitespace')` |
+| **清楚** | 名稱描述行為 | `test('test1')` |
+| **展現意圖** | 展示期望的 API | 遮蔽了程式碼應該做什麼 |
 
-## Why Order Matters
+## 為何順序重要
 
-**"I'll write tests after to verify it works"**
+**「我等實作完再寫測試來驗證它能動」**
 
-Tests written after code pass immediately. Passing immediately proves nothing:
-- Might test wrong thing
-- Might test implementation, not behavior
-- Might miss edge cases you forgot
-- You never saw it catch the bug
+在程式碼之後寫的測試會立刻通過。立刻通過什麼都證明不了：
+- 可能測錯東西
+- 可能測的是實作,而非行為
+- 可能漏掉你忘記的邊界情況
+- 你從沒看過它抓到 bug
 
-Test-first forces you to see the test fail, proving it actually tests something.
+測試先行強迫你看著測試失敗,證明它真的在測某個東西。
 
-**"I already manually tested all the edge cases"**
+**「我已經手動測過所有邊界情況了」**
 
-Manual testing is ad-hoc. You think you tested everything but:
-- No record of what you tested
-- Can't re-run when code changes
-- Easy to forget cases under pressure
-- "It worked when I tried it" ≠ comprehensive
+手動測試是臨時拼湊的。你以為都測了,但是：
+- 沒有紀錄測了什麼
+- 程式碼改動時無法重跑
+- 壓力下很容易忘記某些情況
+- 「我試的時候能動」≠ 全面
 
-Automated tests are systematic. They run the same way every time.
+自動化測試是系統化的。每次都以相同方式執行。
 
-**"Deleting X hours of work is wasteful"**
+**「刪掉 X 小時的成果太浪費了」**
 
-Sunk cost fallacy. The time is already gone. Your choice now:
-- Delete and rewrite with TDD (X more hours, high confidence)
-- Keep it and add tests after (30 min, low confidence, likely bugs)
+沉沒成本謬誤。那些時間已經花掉了。你現在的選擇是：
+- 刪掉並用 TDD 重寫（再花 X 小時,高信心）
+- 留著並事後補測試（30 分鐘,低信心,很可能有 bug）
 
-The "waste" is keeping code you can't trust. Working code without real tests is technical debt.
+真正的「浪費」是留著你無法信任的程式碼。沒有真正測試的可運作程式碼,是技術債。
 
-**"TDD is dogmatic, being pragmatic means adapting"**
+**「TDD 太教條,務實就是要懂得變通」**
 
-TDD IS pragmatic:
-- Finds bugs before commit (faster than debugging after)
-- Prevents regressions (tests catch breaks immediately)
-- Documents behavior (tests show how to use code)
-- Enables refactoring (change freely, tests catch breaks)
+TDD 本來就務實：
+- 在 commit 前找到 bug（比事後除錯快）
+- 防止 regression（測試立刻抓到破壞）
+- 記錄行為（測試展示如何使用程式碼）
+- 讓重構成為可能（自由更動,測試會抓到破壞）
 
-"Pragmatic" shortcuts = debugging in production = slower.
+「務實」的捷徑 = 在正式環境除錯 = 更慢。
 
-**"Tests after achieve the same goals - it's spirit not ritual"**
+**「事後測試也能達成相同目標——重點是精神不是儀式」**
 
-No. Tests-after answer "What does this do?" Tests-first answer "What should this do?"
+不對。事後測試回答「這在做什麼？」;測試先行回答「這應該做什麼？」
 
-Tests-after are biased by your implementation. You test what you built, not what's required. You verify remembered edge cases, not discovered ones.
+事後測試會被你的實作偏誤帶著走。你測的是你做出來的東西,不是需求所要求的。你驗證的是記得的邊界情況,不是被發掘出來的。
 
-Tests-first force edge case discovery before implementing. Tests-after verify you remembered everything (you didn't).
+測試先行強迫你在實作前發掘邊界情況。事後測試只是驗證你把一切都記住了（你沒有）。
 
-30 minutes of tests after ≠ TDD. You get coverage, lose proof tests work.
+事後補 30 分鐘測試 ≠ TDD。你拿到覆蓋率,卻失去了「測試有效」的證明。
 
-## Common Rationalizations
+## 常見合理化藉口
 
-| Excuse | Reality |
+| 藉口 | 事實 |
 |--------|---------|
-| "Too simple to test" | Simple code breaks. Test takes 30 seconds. |
-| "I'll test after" | Tests passing immediately prove nothing. |
-| "Tests after achieve same goals" | Tests-after = "what does this do?" Tests-first = "what should this do?" |
-| "Already manually tested" | Ad-hoc ≠ systematic. No record, can't re-run. |
-| "Deleting X hours is wasteful" | Sunk cost fallacy. Keeping unverified code is technical debt. |
-| "Keep as reference, write tests first" | You'll adapt it. That's testing after. Delete means delete. |
-| "Need to explore first" | Fine. Throw away exploration, start with TDD. |
-| "Test hard = design unclear" | Listen to test. Hard to test = hard to use. |
-| "TDD will slow me down" | TDD faster than debugging. Pragmatic = test-first. |
-| "Manual test faster" | Manual doesn't prove edge cases. You'll re-test every change. |
-| "Existing code has no tests" | You're improving it. Add tests for existing code. |
+| 「太簡單,不用測」 | 簡單的程式碼也會壞。測試只花 30 秒。 |
+| 「我事後再測」 | 立刻通過的測試什麼都證明不了。 |
+| 「事後測試也能達成相同目標」 | 事後測試 =「這在做什麼？」測試先行 =「這應該做什麼？」 |
+| 「我已經手動測過了」 | 臨時拼湊 ≠ 系統化。沒有紀錄,無法重跑。 |
+| 「刪掉 X 小時太浪費」 | 沉沒成本謬誤。留著未驗證的程式碼是技術債。 |
+| 「留著當參考,先寫測試」 | 你會順手改用它。那就是事後測試。刪除就是刪除。 |
+| 「我得先探索一下」 | 可以。丟掉探索的成果,再用 TDD 從頭開始。 |
+| 「難以測試 = 設計不清」 | 聽測試的話。難測 = 難用。 |
+| 「TDD 會拖慢我」 | TDD 比除錯快。務實 = 測試先行。 |
+| 「手動測比較快」 | 手動測證明不了邊界情況。你每次改動都得重測。 |
+| 「既有程式碼沒有測試」 | 你正在改善它。為既有程式碼補上測試。 |
 
-## Red Flags - STOP and Start Over
+## 警訊（Red Flags）——停下並重新開始
 
-- Code before test
-- Test after implementation
-- Test passes immediately
-- Can't explain why test failed
-- Tests added "later"
-- Rationalizing "just this once"
-- "I already manually tested it"
-- "Tests after achieve the same purpose"
-- "It's about spirit not ritual"
-- "Keep as reference" or "adapt existing code"
-- "Already spent X hours, deleting is wasteful"
-- "TDD is dogmatic, I'm being pragmatic"
-- "This is different because..."
+- 程式碼寫在測試之前
+- 在實作之後才寫測試
+- 測試立刻通過
+- 說不出測試為什麼失敗
+- 測試「之後再」補
+- 合理化「就這麼一次」
+- 「我已經手動測過了」
+- 「事後測試也能達成相同目的」
+- 「重點是精神不是儀式」
+- 「留著當參考」或「順手改用既有程式碼」
+- 「已經花了 X 小時,刪掉太浪費」
+- 「TDD 太教條,我是在務實」
+- 「這次不一樣,因為……」
 
-**All of these mean: Delete code. Start over with TDD.**
+**以上全部都代表：刪除程式碼。用 TDD 從頭開始。**
 
-## Example: Bug Fix
+## 範例：修 Bug
 
-**Bug:** Empty email accepted
+**Bug：**空 email 被接受
 
 **RED**
 ```typescript
@@ -299,7 +300,7 @@ test('rejects empty email', async () => {
 });
 ```
 
-**Verify RED**
+**驗證 RED**
 ```bash
 $ npm test
 FAIL: expected 'Email required', got undefined
@@ -315,57 +316,57 @@ function submitForm(data: FormData) {
 }
 ```
 
-**Verify GREEN**
+**驗證 GREEN**
 ```bash
 $ npm test
 PASS
 ```
 
 **REFACTOR**
-Extract validation for multiple fields if needed.
+需要的話,把驗證邏輯抽出來給多個欄位共用。
 
-## Verification Checklist
+## 驗證 Checklist
 
-Before marking work complete:
+在把工作標記為完成之前：
 
-- [ ] Every new function/method has a test
-- [ ] Watched each test fail before implementing
-- [ ] Each test failed for expected reason (feature missing, not typo)
-- [ ] Wrote minimal code to pass each test
-- [ ] All tests pass
-- [ ] Output pristine (no errors, warnings)
-- [ ] Tests use real code (mocks only if unavoidable)
-- [ ] Edge cases and errors covered
+- [ ] 每個新的 function／method 都有測試
+- [ ] 在實作前看過每個測試失敗
+- [ ] 每個測試都因預期的原因失敗（功能還沒做,不是打錯字）
+- [ ] 為每個測試寫了最小程式碼讓它通過
+- [ ] 所有測試都通過
+- [ ] 輸出乾淨（沒有 error、warning）
+- [ ] 測試使用真實程式碼（除非不得已才用 mock）
+- [ ] 邊界情況與錯誤都有涵蓋
 
-Can't check all boxes? You skipped TDD. Start over.
+無法勾選全部？你跳過了 TDD。重新開始。
 
-## When Stuck
+## 卡住時
 
-| Problem | Solution |
+| 問題 | 解法 |
 |---------|----------|
-| Don't know how to test | Write wished-for API. Write assertion first. Ask your human partner. |
-| Test too complicated | Design too complicated. Simplify interface. |
-| Must mock everything | Code too coupled. Use dependency injection. |
-| Test setup huge | Extract helpers. Still complex? Simplify design. |
+| 不知道怎麼測 | 寫出你希望有的 API。先寫 assertion。問你合作的人類使用者。 |
+| 測試太複雜 | 設計太複雜。簡化介面。 |
+| 什麼都得 mock | 程式碼耦合太緊。用 dependency injection。 |
+| 測試 setup 很龐大 | 抽出 helper。還是很複雜？簡化設計。 |
 
-## Debugging Integration
+## 與除錯整合
 
-Bug found? Write failing test reproducing it. Follow TDD cycle. Test proves fix and prevents regression.
+發現 bug？寫一個會失敗、能重現它的測試。走 TDD 週期。測試同時證明修好了,也防止 regression。
 
-Never fix bugs without a test.
+絕對不要（Never）在沒有測試的情況下修 bug。
 
-## Testing Anti-Patterns
+## 測試反模式
 
-When adding mocks or test utilities, read [testing-anti-patterns.md](testing-anti-patterns.md) to avoid common pitfalls:
-- Testing mock behavior instead of real behavior
-- Adding test-only methods to production classes
-- Mocking without understanding dependencies
+在加入 mock 或測試工具時,閱讀 [testing-anti-patterns.md](testing-anti-patterns.md) 以避免常見陷阱：
+- 測的是 mock 的行為,而非真實行為
+- 在正式類別中加入只給測試用的 method
+- 在不了解相依關係的情況下 mock
 
-## Final Rule
+## 最終規則
 
 ```
-Production code → test exists and failed first
-Otherwise → not TDD
+正式程式碼 → 測試存在且先失敗過
+否則 → 不是 TDD
 ```
 
-No exceptions without your human partner's permission.
+未取得你合作的人類使用者許可,沒有例外。
