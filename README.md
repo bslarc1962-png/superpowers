@@ -1,45 +1,45 @@
 # Superpowers
 
-Superpowers is a complete software development methodology for your coding agents, built on top of a set of composable skills and some initial instructions that make sure your agent uses them.
+Superpowers 是一套完整的軟體開發方法論，為你的 coding agent 打造。它建立在一組可組合的 skill 之上，再加上一些初始指示，確保你的 agent 真的會去用這些 skill。
 
 
-## We're Hiring!
+## 我們在徵才!
 
-We're hiring someone to help out full time with Superpowers community and code work. 
-You can read about the job at https://primeradiant.com/jobs/superpowers-community-engineer/
-If this sounds like someone you know, definitely send them our way.
+我們正在徵一位全職夥伴，協助 Superpowers 的社群與程式碼工作。
+職缺內容請見 https://primeradiant.com/jobs/superpowers-community-engineer/
+如果你想到適合的人選，歡迎把他們介紹給我們。
 
-## Quickstart
+## 快速開始
 
-Give your agent Superpowers: [Claude Code](#claude-code), [Antigravity](#antigravity), [Codex App](#codex-app), [Codex CLI](#codex-cli), [Cursor](#cursor), [Factory Droid](#factory-droid), [GitHub Copilot CLI](#github-copilot-cli), [Kimi Code](#kimi-code), [OpenCode](#opencode), [Pi](#pi).
+給你的 agent 超能力：[Claude Code](#claude-code)、[Antigravity](#antigravity)、[Codex App](#codex-app)、[Codex CLI](#codex-cli)、[Cursor](#cursor)、[Factory Droid](#factory-droid)、[GitHub Copilot CLI](#github-copilot-cli)、[Kimi Code](#kimi-code)、[OpenCode](#opencode)、[Pi](#pi)。
 
-## How it works
+## 運作方式
 
-It starts from the moment you fire up your coding agent. As soon as it sees that you're building something, it *doesn't* just jump into trying to write code. Instead, it steps back and asks you what you're really trying to do. 
+一切從你啟動 coding agent 的那一刻開始。當它一看到你要建立某個東西，它*不會*直接跳進去寫程式，而是先退一步，問你真正想做的是什麼。
 
-Once it's teased a spec out of the conversation, it shows it to you in chunks short enough to actually read and digest. 
+一旦它從對話中理出一份 spec，就會分成短到你真的讀得完、消化得了的段落，一段段拿給你看。
 
-After you've signed off on the design, your agent puts together an implementation plan that's clear enough for an enthusiastic junior engineer with poor taste, no judgement, no project context, and an aversion to testing to follow. It emphasizes true red/green TDD, YAGNI (You Aren't Gonna Need It), and DRY. 
+在你確認設計之後，你的 agent 會擬出一份實作計畫，清楚到足以讓「一位熱情、但品味差、沒有判斷力、不懂專案脈絡、又排斥測試的資淺工程師」照著做。計畫強調真正的紅／綠 TDD、YAGNI(You Aren't Gonna Need It)與 DRY。
 
-Next up, once you say "go", it launches a *subagent-driven-development* process, having agents work through each engineering task, inspecting and reviewing their work, and continuing forward. It's not uncommon for your agent to work autonomously for a couple hours at a time without deviating from the plan you put together.
+接著，一旦你說「go」，它就會啟動 *subagent-driven-development* 流程，讓一個個 agent 逐一完成每項工程任務，檢查並審查它們的成果，再繼續往前。你的 agent 連續自主工作好幾個小時、卻始終不偏離你們一起擬定的計畫，並不罕見。
 
-There's a bunch more to it, but that's the core of the system. And because the skills trigger automatically, you don't need to do anything special. Your coding agent just has Superpowers.
+系統當然還有更多細節，但核心就是這樣。而且因為這些 skill 會自動觸發，你不需要做任何特別的事。你的 coding agent 就是有了 Superpowers。
 
-## Commercial Services
+## 商業服務
 
-If you're using Superpowers in enterprise and could benefit from commercial support, additional tooling, or managed spending, please don't hesitate to drop us a line at sales@primeradiant.com.
+如果你在企業環境使用 Superpowers，並且需要商業支援、額外工具或受管理的支出方案，歡迎來信 sales@primeradiant.com。
 
-## Installation
+## 安裝
 
-Installation differs by harness. If you use more than one, install Superpowers separately for each one.
+安裝方式因 harness 而異。如果你同時使用多個，請分別為每一個安裝 Superpowers。
 
 ### Claude Code
 
-Superpowers is available via the [official Claude plugin marketplace](https://claude.com/plugins/superpowers)
+Superpowers 可透過 [Claude 官方外掛市集](https://claude.com/plugins/superpowers)取得。
 
 #### Official Marketplace
 
-- Install the plugin from Anthropic's official marketplace:
+- 從 Anthropic 官方市集安裝外掛：
 
   ```bash
   /plugin install superpowers@claude-plugins-official
@@ -47,15 +47,15 @@ Superpowers is available via the [official Claude plugin marketplace](https://cl
 
 #### Superpowers Marketplace
 
-The Superpowers marketplace provides Superpowers and some other related plugins for Claude Code.
+Superpowers 市集提供 Superpowers 以及其他一些相關的 Claude Code 外掛。
 
-- Register the marketplace:
+- 註冊市集：
 
   ```bash
   /plugin marketplace add obra/superpowers-marketplace
   ```
 
-- Install the plugin from this marketplace:
+- 從這個市集安裝外掛：
 
   ```bash
   /plugin install superpowers@superpowers-marketplace
@@ -63,60 +63,59 @@ The Superpowers marketplace provides Superpowers and some other related plugins 
 
 ### Antigravity
 
-Install Superpowers as a plugin from this repository:
+從這個 repository 以外掛方式安裝 Superpowers：
 
 ```bash
 agy plugin install https://github.com/obra/superpowers
 ```
 
-Antigravity runs the plugin's session-start hook, so Superpowers is active from
-the first message. Reinstall with the same command to update.
+Antigravity 會執行外掛的 session-start hook，所以 Superpowers 從第一則訊息起就是啟用狀態。用同一道指令重新安裝即可更新。
 
 ### Codex App
 
-Superpowers is available via the [official Codex plugin marketplace](https://github.com/openai/plugins).
+Superpowers 可透過 [Codex 官方外掛市集](https://github.com/openai/plugins)取得。
 
-- In the Codex app, click on Plugins in the sidebar.
-- You should see `Superpowers` in the Coding section.
-- Click the `+` next to Superpowers and follow the prompts.
+- 在 Codex app 中，點選側邊欄的 Plugins。
+- 你應該會在 Coding 區看到 `Superpowers`。
+- 點選 Superpowers 旁的 `+`，依提示操作。
 
 ### Codex CLI
 
-Superpowers is available via the [official Codex plugin marketplace](https://github.com/openai/plugins).
+Superpowers 可透過 [Codex 官方外掛市集](https://github.com/openai/plugins)取得。
 
-- Open the plugin search interface:
+- 開啟外掛搜尋介面：
 
   ```bash
   /plugins
   ```
 
-- Search for Superpowers:
+- 搜尋 Superpowers：
 
   ```bash
   superpowers
   ```
 
-- Select `Install Plugin`.
+- 選擇 `Install Plugin`。
 
 ### Cursor
 
-- In Cursor Agent chat, install from marketplace:
+- 在 Cursor Agent 對話中，從市集安裝：
 
   ```text
   /add-plugin superpowers
   ```
 
-- Or search for "superpowers" in the plugin marketplace.
+- 或在外掛市集搜尋「superpowers」。
 
 ### Factory Droid
 
-- Register the marketplace:
+- 註冊市集：
 
   ```bash
   droid plugin marketplace add https://github.com/obra/superpowers
   ```
 
-- Install the plugin:
+- 安裝外掛：
 
   ```bash
   droid plugin install superpowers@superpowers
@@ -124,13 +123,13 @@ Superpowers is available via the [official Codex plugin marketplace](https://git
 
 ### GitHub Copilot CLI
 
-- Register the marketplace:
+- 註冊市集：
 
   ```bash
   copilot plugin marketplace add obra/superpowers-marketplace
   ```
 
-- Install the plugin:
+- 安裝外掛：
 
   ```bash
   copilot plugin install superpowers@superpowers-marketplace
@@ -138,136 +137,135 @@ Superpowers is available via the [official Codex plugin marketplace](https://git
 
 ### Kimi Code
 
-Superpowers is available in Kimi Code's plugin marketplace.
+Superpowers 已收錄在 Kimi Code 的外掛市集中。
 
-- Open Kimi Code's plugin manager:
+- 開啟 Kimi Code 的外掛管理器：
 
   ```text
   /plugins
   ```
 
-- Go to `Marketplace` > `Superpowers` and install it.
+- 進入 `Marketplace` > `Superpowers` 並安裝。
 
-- Or install directly from this repository:
+- 或直接從這個 repository 安裝：
 
   ```text
   /plugins install https://github.com/obra/superpowers
   ```
 
-- Detailed docs: [docs/README.kimi.md](docs/README.kimi.md)
+- 詳細文件：[docs/README.kimi.md](docs/README.kimi.md)
 
 ### OpenCode
 
-OpenCode uses its own plugin install; install Superpowers separately even if you
-already use it in another harness.
+OpenCode 使用自己的外掛安裝機制;即使你已在其他 harness 用過，也要為它單獨安裝 Superpowers。
 
-- Tell OpenCode:
+- 告訴 OpenCode：
 
   ```
   Fetch and follow instructions from https://raw.githubusercontent.com/obra/superpowers/refs/heads/main/.opencode/INSTALL.md
   ```
 
-- Detailed docs: [docs/README.opencode.md](docs/README.opencode.md)
+- 詳細文件：[docs/README.opencode.md](docs/README.opencode.md)
 
 ### Pi
 
-Install Superpowers as a Pi package from this repository:
+從這個 repository 以 Pi 套件方式安裝 Superpowers：
 
 ```bash
 pi install git:github.com/obra/superpowers
 ```
 
-For local development, run Pi with this checkout loaded as a temporary package:
+若要進行本機開發，可用這個 checkout 作為暫時套件載入來執行 Pi：
 
 ```bash
 pi -e /path/to/superpowers
 ```
 
-The Pi package loads the Superpowers skills and a small extension that injects the `using-superpowers` bootstrap at session startup and again after compaction. Pi has native skills, so no compatibility `Skill` tool is required. Subagent and task-list tools remain optional Pi companion packages.
+Pi 套件會載入 Superpowers 的 skill，以及一個小型擴充功能，在 session 啟動時、以及每次 compaction 之後，注入 `using-superpowers` bootstrap。Pi 原生支援 skill，所以不需要相容用的 `Skill` 工具。Subagent 與 task-list 工具則是選用的 Pi 附屬套件。
 
-## The Basic Workflow
+## 基本工作流程
 
-1. **brainstorming** - Activates before writing code. Refines rough ideas through questions, explores alternatives, presents design in sections for validation. Saves design document.
+1. **brainstorming** —— 在寫程式之前啟動。透過提問打磨粗略的想法、探索替代方案、分段呈現設計供你確認，並儲存設計文件。
 
-2. **using-git-worktrees** - Activates after design approval. Creates isolated workspace on new branch, runs project setup, verifies clean test baseline.
+2. **using-git-worktrees** —— 在設計獲得核可後啟動。在新分支上建立隔離的工作空間、執行專案設定、驗證測試基準(baseline)乾淨。
 
-3. **writing-plans** - Activates with approved design. Breaks work into bite-sized tasks (2-5 minutes each). Every task has exact file paths, complete code, verification steps.
+3. **writing-plans** —— 在設計核可後啟動。把工作拆成一口大小的任務(每個 2–5 分鐘)。每項任務都有明確的檔案路徑、完整的程式碼與驗證步驟。
 
-4. **subagent-driven-development** or **executing-plans** - Activates with plan. Dispatches fresh subagent per task with two-stage review (spec compliance, then code quality), or executes in batches with human checkpoints.
+4. **subagent-driven-development** 或 **executing-plans** —— 在有計畫後啟動。為每項任務派出全新的 subagent，並進行兩階段審查(先查 spec 合規、再查程式碼品質);或以批次方式執行，並在中間設人為 checkpoint。
 
-5. **test-driven-development** - Activates during implementation. Enforces RED-GREEN-REFACTOR: write failing test, watch it fail, write minimal code, watch it pass, commit. Deletes code written before tests.
+5. **test-driven-development** —— 在實作期間啟動。強制執行 RED-GREEN-REFACTOR：先寫會失敗的測試、看它失敗、寫最小程式碼、看它通過、commit。在測試之前寫的程式碼會被刪除。
 
-6. **requesting-code-review** - Activates between tasks. Reviews against plan, reports issues by severity. Critical issues block progress.
+6. **requesting-code-review** —— 在任務之間啟動。對照計畫審查、依嚴重度回報問題。嚴重問題會擋住後續進度。
 
-7. **finishing-a-development-branch** - Activates when tasks complete. Verifies tests, presents options (merge/PR/keep/discard), cleans up worktree.
+7. **finishing-a-development-branch** —— 在任務完成時啟動。驗證測試、呈現選項(merge／PR／保留／捨棄)、清理 worktree。
 
-**The agent checks for relevant skills before any task.** Mandatory workflows, not suggestions.
+**agent 在任何任務之前都會先檢查有沒有相關的 skill。**這些是強制的工作流程，不是建議。
 
-## What's Inside
+## 內含什麼
 
-### Skills Library
+### Skill 函式庫
 
 **Testing**
-- **test-driven-development** - RED-GREEN-REFACTOR cycle (includes testing anti-patterns reference)
+- **test-driven-development** —— RED-GREEN-REFACTOR 循環(含測試反模式 reference)
 
 **Debugging**
-- **systematic-debugging** - 4-phase root cause process (includes root-cause-tracing, defense-in-depth, condition-based-waiting techniques)
-- **verification-before-completion** - Ensure it's actually fixed
+- **systematic-debugging** —— 4 階段根本原因流程(含 root-cause-tracing、defense-in-depth、condition-based-waiting 等技巧)
+- **verification-before-completion** —— 確認問題真的修好了
 
-**Collaboration** 
-- **brainstorming** - Socratic design refinement
-- **writing-plans** - Detailed implementation plans
-- **executing-plans** - Batch execution with checkpoints
-- **dispatching-parallel-agents** - Concurrent subagent workflows
-- **requesting-code-review** - Pre-review checklist
-- **receiving-code-review** - Responding to feedback
-- **using-git-worktrees** - Parallel development branches
-- **finishing-a-development-branch** - Merge/PR decision workflow
-- **subagent-driven-development** - Fast iteration with two-stage review (spec compliance, then code quality)
+**Collaboration**
+- **brainstorming** —— 蘇格拉底式的設計打磨
+- **writing-plans** —— 詳細的實作計畫
+- **executing-plans** —— 帶 checkpoint 的批次執行
+- **dispatching-parallel-agents** —— 並行的 subagent 工作流程
+- **requesting-code-review** —— 送審前的 checklist
+- **receiving-code-review** —— 回應回饋
+- **using-git-worktrees** —— 平行開發分支
+- **finishing-a-development-branch** —— merge／PR 決策工作流程
+- **subagent-driven-development** —— 以兩階段審查(先 spec 合規、再程式碼品質)快速迭代
 
 **Meta**
-- **writing-skills** - Create new skills following best practices (includes testing methodology)
-- **using-superpowers** - Introduction to the skills system
+- **writing-skills** —— 依最佳實務建立新 skill(含測試方法論)
+- **using-superpowers** —— skill 系統的入門介紹
 
-## Philosophy
+## 理念
 
-- **Test-Driven Development** - Write tests first, always
-- **Systematic over ad-hoc** - Process over guessing
-- **Complexity reduction** - Simplicity as primary goal
-- **Evidence over claims** - Verify before declaring success
+- **Test-Driven Development** —— 永遠先寫測試
+- **系統化優於臨時起意** —— 用流程，而非猜測
+- **降低複雜度** —— 以簡單為首要目標
+- **證據勝於宣稱** —— 宣告成功前先驗證
 
-Read [the original release announcement](https://blog.fsck.com/2025/10/09/superpowers/).
+閱讀[最初的發布公告](https://blog.fsck.com/2025/10/09/superpowers/)。
 
-## Contributing
+## 貢獻
 
-The general contribution process for Superpowers is below. Keep in mind that we don't generally accept contributions of new skills and that any updates to skills must work across all of the coding agents we support.
+Superpowers 的一般貢獻流程如下。請留意：我們原則上不接受新增 skill 的貢獻，而且任何對 skill 的更新都必須在我們支援的所有 coding agent 上都能運作。
 
-1. Fork the repository
-2. Switch to the 'dev' branch
-3. Create a branch for your work
-4. Follow the `writing-skills` skill for creating and testing new and modified skills
-5. Submit a PR, being sure to fill in the pull request template.
+1. Fork 這個 repository
+2. 切換到 'dev' 分支
+3. 為你的工作建立一個分支
+4. 依 `writing-skills` skill 來建立與測試新的或修改過的 skill
+5. 送出 PR，並務必填完 pull request 範本
 
-Skill-behavior tests use the drill eval harness from [superpowers-evals](https://github.com/prime-radiant-inc/superpowers-evals/), cloned into `evals/` — see `evals/README.md` for setup. Plugin-infrastructure tests live at `tests/` and run via the relevant `run-*.sh` or `npm test`.
+Skill 行為測試使用來自 [superpowers-evals](https://github.com/prime-radiant-inc/superpowers-evals/) 的 drill eval harness，clone 到 `evals/`——設定方式見 `evals/README.md`。外掛基礎設施測試位於 `tests/`，透過對應的 `run-*.sh` 或 `npm test` 執行。
 
-See `skills/writing-skills/SKILL.md` for the complete guide.
+完整指南見 `skills/writing-skills/SKILL.md`。
 
-## Updating
+## 更新
 
-Superpowers updates are somewhat coding-agent dependent, but are often automatic.
+Superpowers 的更新方式多少取決於 coding agent，但通常是自動的。
 
-## License
+## 授權
 
-MIT License - see LICENSE file for details
+MIT License —— 詳見 LICENSE 檔案。
 
-## Visual companion telemetry
+## 視覺陪伴遙測(Visual companion telemetry)
 
-Because skills and plugins don't provide any feedback to creators, we have no idea how many of you are using Superpowers. By default, the Prime Radiant logo on brainstorming's optional visual companion feature is loaded from our website. It includes the version of Superpowers in use. It does not include any details about your project, prompt, or coding agent. We don't see your clicks or anything about what you're building. This helps us have a rough idea of how many folks are using Superpowers and which version of Superpowers they're using. It's 100% optional. To disable this, set the environment variable `SUPERPOWERS_DISABLE_TELEMETRY` to any true value. Superpowers also honors Claude Code's `DISABLE_TELEMETRY` and `CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC` opt-outs.
+因為 skill 與外掛不會給創作者任何回饋，我們完全不知道有多少人在用 Superpowers。預設情況下，brainstorming 的選用「視覺陪伴」功能上的 Prime Radiant 標誌，是從我們的網站載入的。它會包含正在使用的 Superpowers 版本，但不包含任何關於你的專案、prompt 或 coding agent 的細節。我們看不到你的點擊，也看不到任何你正在建立的東西。這讓我們能大略掌握有多少人在用 Superpowers、以及用的是哪個版本。它 100% 選用。若要關閉，把環境變數 `SUPERPOWERS_DISABLE_TELEMETRY` 設為任何 true 值即可。Superpowers 也尊重 Claude Code 的 `DISABLE_TELEMETRY` 與 `CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC` 這兩個退出選項。
 
-## Community
+## 社群
 
-Superpowers is built by [Jesse Vincent](https://blog.fsck.com) and the rest of the folks at [Prime Radiant](https://primeradiant.com).
+Superpowers 由 [Jesse Vincent](https://blog.fsck.com) 與 [Prime Radiant](https://primeradiant.com) 的其他夥伴一同打造。
 
-- **Discord**: [Join us](https://discord.gg/35wsABTejz) for community support, questions, and sharing what you're building with Superpowers
-- **Issues**: https://github.com/obra/superpowers/issues
-- **Release announcements**: [Sign up](https://primeradiant.com/superpowers/) to get notified about new versions
+- **Discord**：[加入我們](https://discord.gg/35wsABTejz)，取得社群支援、提問、分享你用 Superpowers 做出的東西
+- **Issues**：https://github.com/obra/superpowers/issues
+- **發布通知**：[訂閱](https://primeradiant.com/superpowers/)以取得新版本通知

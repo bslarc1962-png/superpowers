@@ -1,29 +1,29 @@
 # Testing Superpowers
 
-Superpowers has two distinct kinds of tests, each in its own directory:
+Superpowers 有兩種截然不同的測試，各自放在自己的目錄裡：
 
-- **`tests/`** — does the plugin's non-LLM code work? Bash + node + python integration tests for brainstorm-server JS, OpenCode plugin loading, codex-plugin sync, and analysis utilities.
-- **`evals/`** — do agents behave correctly on real LLM sessions? Python harness driving real tmux sessions of Claude Code / Codex / Gemini CLI, with an LLM actor and verifier judging skill compliance.
+- **`tests/`** —— 外掛的非 LLM 程式碼能不能正常運作？涵蓋 brainstorm-server JS、OpenCode 外掛載入、codex-plugin 同步與分析工具的 Bash + node + python 整合測試。
+- **`evals/`** —— agent 在真實 LLM session 上的行為對不對？以 Python harness 驅動 Claude Code／Codex／Gemini CLI 的真實 tmux session，並由一個 LLM actor 與 verifier 判定 skill 是否被遵循。
 
-## Plugin tests
+## 外掛測試
 
-Live in `tests/`. Currently:
+位於 `tests/`。目前有：
 
-- `tests/brainstorm-server/` — node test suite for the brainstorm server JS code.
-- `tests/opencode/` — bash tests for OpenCode plugin loading, bootstrap caching, and tool registration.
-- `tests/codex-plugin-sync/` — bash sync verification.
-- `tests/kimi/` — bash/Python checks for Kimi plugin manifest wiring.
-- `tests/claude-code/test-helpers.sh`, `analyze-token-usage.py` — utilities used by remaining bash tests.
-- `tests/claude-code/test-subagent-driven-development.sh` — agent-can-describe-SDD test (no drill counterpart; tests description-recall, not behavior).
-- `tests/claude-code/test-subagent-driven-development-integration.sh` — extended SDD integration with token analysis (drill covers the YAGNI subset; bash adds commit-count, Claude Code task-tracking, and token telemetry assertions).
-- `tests/claude-code/test-worktree-native-preference.sh` — RED-GREEN-REFACTOR validation for worktree skill (drill covers the PRESSURE phase; bash also covers RED/GREEN baselines).
-- `tests/explicit-skill-requests/` — Haiku-specific, multi-turn, and skill-name-prompted tests not covered by drill.
+- `tests/brainstorm-server/` —— brainstorm server JS 程式碼的 node 測試套件。
+- `tests/opencode/` —— OpenCode 外掛載入、bootstrap 快取與工具註冊的 bash 測試。
+- `tests/codex-plugin-sync/` —— bash 同步驗證。
+- `tests/kimi/` —— Kimi 外掛 manifest 接線的 bash／Python 檢查。
+- `tests/claude-code/test-helpers.sh`、`analyze-token-usage.py` —— 其餘 bash 測試所用的工具。
+- `tests/claude-code/test-subagent-driven-development.sh` —— 「agent 能否描述 SDD」的測試（無 drill 對應版本；測的是描述回想，不是行為）。
+- `tests/claude-code/test-subagent-driven-development-integration.sh` —— 加上 token 分析的擴充版 SDD 整合測試（drill 涵蓋 YAGNI 子集；bash 另加 commit 數、Claude Code 任務追蹤與 token 遙測的斷言）。
+- `tests/claude-code/test-worktree-native-preference.sh` —— worktree skill 的 RED-GREEN-REFACTOR 驗證（drill 涵蓋 PRESSURE 階段；bash 另涵蓋 RED／GREEN 基準）。
+- `tests/explicit-skill-requests/` —— drill 未涵蓋的 Haiku 專屬、多輪、以及以 skill 名稱提示的測試。
 
-Run plugin tests via the relevant directory's `run-*.sh` or `npm test`.
+透過對應目錄的 `run-*.sh` 或 `npm test` 執行外掛測試。
 
-## Skill behavior evals
+## Skill 行為 eval
 
-Live in `evals/`. Drill is the harness; scenarios live at `evals/scenarios/*.yaml`. See `evals/README.md` for setup. Quick start:
+位於 `evals/`。Drill 是 harness;情境放在 `evals/scenarios/*.yaml`。設定方式見 `evals/README.md`。快速開始：
 
 ```bash
 cd evals
@@ -32,4 +32,4 @@ export ANTHROPIC_API_KEY=sk-...
 uv run drill run triggering-test-driven-development -b claude
 ```
 
-Drill scenarios are slow (3-30+ minutes each) and run real LLM sessions. They are not part of CI today; the natural follow-up is a tiered model (fast subset on PR, full sweep nightly + on-demand).
+Drill 情境很慢（每個 3–30 分鐘以上），而且跑的是真實 LLM session。它們目前不屬於 CI;自然的後續做法是分層模型（PR 上跑快速子集、夜間＋隨需跑完整掃描）。
