@@ -1,6 +1,6 @@
 # Task Reviewer 提示模板（Prompt Template）
 
-派遣 task reviewer subagent 時使用這個模板。reviewer 讀一次任務的 diff,並回傳兩個裁決：規格符合度與程式碼品質。（以下 ``` 區塊是實際要送給 subagent 的 prompt 內容,保留英文原樣。）
+派遣 task reviewer subagent 時使用這個模板。reviewer 讀一次任務的 diff，並回傳兩個裁決：規格符合度與程式碼品質。（以下 ``` 區塊是實際要送給 subagent 的 prompt 內容，保留英文原樣。）
 
 **目的：**驗證一個任務的實作符合其需求（不多不少）且建造得好（乾淨、有測試、可維護）
 
@@ -167,7 +167,7 @@ Subagent (general-purpose):
 - `[BRIEF_FILE]` — 必要（REQUIRED）：task brief 檔（`scripts/task-brief PLAN N`
   會印出路徑;與 implementer 使用的是同一個檔案）
 - `[GLOBAL_CONSTRAINTS]` — 從計畫的 Global Constraints 段落或規格逐字
-  （verbatim）複製的具約束力需求：確切的值、格式,以及元件之間所陳述的
+  （verbatim）複製的具約束力需求：確切的值、格式，以及元件之間所陳述的
   關係（不是流程規則——那些已在本模板裡）
 - `[REPORT_FILE]` — 必要（REQUIRED）：implementer 寫入其詳細報告的檔案
 - `[BASE_SHA]` — 這個任務之前的 commit

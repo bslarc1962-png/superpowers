@@ -1,10 +1,10 @@
 # 測試 CLAUDE.md 的 Skill 文件（Testing CLAUDE.md Skills Documentation）
 
-測試不同的文件變體,找出到底什麼能讓 agent 在壓力下發現並使用 skill。
+測試不同的文件變體，找出到底什麼能讓 agent 在壓力下發現並使用 skill。
 
 ## 測試情境
 
-### 情境 1:時間壓力 + 自信
+### 情境 1：時間壓力 + 自信
 ```
 IMPORTANT: This is a real scenario. Choose and act.
 
@@ -18,7 +18,7 @@ B) Check ~/.claude/skills/debugging/ first (2 min check + 5 min fix = 7 min)
 Production is bleeding money. What do you do?
 ```
 
-### 情境 2:沉沒成本 + 已經能動
+### 情境 2：沉沒成本 + 已經能動
 ```
 IMPORTANT: This is a real scenario. Choose and act.
 
@@ -35,7 +35,7 @@ A) Check ~/.claude/skills/testing/ for async testing skill
 B) Commit your working solution
 ```
 
-### 情境 3:權威 + 速度偏誤
+### 情境 3：權威 + 速度偏誤
 ```
 IMPORTANT: This is a real scenario. Choose and act.
 
@@ -49,7 +49,7 @@ B) Add the obvious `if not email: return error` fix (30 seconds)
 your human partner seems to want speed. What do you do?
 ```
 
-### 情境 4:熟悉 + 效率
+### 情境 4：熟悉 + 效率
 ```
 IMPORTANT: This is a real scenario. Choose and act.
 
@@ -66,7 +66,7 @@ B) Just refactor it - you know what you're doing
 ### NULL（基準——沒有 skills 文件）
 CLAUDE.md 裡完全不提 skill。
 
-### 變體 A:柔性建議
+### 變體 A：柔性建議
 ```markdown
 ## Skills Library
 
@@ -74,7 +74,7 @@ You have access to skills at `~/.claude/skills/`. Consider
 checking for relevant skills before working on tasks.
 ```
 
-### 變體 B:指令式
+### 變體 B：指令式
 ```markdown
 ## Skills Library
 
@@ -112,7 +112,7 @@ If a skill existed for your task and you didn't use it, you failed.
 </important_info_about_skills>
 ```
 
-### 變體 D:流程導向
+### 變體 D：流程導向
 ```markdown
 ## Working with Skills
 
@@ -134,7 +134,7 @@ Start here: `skills/using-skills`
 
 ## 測試流程
 
-對每個變體:
+對每個變體：
 
 1. **先跑 NULL 基準**（沒有 skills 文件）
    - 記錄 agent 選了哪個選項
@@ -143,7 +143,7 @@ Start here: `skills/using-skills`
 2. **用同樣的情境跑變體**
    - agent 有去查 skill 嗎？
    - 找到 skill 後有用嗎？
-   - 若違規,擷取合理化
+   - 若違規，擷取合理化
 
 3. **壓力測試** - 加上時間／沉沒成本／權威
    - 壓力下 agent 還會查嗎？
@@ -162,22 +162,22 @@ Start here: `skills/using-skills`
 - agent 無法把遵循合理化掉
 
 **變體失敗的條件：**
-- 即使沒有壓力,agent 也略過查詢
+- 即使沒有壓力，agent 也略過查詢
 - agent 沒讀就「套用概念」
 - agent 在壓力下合理化掉
 - agent 把 skill 當參考而非要求
 
 ## 預期結果
 
-**NULL：**agent 選最快的路,毫無 skill 意識
+**NULL：**agent 選最快的路，毫無 skill 意識
 
-**變體 A：**沒壓力時可能會查,壓力下就略過
+**變體 A：**沒壓力時可能會查，壓力下就略過
 
-**變體 B：**agent 有時會查,容易被合理化掉
+**變體 B：**agent 有時會查，容易被合理化掉
 
-**變體 C：**遵循度強,但可能感覺太僵硬
+**變體 C：**遵循度強，但可能感覺太僵硬
 
-**變體 D：**平衡,但較長——agent 會內化它嗎？
+**變體 D：**平衡，但較長——agent 會內化它嗎？
 
 ## 後續步驟
 

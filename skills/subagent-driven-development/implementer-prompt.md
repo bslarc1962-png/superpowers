@@ -1,6 +1,6 @@
 # Implementer Subagent 提示模板（Prompt Template）
 
-派遣 implementer subagent 時使用這個模板。（以下 ``` 區塊是實際要送給 subagent 的 prompt 內容,保留英文原樣。）
+派遣 implementer subagent 時使用這個模板。（以下 ``` 區塊是實際要送給 subagent 的 prompt 內容，保留英文原樣。）
 
 ```
 Subagent (general-purpose):

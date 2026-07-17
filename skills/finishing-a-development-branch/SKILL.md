@@ -7,7 +7,7 @@ description: "Use when implementation is complete, all tests pass, and you need 
 
 ## 概觀
 
-以清楚的選項引導開發工作收尾,並處理所選的工作流程。
+以清楚的選項引導開發工作收尾，並處理所選的工作流程。
 
 **核心原則：**驗證測試 → 偵測環境 → 提出選項 → 執行選擇 → 清理。
 
@@ -17,7 +17,7 @@ description: "Use when implementation is complete, all tests pass, and you need 
 
 ### Step 1：驗證測試
 
-**在提出選項之前,先驗證測試通過：**
+**在提出選項之前，先驗證測試通過：**
 
 ```bash
 # 執行專案的測試套件
@@ -39,14 +39,14 @@ npm test / cargo test / pytest / go test ./...
 
 ### Step 2：偵測環境
 
-**在提出選項前,先判斷工作區狀態：**
+**在提出選項前，先判斷工作區狀態：**
 
 ```bash
 GIT_DIR=$(cd "$(git rev-parse --git-dir)" 2>/dev/null && pwd -P)
 GIT_COMMON=$(cd "$(git rev-parse --git-common-dir)" 2>/dev/null && pwd -P)
 ```
 
-這決定要顯示哪個選單,以及清理方式：
+這決定要顯示哪個選單，以及清理方式：
 
 | 狀態 | 選單 | 清理 |
 |-------|------|------|
@@ -112,7 +112,7 @@ git merge <feature-branch>
 # 只有在 merge 成功後：清理 worktree（Step 6）,再刪除 branch
 ```
 
-接著：清理 worktree（Step 6）,再刪除 branch：
+接著：清理 worktree（Step 6），再刪除 branch：
 
 ```bash
 git branch -d <feature-branch>
@@ -125,7 +125,7 @@ git branch -d <feature-branch>
 git push -u origin <feature-branch>
 ```
 
-**不得（Do NOT）清理 worktree**——使用者需要它保持存在,以便針對 PR 回饋迭代。
+**不得（Do NOT）清理 worktree**——使用者需要它保持存在，以便針對 PR 回饋迭代。
 
 #### 選項 3：保留現狀
 
@@ -153,7 +153,7 @@ MAIN_ROOT=$(git -C "$(git rev-parse --git-common-dir)/.." rev-parse --show-tople
 cd "$MAIN_ROOT"
 ```
 
-接著：清理 worktree（Step 6）,再強制刪除 branch：
+接著：清理 worktree（Step 6），再強制刪除 branch：
 ```bash
 git branch -D <feature-branch>
 ```
@@ -168,7 +168,7 @@ GIT_COMMON=$(cd "$(git rev-parse --git-common-dir)" 2>/dev/null && pwd -P)
 WORKTREE_PATH=$(git rev-parse --show-toplevel)
 ```
 
-**若 `GIT_DIR == GIT_COMMON`：**一般 repo,沒有 worktree 需要清理。完成。
+**若 `GIT_DIR == GIT_COMMON`：**一般 repo，沒有 worktree 需要清理。完成。
 
 **若 worktree 路徑位於 `.worktrees/` 或 `worktrees/` 之下：**這個 worktree 是 Superpowers 建立的——清理由我們負責。
 
@@ -179,7 +179,7 @@ git worktree remove "$WORKTREE_PATH"
 git worktree prune  # 自我修復：清掉任何殘留的註冊
 ```
 
-**否則：**這個工作區由宿主環境（harness）擁有。不得（Do NOT）移除它。如果你的平台提供 workspace-exit 工具,使用它。否則,讓工作區留在原處。
+**否則：**這個工作區由宿主環境（harness）擁有。不得（Do NOT）移除它。如果你的平台提供 workspace-exit 工具，使用它。否則，讓工作區留在原處。
 
 ## 快速參考
 
@@ -193,8 +193,8 @@ git worktree prune  # 自我修復：清掉任何殘留的註冊
 ## 常見錯誤
 
 **略過測試驗證**
-- **問題：**merge 了壞掉的程式碼,建立會失敗的 PR
-- **修正：**永遠先驗證測試,再提出選項
+- **問題：**merge 了壞掉的程式碼，建立會失敗的 PR
+- **修正：**永遠先驗證測試，再提出選項
 
 **開放式問題**
 - **問題：**「接下來我該做什麼？」語意含糊
@@ -205,12 +205,12 @@ git worktree prune  # 自我修復：清掉任何殘留的註冊
 - **修正：**只在選項 1 與 4 清理
 
 **在移除 worktree 前就刪除 branch**
-- **問題：**`git branch -d` 失敗,因為 worktree 仍引用該 branch
-- **修正：**先 merge,移除 worktree,再刪除 branch
+- **問題：**`git branch -d` 失敗，因為 worktree 仍引用該 branch
+- **修正：**先 merge，移除 worktree，再刪除 branch
 
 **在 worktree 內部執行 git worktree remove**
-- **問題：**當 CWD 位於正要移除的 worktree 內,命令會無聲失敗
-- **修正：**執行 `git worktree remove` 前,永遠先 `cd` 到主 repo 根目錄
+- **問題：**當 CWD 位於正要移除的 worktree 內，命令會無聲失敗
+- **修正：**執行 `git worktree remove` 前，永遠先 `cd` 到主 repo 根目錄
 
 **清理 harness 擁有的 worktree**
 - **問題：**移除 harness 建立的 worktree 會造成幽靈狀態

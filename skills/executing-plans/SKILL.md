@@ -7,11 +7,11 @@ description: "Use when you have a written implementation plan to execute in a se
 
 ## 概觀
 
-載入計畫、批判性審查、執行所有 task,完成後回報。
+載入計畫、批判性審查、執行所有 task，完成後回報。
 
 **開始時宣告：**「我正在使用 executing-plans skill 來實作這份計畫。」
 
-**注意：**告訴你合作的人類使用者,Superpowers 在能使用 subagent 的環境下運作得好很多。如果在支援 subagent 的平台上執行,產出品質會明顯更高（Claude Code、Codex CLI、Codex App 與 Copilot CLI 都符合;各平台的工具說明見 `../using-superpowers/references/`）。如果有 subagent 可用,改用 superpowers:subagent-driven-development,而不是這個 skill。
+**注意：**告訴你合作的人類使用者，Superpowers 在能使用 subagent 的環境下運作得好很多。如果在支援 subagent 的平台上執行，產出品質會明顯更高（Claude Code、Codex CLI、Codex App 與 Copilot CLI 都符合;各平台的工具說明見 `../using-superpowers/references/`）。如果有 subagent 可用，改用 superpowers:subagent-driven-development，而不是這個 skill。
 
 ## 流程
 
@@ -40,11 +40,11 @@ description: "Use when you have a written implementation plan to execute in a se
 
 **遇到下列情況立即停止執行：**
 - 撞到 blocker（缺少相依套件、測試失敗、指示不清）
-- 計畫有關鍵缺口,無法開始
+- 計畫有關鍵缺口，無法開始
 - 你看不懂某個指示
 - Verification 反覆失敗
 
-**寧可請對方釐清,也不要用猜的。**
+**寧可請對方釐清，也不要用猜的。**
 
 ## 何時回到先前步驟
 
@@ -58,9 +58,9 @@ description: "Use when you have a written implementation plan to execute in a se
 - 先批判性審查計畫
 - 完整遵循計畫步驟
 - 不要略過 verification
-- 計畫要求時,參照對應的 skill
-- 卡住就停,不要用猜的
-- 未取得使用者明確同意前,絕對不要（Never）在 main／master branch 上開始實作
+- 計畫要求時，參照對應的 skill
+- 卡住就停，不要用猜的
+- 未取得使用者明確同意前，絕對不要（Never）在 main／master branch 上開始實作
 
 ## 整合
 

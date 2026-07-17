@@ -100,6 +100,7 @@ description: "Use before any creative work involving features, components, funct
 - `human partner` 可譯為「合作的人類使用者」或「使用者」，依上下文決定
 - `codebase` 統一譯為「程式碼庫」
 - `workflow` 統一譯為「工作流程」
+- **標點用全形**：中文散文中緊鄰漢字的逗號、冒號一律用全形「，」「：」，括號用全形「（）」，句號用「。」。半形 `,`、`:`、`()` 只保留在英文、程式碼、inline code、URL、數字（如 `N=28,000`）與 fenced 區塊中。`description` 的英文觸發子句與中文子句以「英文句點＋半形空格（`. `）」分隔，不可改成全形「。」
 
 ## 6. 可以調整的內容
 
@@ -151,4 +152,6 @@ description: "Use before any creative work involving features, components, funct
 - [ ] skill ID、路徑、命令、程式碼未被翻譯
 - [ ] 沒有新增未經討論的例外
 - [ ] 中文讀起來像操作規範，而不是翻譯腔
+- [ ] 散文標點用全形（`，`／`：`／`（）`），半形只留在英文、程式碼與 fenced 區塊
+- [ ] `description` 用「`. `」分隔英文與中文子句
 - [ ] 通過對應的行為測試案例
