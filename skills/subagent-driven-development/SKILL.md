@@ -3,7 +3,7 @@ name: subagent-driven-development
 description: "Use when executing implementation plans with independent tasks in the current session。適用於在目前 session 中執行含獨立任務的實作計畫時。"
 ---
 
-# 子代理驅動開發（Subagent-Driven Development）
+# Subagent-Driven Development（子代理驅動開發）
 
 透過為每個任務派遣一個全新的 implementer subagent 來執行計畫,每個任務之後做一次 task review（規格符合度＋程式碼品質）,並在最後做一次涵蓋整個 branch 的廣泛 review。
 

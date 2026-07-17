@@ -45,6 +45,13 @@ Phase 1 已全部合併。Phase 2（實作與驗證主迴圈）本批為**最後
 - 兩個 prompt reference 的 ``` fenced 區塊＝實際送給 subagent 的 payload,**保留英文原樣**;只翻譯區塊外散文與 Placeholders 清單。`[MODEL]`／`[BRIEF_FILE]`… 等佔位符逐字保留。
 - 「human partner」→「你合作的人類使用者」;mandatory-word 錨定 必須（MUST）／絕對不要（Never）。
 
+## 本批獨立 review 結果
+
+未參與初譯的 reviewer 對三個檔案做中英逐段對照:**0 blocker、0 major、0 minor、2 note**。高風險項全數等價——兩個 prompt 的 ``` 派遣 payload 經逐行 diff 與 `ae05a08` **完全一致**;mandatory-word 錨定、兩個 Graphviz 圖、狀態 token、腳本路徑、ledger 樣板、skill ID、placeholder、清單數量與順序、「你合作的人類使用者」用詞皆保留。
+
+- Note 1（已套用）:H1 原作「子代理驅動開發（Subagent-Driven Development）」中的 `subagent` 依 glossary 應保留英文 → 改為 `# Subagent-Driven Development（子代理驅動開發）`。
+- Note 2（保留,不動作）:兩個 prompt 檔在區塊外新增一句護欄性譯註（「以下 ``` 區塊…保留英文原樣」）為原文所無,但位於 fenced 區塊外、且主動保護「payload 不譯」不變式,reviewer 確認良性、無需修改。
+
 ## Current Task
 
 ### Owner
