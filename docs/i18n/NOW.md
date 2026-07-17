@@ -4,54 +4,49 @@
 
 ## Current Mode
 
-核心 skill 全數在地化已完成並合併（PR #1–#13）。收尾階段:(A) typography 一致性 sweep 已合併(PR #14);(B) README／安裝說明在地化——本批。
+核心 skill 全數在地化已完成並合併（PR #1–#13）。收尾：typography sweep（#14）、README／安裝說明（#15）皆已合併。本批（C）在地化開發者移植指南 `docs/porting-to-a-new-harness.md`。
 
 ## Active Branch / PR
 
 - Branch: `claude/pr2-review-zh-localization-koxhdq`（每批合併後從最新 `main` 重開）
 - Base: `main`
-- Previous delivery: PR #1–#14 全部合併。
+- Previous delivery: PR #1–#15 全部合併。
 
-## 本批範圍(B：README／安裝說明在地化)
+## 本批範圍（C：移植指南在地化）
 
-在地化對中文使用者直接有用的安裝／使用文件:
+- `docs/porting-to-a-new-harness.md`（827 行）——把 Superpowers 移植到新 harness 的完整開發者指南（Part 1–8＋Appendix A/B、三種整合形態 Shape A/B/C、能力檢查表、bootstrap 注入、工具對應、tmux 驗收流程、發布與跨平台）。
 
-- `README.md`(273 行)——專案首頁、完整安裝說明(10 個 harness)、工作流程、skill 清單、理念、遙測、社群。
-- `docs/README.kimi.md`(88 行)——Kimi Code 安裝／工具對應／疑難排解。
-- `docs/README.opencode.md`(163 行)——OpenCode 安裝／使用／更新／工具對應／疑難排解。
-- `docs/testing.md`(35 行)——貢獻者:兩類測試(`tests/`＋`evals/`)說明。
+## 本批不變式（自查已過）
 
-## 本批不變式(自查已過)
-
-- 4 檔的**所有 fenced 區塊內容**working-tree vs `HEAD` **byte-identical**(安裝命令、JSON、bash、powershell、markdown 範例、YAML 皆逐字)。
-- **錨點保留**:`README.md` 的 10 個 harness 標題(`### Claude Code` … `### Pi`)維持英文,Quickstart 的 `#claude-code` 等 TOC 連結不斷。
-- **逐字保留**:所有安裝命令、URL、email、skill ID/名稱、工具名(`AskUserQuestion`、`task`、`Subagent (general-purpose):` 模板等,均在 inline code 內受保護)、`RED-GREEN-REFACTOR`／`TDD`／`YAGNI`／`DRY`、產品/公司名(Superpowers、Prime Radiant、作者署名)、`dev` 分支名。
-- **全形標點**:散文逗號/冒號全形;英文字後的引導冒號(如 `安裝 Superpowers：`)、粗體標籤冒號(`**Discord**：`)亦轉全形以求一致;殘餘 Chinese-adjacent 半形逗號/冒號＝0。URL 內冒號、程式碼、數字不動。
+- **fenced 區塊 byte-identical**：唯一的 ```bash tmux 區塊（含英文註解）working-tree vs `HEAD` 逐字相同。
+- **逐字保留**：所有檔案路徑、env var（`${CLAUDE_PLUGIN_ROOT}` 等）、JSON 片段（`{ "additional_context": "…" }` 等）、matcher 字串（`startup|clear|compact`）、issue 引用（#750／#894／#1202）、工具/欄位名（`subagent_type`、`contextFileName`、`apply_patch`、`run-hook.cmd`）、control tag（`<EXTREMELY_IMPORTANT>`、`<EXTREMELY-IMPORTANT>`）、驗收 prompt（`Let's make a react todo list`）、`✔ context : ANTIGRAVITY.md`、產品/harness 名稱、`.version-bump.json` 等——皆在 inline code 內受保護。
+- **章節識別碼保留**:`Part 1–8`、`Shape A/B/C`、`Appendix A/B`、`Step 1–7` 維持英文，散文中的交叉引用（如「見 Part 5」）與標題一致。
+- **全形標點**：散文逗號/冒號/括號/問號/驚嘆號全形；漢字相鄰半形殘餘＝0；inline code 內零全形標點漏入。**分號維持半形**（比對 corpus:70 半 vs 12 全，半形為主流）。
 
 ## Boundaries
 
 - 不修改根目錄 `AGENTS.md` 或 `CLAUDE.md`。
 - 不把本 fork 的中文化內容提交到上游。
-- 安裝命令、路徑、URL、程式碼、harness 名稱、錨點逐字保留。
-- 這是在地化,非改動專案內容或 rebrand:保留所有連結、作者署名、商業資訊。
+- 安裝命令、路徑、URL、程式碼、harness 名稱、章節識別碼逐字保留。
+- 這是在地化，非改動專案內容或 rebrand。
 
 ## Resume Target
 
-核心 skill＋行為鏈 reference＋typography＋README/安裝說明皆已完成。剩餘的都是可選:
+面向終端中文使用者的所有文件皆已在地化：核心 skill＋行為鏈 reference（#1–#13）＋typography（#14）＋README/安裝說明（#15）＋移植指南（本批）。
 
-1. `docs/porting-to-a-new-harness.md`(827 行)——harness 移植**開發者指南**,非安裝文件、量大、對終端中文使用者價值較低。若要譯需另開批次。
-2. 行為 eval(`behavior-test-cases.md`)仍無法在本 session 執行——需 tmux 環境,`evals/` 未 clone。durable 已知缺口。
+DOT 流程圖決定：**canonical ```dot 一律不動**（保留 render-graphs.js 工具、writing-skills 慣例、上游 fidelity、執行時行為）；另建 Mermaid 對照頁供 GitHub inline review——**下一批（D）**。8 支 skill 有 ```dot：subagent-driven-development、writing-skills、test-driven-development、systematic-debugging（root-cause-tracing、condition-based-waiting）、dispatching-parallel-agents、brainstorming。
 
-## Backlog(非本批 blocker)
+## Backlog（非本批 blocker）
 
-- glossary 首次出現 gloss 慣例執行寬鬆:`baseline`、`harness`、`checkpoint` 等在多個 skill 以裸英文出現。屬術語一致性,可另批。
-- `docs/porting-to-a-new-harness.md` 未在地化(開發者指南,見上)。
-- `anthropic-best-practices.md`(1150 行)刻意未在地化、`.dot`／`.js` 程式碼不譯。
+- **批次 D**：Mermaid 對照圖庫頁（`docs/i18n/` 下），把上述 8 張 ```dot 流程圖以 Mermaid 重畫，GitHub inline 顯示。canonical skill 不動。
+- glossary 首次出現 gloss 慣例執行寬鬆（`baseline`、`harness`、`checkpoint` 等裸英文）。術語一致性，可另批。
+- `anthropic-best-practices.md`（1150 行）刻意未在地化、`.dot`／`.js` 程式碼不譯。
+- 行為 eval（`behavior-test-cases.md`）仍需 tmux 環境，`evals/` 未 clone。durable 已知缺口。
 
 ## Last Handoff
 
 - Handled by: Claude／Anthropic
 - Date: 2026-07-17
-- Task: README／安裝說明在地化(README.md＋kimi＋opencode＋testing)
+- Task: 移植指南在地化（`docs/porting-to-a-new-harness.md`）
 - Required first read: `docs/i18n/agent-handoff.md`
 - Current discussion surface: 目前分支
