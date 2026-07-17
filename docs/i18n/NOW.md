@@ -41,6 +41,13 @@ Phase 1、Phase 2 已全部合併。Phase 3（除錯與協作）開始:本批 `r
 - bash SHA 指令(`git rev-parse HEAD~1`、`git rev-parse HEAD`)、範例中的 SHA 值與 DESCRIPTION／PLAN_OR_REQUIREMENTS 欄位值逐字保留;範例中 reviewer 輸出標籤(Strengths／Issues／Assessment)保留英文,因 payload 本身即輸出英文。
 - mandatory-word 錨定:絕對不要（Never）。skill 連結 `code-reviewer.md`、severity 標籤 Critical／Important／Minor 保留。
 
+## 本批獨立 review 結果
+
+未參與初譯的 reviewer 對兩個檔案做中英逐段對照:**0 blocker、0 major、0 minor、2 note**。reviewer 獨立抽取兩個 ``` fence 內容與 `56cb93a` diff,確認 reviewer 派遣 payload 與 Example Output **byte-identical**;placeholder、SHA 指令、severity 標籤、mandatory-word 錨定、清單數量與順序皆保留。
+
+- Note 1（已套用）:description 的英文 trigger 與中文段之間,先前用全形「。」無空格,與前 8 個 skill 慣用的「`. ` (半形句點＋空格)」不一致 → 本檔改為 `requirements. 適用於…`。
+- Note 2（已在 Backlog）:句中半形逗號,屬既有排版一致性議題,留待專門 typography 批次。
+
 ## Current Task
 
 ### Owner
@@ -74,6 +81,7 @@ Claude／Anthropic
 
 - glossary 首次出現 gloss 慣例執行寬鬆:`baseline`(基準)、`harness`(agent 執行框架)、`checkpoint`(檢查點)在多個 skill 以裸英文出現,未於各檔首次出現處補中文 gloss。建議累積數個 skill 後一次統一整理,避免逐檔零星 diff。
 - 全形／半形逗號跨檔不一致:PR #1 的 `using-superpowers`／`brainstorming` 用全形「，」;PR #3 起本 lineage 的翻譯多用半形「,」。屬排版一致性,無行為影響。須以只改散文、跳過 ``` 區塊的方式處理,列為專門 patch 批次。
+- description 分隔符不一致:前 8 個 skill 用「`. ` (半形句點＋空格)」接中文段,但 `subagent-driven-development`（已於 PR #7 合併）用全形「。」無空格。不影響觸發。留待與逗號一起做 typography 掃描時一併正規化,避免為單一字元重開已合併歷史。
 
 ## Last Handoff
 
