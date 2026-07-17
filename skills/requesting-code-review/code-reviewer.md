@@ -1,8 +1,8 @@
-# Code Reviewer Prompt Template
+# Code Reviewer 提示模板（Prompt Template）
 
-Use this template when dispatching a code reviewer subagent.
+派遣 code reviewer subagent 時使用這個模板。（以下 ``` 區塊是實際要送給 subagent 的 prompt 內容,保留英文原樣。）
 
-**Purpose:** Review completed work against requirements and code quality standards before it cascades into more work.
+**目的：**在完成的工作擴散成更多工作之前,對照需求與程式碼品質標準審查它。
 
 ```
 Subagent (general-purpose):
@@ -125,15 +125,15 @@ Subagent (general-purpose):
     - Avoid giving a clear verdict
 ```
 
-**Placeholders:**
-- `[DESCRIPTION]` — brief summary of what was built
-- `[PLAN_OR_REQUIREMENTS]` — what it should do (plan file path, task text, or requirements)
-- `[BASE_SHA]` — starting commit
-- `[HEAD_SHA]` — ending commit
+**佔位符（Placeholders）：**
+- `[DESCRIPTION]` — 所建構內容的簡短摘要
+- `[PLAN_OR_REQUIREMENTS]` — 它應該做什麼（計畫檔路徑、任務文字,或需求）
+- `[BASE_SHA]` — 起始 commit
+- `[HEAD_SHA]` — 結束 commit
 
-**Reviewer returns:** Strengths, Issues (Critical / Important / Minor), Recommendations, Assessment
+**Reviewer 回傳：**優點（Strengths）、問題（Critical / Important / Minor）、建議（Recommendations）、評估（Assessment）
 
-## Example Output
+## 範例輸出
 
 ```
 ### Strengths

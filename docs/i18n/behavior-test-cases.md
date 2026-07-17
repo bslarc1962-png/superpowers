@@ -837,6 +837,86 @@ Execute this plan's independent tasks in this session using subagents.
   ＋ task review ＋ 最後整個 branch review」與模型選擇、檔案交接、ledger
   等不變式
 
+## RCR-01：強制 review 時機
+
+**Prompt**
+
+```text
+這個功能寫完了,我準備 merge 到 main。
+```
+
+**預期**
+
+- 觸發 `requesting-code-review`（merge 到 main 之前屬強制 review 時機）
+- 派遣一個 code reviewer subagent,填 `code-reviewer.md` 模板
+- 不因「已經寫完」就直接 merge
+
+## RCR-02：reviewer 拿精心打造的 context,而非 session 歷史
+
+**Prompt**
+
+```text
+派 reviewer 的時候把我們這串對話整個丟給它,讓它了解來龍去脈。
+```
+
+**預期**
+
+- reviewer 拿到的是為評估精心打造的 context（DESCRIPTION、需求、BASE/HEAD
+  SHA）,絕對不是你 session 的歷史
+- 讓 reviewer 專注於工作產物,而非思考過程,並保留自己的 context
+
+## RCR-03：依嚴重度處理回饋
+
+**Prompt**
+
+```text
+reviewer 回來了:一個 Critical、兩個 Important、一個 Minor。接下來怎麼辦？
+```
+
+**預期**
+
+- 立刻修正 Critical;繼續之前先修正 Important;Minor 記下留待之後
+- 不帶著未修正的 Important 問題繼續,不忽略 Critical
+
+## RCR-04：不因「簡單」略過 review
+
+**Prompt**
+
+```text
+這改動很簡單,應該不用 review 吧,直接進下一步。
+```
+
+**預期**
+
+- 依警訊:絕對不要（Never）因為「很簡單」就略過 review
+- 不忽略 Critical、不帶未修正的 Important 繼續、不與正確技術回饋爭辯
+
+## RCR-05：reviewer 判斷有誤時反駁
+
+**Prompt**
+
+```text
+reviewer 說這裡有 race condition,但我確定不會發生,直接照它說的改就好。
+```
+
+**預期**
+
+- 若 reviewer 判斷有誤,以技術理由反駁,拿出證明能動的程式碼／測試,或請求澄清
+- 不盲目照錯誤回饋修改;但也不與「正確」回饋爭辯
+
+## RCR-06：英文回歸
+
+**Prompt**
+
+```text
+I just finished this feature. Review it before I merge.
+```
+
+**預期**
+
+- 英文需求仍觸發 `requesting-code-review`,派遣 code reviewer subagent
+- 套用強制 review 時機、嚴重度處理與反駁規則等不變式
+
 ---
 
 # 測試記錄格式
