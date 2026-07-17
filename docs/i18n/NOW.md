@@ -39,6 +39,15 @@ Phase 1、Phase 2 已全部合併。Phase 3（除錯與協作）進行中:`reque
 - mandatory anchor:「絕對不應繼承」（never inherit）、Common Mistakes ✅ 約束處「不要（Do NOT）改動正式程式碼」。8 個 ✅／❌ 標記保留。
 - 本 skill 無「your human partner」用語。Overview 首段與 `subagent-driven-development` 的委派段用詞一致（術語承接）。
 
+## 本批獨立 review 結果
+
+未參與初譯的 reviewer 中英逐段對照:**0 blocker、0 major、1 minor、3 note**。reviewer 獨立抽取 4 個 fence 與 `1feebb4` diff,確認全部 byte-identical;14 個標題、Pattern 4 步、Common Mistakes 8 標記、測試檔名與技術 token 數量皆等價。
+
+- Minor（已套用）:line 138 `refactoring` 依 glossary 應為「重構（refactor）」含英文 anchor（首次出現）→ 改「大型重構（refactoring）後」。
+- Note 1（已套用）:`Do NOT` glossary 標準為「不得（Do NOT）」（比「不要」更強的禁止）→ line 124 改「不得（Do NOT）改動正式程式碼」。
+- Note 2（已套用）:`event-based waiting` fence 內已逐字保留,Results 散文改為 token 並列「event-based waiting（以事件為基礎的等待）」以求跨區塊一致。
+- Note 3（無行為影響,入 Backlog）:5 個半形逗號,留待跨檔 typography 掃描。
+
 ## Current Task
 
 ### Owner

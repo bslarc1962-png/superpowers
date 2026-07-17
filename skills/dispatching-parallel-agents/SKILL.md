@@ -121,7 +121,7 @@ Return: Summary of what you found and what you fixed.
 **✅ 有脈絡：**貼上錯誤訊息與測試名稱
 
 **❌ 沒有約束：**agent 可能把全部重構
-**✅ 有約束：**「不要（Do NOT）改動正式程式碼」或「只改測試」
+**✅ 有約束：**「不得（Do NOT）改動正式程式碼」或「只改測試」
 
 **❌ 模糊的輸出：**「修一下」——你不知道改了什麼
 **✅ 具體：**「回傳根本原因與變更的摘要」
@@ -135,7 +135,7 @@ Return: Summary of what you found and what you fixed.
 
 ## 來自實際 session 的範例
 
-**情境：**大型重構後,3 個檔案共 6 個測試失敗
+**情境：**大型重構（refactoring）後,3 個檔案共 6 個測試失敗
 
 **失敗：**
 - agent-tool-abort.test.ts：3 個失敗（timing 問題）
@@ -152,7 +152,7 @@ Agent 3 → Fix tool-approval-race-conditions.test.ts
 ```
 
 **結果：**
-- Agent 1：把 timeout 換成以事件為基礎的等待
+- Agent 1：把 timeout 換成 event-based waiting（以事件為基礎的等待）
 - Agent 2：修正 event 結構 bug（threadId 放錯位置）
 - Agent 3：加上等待非同步工具執行完成
 
