@@ -32,6 +32,15 @@ Phase 1 已全部合併。Phase 2（實作與驗證主迴圈）進行中:`execut
 - `skills/test-driven-development/testing-anti-patterns.md`（初譯）
 - `docs/i18n/behavior-test-cases.md`（新增 `test-driven-development` TDD-01–07 情境測試規格）
 
+## 本批獨立 review 結果
+
+由未參與初譯的 reviewer 對 `test-driven-development` 與 `testing-anti-patterns.md` 做中英逐段對照:**0 blocker、0 major、1 minor、3 note**,高風險項全數等價(鐵律、RED-GREEN-REFACTOR 三階段與驗證強制性、Graphviz 圖整塊保留、程式碼區塊逐字、合理化表 11 列、Red Flags 13、Checklist 8、反模式 5 項與 4 Gate Function、Quick Ref 6)。
+
+- F1（minor,已套用）:`Period.` 原譯「就這樣」弱化了斬釘截鐵語氣 → 改「不容討論。」
+- F2（note,已套用）:Final Rule banner 統一為「中文+英文並列」,與 Iron Law 一致。
+- F3（note,列入 Backlog）:全形／半形逗號跨檔不一致。
+- F4（note）:reviewer 確認 anti-patterns 第 5 反模式原文即無 Gate Function、程式碼註解保留英文皆正確,無需動作。
+
 ## Current Task
 
 ### Owner
@@ -57,7 +66,7 @@ Claude／Anthropic
 
 ## Resume Target
 
-1. 由未參與本輪初譯的 reviewer 對 `test-driven-development` 與 `testing-anti-patterns.md` 做獨立語意 review(鐵律、RED-GREEN-REFACTOR 順序、驗證 RED／GREEN 強制性、合理化表 11 列、Red Flags 13 項、反模式 5 項與其 Gate Function、程式碼區塊原樣)。
+1. ~~獨立語意 review~~（已完成,0 blocker／0 major,F1／F2 已套用,F3 入 Backlog）。
 2. 執行實際 harness 行為 eval:依 `behavior-test-cases.md` 的 TDD-01–07 跑中文觸發、壓力、反例與英文回歸。**本 session 無法執行**——`evals/`(superpowers-evals)未 clone,需 tmux Claude Code／Codex 環境。
 3. 使用者決定是否為本批開 PR 並合併。
 4. Phase 2 最後一批:`subagent-driven-development`(＋ implementer/task-reviewer prompt 與 scripts)。之後進入 Phase 3(除錯與協作)與 Phase 4(meta 與大型 reference)。
@@ -65,6 +74,7 @@ Claude／Anthropic
 ## Backlog（跨檔待整理，非本批 blocker）
 
 - glossary 首次出現 gloss 慣例執行寬鬆:`baseline`(基準)、`harness`(agent 執行框架)、`checkpoint`(檢查點)在多個 skill 以裸英文出現,未於各檔首次出現處補中文 gloss。建議累積數個 skill 後一次統一整理,避免逐檔零星 diff。
+- 全形／半形逗號跨檔不一致:PR #1 的 `using-superpowers`／`brainstorming` 用全形「，」;PR #3 起本 lineage 的翻譯多用半形「,」。屬排版一致性,無行為影響。需一次跨檔統一(建議全形，對齊 repo 既有 zh 文件),但 sed 會誤改程式碼區塊內的逗號,須以只改散文、跳過 ``` 區塊的方式處理,列為專門 patch 批次。
 
 ## Last Handoff
 

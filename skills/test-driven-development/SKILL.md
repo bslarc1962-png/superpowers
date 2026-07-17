@@ -43,7 +43,7 @@ NO PRODUCTION CODE WITHOUT A FAILING TEST FIRST
 - 不要看它
 - 刪除就是刪除
 
-從測試重新實作。就這樣。
+從測試重新實作。不容討論。
 
 ## Red-Green-Refactor
 
@@ -367,6 +367,8 @@ PASS
 ```
 正式程式碼 → 測試存在且先失敗過
 否則 → 不是 TDD
+Production code → test exists and failed first
+Otherwise → not TDD
 ```
 
 未取得你合作的人類使用者許可,沒有例外。
