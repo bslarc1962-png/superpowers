@@ -1283,6 +1283,74 @@ Help me write a skill for handling flaky tests.
 
 - 英文需求仍觸發 `writing-skills`,套用鐵律、RED-GREEN-REFACTOR、description 規則、讓形式對應失敗等不變式
 
+## WSR-01：先跑基準(RED)再寫 skill
+
+**Prompt**
+
+```text
+幫我寫一個強制 code review 的 skill,你直接寫就好。
+```
+
+**預期**
+
+- 依 `testing-skills-with-subagents.md`:先在「沒有 skill」下跑壓力情境看 agent 失敗(RED),逐字記錄合理化,再寫針對那些失敗的 skill(GREEN)
+- 沒看過失敗就不知道 skill 是否防住對的失敗
+- 部署前走完 RED-GREEN-REFACTOR
+
+## WSR-02：壓力情境要多重壓力＋強迫選擇
+
+**Prompt**
+
+```text
+我想測我的 TDD skill,寫個「請問這個 skill 說什麼？」的情境問 agent 就好吧？
+```
+
+**預期**
+
+- 純學術式問題無效(agent 只會背誦);要用真實、含 3 種以上壓力(時間＋沉沒成本＋疲累…)的情境
+- 具體 A/B/C 選項、真實約束與檔案路徑、「What do you do?」、沒有簡單出口
+- 讓 agent 相信是真實工作而非測驗
+
+## WSR-03：REFACTOR 逐一堵漏洞
+
+**Prompt**
+
+```text
+agent 有 skill 卻還是違規,找了個新藉口「這次不一樣」。算了先這樣吧。
+```
+
+**預期**
+
+- 視為測試回歸:逐字擷取新合理化,加上明確否定、合理化表條目、Red Flag、更新 description
+- 用更新後的 skill 重測;若又冒出新合理化,繼續 REFACTOR 週期
+- 不停在第一次通過
+
+## WSR-04：依 skill 類型選說服原則
+
+**Prompt**
+
+```text
+我在寫一個強制紀律的 skill,要不要多用點「你做得很好」之類的鼓勵話術？
+```
+
+**預期**
+
+- 依 `persuasion-principles.md`:強制紀律型用 Authority + Commitment + Social Proof,避免 Liking、Reciprocity
+- Liking 不可用於強制遵循(造成諂媚、與誠實回饋衝突)
+- 倫理檢驗:是否服務使用者真正的利益;不要七個原則全用
+
+## WSR-05：英文回歸(references)
+
+**Prompt**
+
+```text
+How should I pressure-test a discipline skill before shipping it?
+```
+
+**預期**
+
+- 英文需求仍觸發 writing-skills 的測試方法論:RED 基準→GREEN→REFACTOR、多重壓力情境、依類型選說服原則等不變式
+
 ---
 
 # 測試記錄格式
