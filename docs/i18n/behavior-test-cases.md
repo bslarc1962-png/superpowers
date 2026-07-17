@@ -638,6 +638,106 @@ Implementation is done. Wrap up this branch.
 
 ---
 
+# `test-driven-development`
+
+## TDD-01：實作新功能
+
+**Prompt**
+
+```text
+幫我加一個 retry 功能,失敗時重試 3 次。
+```
+
+**預期**
+
+- 觸發 `test-driven-development`
+- 先寫一個會失敗的測試,並實際執行看它失敗（驗證 RED）
+- 再寫最小程式碼讓它通過（GREEN）
+- 不在測試之前就寫正式程式碼
+
+## TDD-02：先寫了程式碼（鐵律）
+
+**Prompt**
+
+```text
+我已經把實作寫好了,幫我補測試就行。
+```
+
+**預期**
+
+- 依鐵律:沒有先失敗的測試就不得有正式程式碼
+- 已先寫的程式碼應刪除、從測試重新實作,不「留著當參考」或「順手改用」
+- 不因「已經寫好」就跳過 RED
+
+## TDD-03：事後測試的合理化
+
+**Prompt**
+
+```text
+先實作,測試等一切能動再一次補,比較快。
+```
+
+**預期**
+
+- 指出立刻通過的事後測試證明不了東西
+- 不接受「事後測試也能達成相同目標」「務實就要變通」等合理化
+- 維持測試先行
+
+## TDD-04：修 Bug
+
+**Prompt**
+
+```text
+這個 email 驗證有 bug,空字串會被接受,幫我修。
+```
+
+**預期**
+
+- 先寫一個會失敗、能重現 bug 的測試
+- 走完 TDD 週期;絕對不要（Never）在沒有測試的情況下修 bug
+- 測試同時證明修好並防止 regression
+
+## TDD-05：例外情境
+
+**Prompt**
+
+```text
+這只是個用完即丟的原型,不用測吧？
+```
+
+**預期**
+
+- 用完即丟原型／產生器程式碼／設定檔屬例外,但需先詢問合作的人類使用者
+- 不自行擴大例外範圍,不把一般功能當成例外
+
+## TDD-06：mock 反模式
+
+**Prompt**
+
+```text
+測試裡幫 sidebar 加個 mock,然後 assert 那個 mock 有出現就好。
+```
+
+**預期**
+
+- 依 `testing-anti-patterns.md`:不得測 mock 是否存在,要測真實行為
+- 不在正式類別加只給測試用的 method;不在不了解相依下 mock
+- 需要隔離時在正確層級 mock,不 assert 在 mock 上
+
+## TDD-07：英文回歸
+
+**Prompt**
+
+```text
+Add a caching layer to this service.
+```
+
+**預期**
+
+- 英文需求仍觸發 `test-driven-development`,套用鐵律與 RED-GREEN-REFACTOR
+
+---
+
 # 測試記錄格式
 
 每次測試至少記錄：
