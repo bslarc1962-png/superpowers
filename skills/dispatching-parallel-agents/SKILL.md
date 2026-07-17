@@ -1,19 +1,19 @@
 ---
 name: dispatching-parallel-agents
-description: Use when facing 2+ independent tasks that can be worked on without shared state or sequential dependencies
+description: "Use when facing 2+ independent tasks that can be worked on without shared state or sequential dependencies. 適用於面對 2 個以上、彼此無共享狀態或先後相依、可獨立進行的任務時。"
 ---
 
-# Dispatching Parallel Agents
+# 派遣平行 agent（Dispatching Parallel Agents）
 
-## Overview
+## 概觀
 
-You delegate tasks to specialized agents with isolated context. By precisely crafting their instructions and context, you ensure they stay focused and succeed at their task. They should never inherit your session's context or history — you construct exactly what they need. This also preserves your own context for coordination work.
+你把任務委派給具備隔離 context 的專門 agent。透過精準地打造它們的指示與 context,你確保它們保持專注並成功完成任務。它們絕對不應繼承你這個 session 的 context 或歷史——你為它們精確建構所需的一切。這也保留了你自己的 context 供協調工作使用。
 
-When you have multiple unrelated failures (different test files, different subsystems, different bugs), investigating them sequentially wastes time. Each investigation is independent and can happen in parallel.
+當你面對多個不相關的失敗（不同的測試檔、不同的子系統、不同的 bug）時,逐一循序調查是浪費時間。每個調查都是獨立的,可以平行進行。
 
-**Core principle:** Dispatch one agent per independent problem domain. Let them work concurrently.
+**核心原則：**每個獨立的問題領域派一個 agent。讓它們並行工作。
 
-## When to Use
+## 何時使用
 
 ```dot
 digraph when_to_use {
@@ -33,39 +33,39 @@ digraph when_to_use {
 }
 ```
 
-**Use when:**
-- 3+ test files failing with different root causes
-- Multiple subsystems broken independently
-- Each problem can be understood without context from others
-- No shared state between investigations
+**在以下情況使用：**
+- 3 個以上測試檔因不同根本原因失敗
+- 多個子系統各自獨立壞掉
+- 每個問題不需其他問題的 context 就能理解
+- 各調查之間沒有共享狀態
 
-**Don't use when:**
-- Failures are related (fix one might fix others)
-- Need to understand full system state
-- Agents would interfere with each other
+**不要在以下情況使用：**
+- 失敗彼此相關（修一個可能就修好其他）
+- 需要理解完整的系統狀態
+- agent 會互相干擾
 
-## The Pattern
+## 模式
 
-### 1. Identify Independent Domains
+### 1. 辨識獨立領域
 
-Group failures by what's broken:
-- File A tests: Tool approval flow
-- File B tests: Batch completion behavior
-- File C tests: Abort functionality
+依「壞了什麼」把失敗分組：
+- 檔案 A 的測試：工具核准流程
+- 檔案 B 的測試：批次完成行為
+- 檔案 C 的測試：中止（abort）功能
 
-Each domain is independent - fixing tool approval doesn't affect abort tests.
+每個領域都是獨立的——修工具核准不會影響中止測試。
 
-### 2. Create Focused Agent Tasks
+### 2. 建立聚焦的 agent 任務
 
-Each agent gets:
-- **Specific scope:** One test file or subsystem
-- **Clear goal:** Make these tests pass
-- **Constraints:** Don't change other code
-- **Expected output:** Summary of what you found and fixed
+每個 agent 拿到：
+- **具體範圍：**一個測試檔或子系統
+- **清楚目標：**讓這些測試通過
+- **約束：**不要改動其他程式碼
+- **預期輸出：**你發現與修正了什麼的摘要
 
-### 3. Dispatch in Parallel
+### 3. 平行派遣
 
-Issue all three subagent dispatches in the same response — they run in parallel:
+在同一則回應裡發出全部三個 subagent 派遣——它們會平行執行：
 
 ```text
 Subagent (general-purpose): "Fix agent-tool-abort.test.ts failures"
@@ -74,22 +74,22 @@ Subagent (general-purpose): "Fix tool-approval-race-conditions.test.ts failures"
 # All three run concurrently.
 ```
 
-Multiple dispatch calls in one response = parallel execution. One per response = sequential.
+在一則回應裡多個派遣呼叫 = 平行執行。一則回應一個 = 循序執行。
 
-### 4. Review and Integrate
+### 4. 審查與整合
 
-When agents return:
-- Read each summary
-- Verify fixes don't conflict
-- Run full test suite
-- Integrate all changes
+當 agent 回來時：
+- 讀每一份摘要
+- 確認各修正不衝突
+- 跑完整測試套件
+- 整合所有變更
 
-## Agent Prompt Structure
+## agent 提示（Prompt）結構
 
-Good agent prompts are:
-1. **Focused** - One clear problem domain
-2. **Self-contained** - All context needed to understand the problem
-3. **Specific about output** - What should the agent return?
+好的 agent 提示是：
+1. **聚焦**——一個清楚的問題領域
+2. **自足**——理解問題所需的全部 context
+3. **明確指定輸出**——agent 應該回傳什麼？
 
 ```markdown
 Fix the 3 failing tests in src/agents/agent-tool-abort.test.ts:
@@ -112,74 +112,74 @@ Do NOT just increase timeouts - find the real issue.
 Return: Summary of what you found and what you fixed.
 ```
 
-## Common Mistakes
+## 常見錯誤
 
-**❌ Too broad:** "Fix all the tests" - agent gets lost
-**✅ Specific:** "Fix agent-tool-abort.test.ts" - focused scope
+**❌ 太廣：**「修全部的測試」——agent 會迷失
+**✅ 具體：**「修 agent-tool-abort.test.ts」——聚焦範圍
 
-**❌ No context:** "Fix the race condition" - agent doesn't know where
-**✅ Context:** Paste the error messages and test names
+**❌ 沒有脈絡：**「修那個 race condition」——agent 不知道在哪
+**✅ 有脈絡：**貼上錯誤訊息與測試名稱
 
-**❌ No constraints:** Agent might refactor everything
-**✅ Constraints:** "Do NOT change production code" or "Fix tests only"
+**❌ 沒有約束：**agent 可能把全部重構
+**✅ 有約束：**「不要（Do NOT）改動正式程式碼」或「只改測試」
 
-**❌ Vague output:** "Fix it" - you don't know what changed
-**✅ Specific:** "Return summary of root cause and changes"
+**❌ 模糊的輸出：**「修一下」——你不知道改了什麼
+**✅ 具體：**「回傳根本原因與變更的摘要」
 
-## When NOT to Use
+## 何時不要使用
 
-**Related failures:** Fixing one might fix others - investigate together first
-**Need full context:** Understanding requires seeing entire system
-**Exploratory debugging:** You don't know what's broken yet
-**Shared state:** Agents would interfere (editing same files, using same resources)
+**相關的失敗：**修一個可能就修好其他——先一起調查
+**需要完整 context：**理解需要看到整個系統
+**探索式除錯：**你還不知道哪裡壞了
+**共享狀態：**agent 會互相干擾（編輯同一批檔案、使用同一批資源）
 
-## Real Example from Session
+## 來自實際 session 的範例
 
-**Scenario:** 6 test failures across 3 files after major refactoring
+**情境：**大型重構後,3 個檔案共 6 個測試失敗
 
-**Failures:**
-- agent-tool-abort.test.ts: 3 failures (timing issues)
-- batch-completion-behavior.test.ts: 2 failures (tools not executing)
-- tool-approval-race-conditions.test.ts: 1 failure (execution count = 0)
+**失敗：**
+- agent-tool-abort.test.ts：3 個失敗（timing 問題）
+- batch-completion-behavior.test.ts：2 個失敗（工具沒有執行）
+- tool-approval-race-conditions.test.ts：1 個失敗（execution count = 0）
 
-**Decision:** Independent domains - abort logic separate from batch completion separate from race conditions
+**決定：**獨立領域——abort 邏輯、批次完成、race condition 彼此分離
 
-**Dispatch:**
+**派遣：**
 ```
 Agent 1 → Fix agent-tool-abort.test.ts
 Agent 2 → Fix batch-completion-behavior.test.ts
 Agent 3 → Fix tool-approval-race-conditions.test.ts
 ```
 
-**Results:**
-- Agent 1: Replaced timeouts with event-based waiting
-- Agent 2: Fixed event structure bug (threadId in wrong place)
-- Agent 3: Added wait for async tool execution to complete
+**結果：**
+- Agent 1：把 timeout 換成以事件為基礎的等待
+- Agent 2：修正 event 結構 bug（threadId 放錯位置）
+- Agent 3：加上等待非同步工具執行完成
 
-**Integration:** All fixes independent, no conflicts, full suite green
+**整合：**所有修正互相獨立、無衝突、完整套件全綠
 
-**Time saved:** 3 problems solved in parallel vs sequentially
+**省下的時間：**3 個問題平行解決,相對於循序
 
-## Key Benefits
+## 主要好處
 
-1. **Parallelization** - Multiple investigations happen simultaneously
-2. **Focus** - Each agent has narrow scope, less context to track
-3. **Independence** - Agents don't interfere with each other
-4. **Speed** - 3 problems solved in time of 1
+1. **平行化**——多個調查同時進行
+2. **聚焦**——每個 agent 範圍窄,要追蹤的 context 較少
+3. **獨立**——agent 之間不互相干擾
+4. **速度**——用 1 個的時間解決 3 個問題
 
-## Verification
+## 驗證
 
-After agents return:
-1. **Review each summary** - Understand what changed
-2. **Check for conflicts** - Did agents edit same code?
-3. **Run full suite** - Verify all fixes work together
-4. **Spot check** - Agents can make systematic errors
+當 agent 回來後：
+1. **審查每一份摘要**——理解改了什麼
+2. **檢查衝突**——agent 是否編輯了同一段程式碼？
+3. **跑完整套件**——驗證所有修正一起運作
+4. **抽查**——agent 可能犯系統性錯誤
 
-## Real-World Impact
+## 真實世界的影響
 
-From debugging session (2025-10-03):
-- 6 failures across 3 files
-- 3 agents dispatched in parallel
-- All investigations completed concurrently
-- All fixes integrated successfully
-- Zero conflicts between agent changes
+來自一次除錯 session（2025-10-03）：
+- 3 個檔案共 6 個失敗
+- 平行派遣 3 個 agent
+- 所有調查並行完成
+- 所有修正成功整合
+- agent 變更之間零衝突
