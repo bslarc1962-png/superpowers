@@ -4,47 +4,49 @@
 
 ## Current Mode
 
-Phase 1、Phase 2 已全部合併。Phase 3（除錯與協作）進行中:`requesting-code-review` 已合併(PR #8);本批 `receiving-code-review` 已於目前分支完成初譯,尚待獨立語意 review 與合併。
+Phase 1、Phase 2 已全部合併。Phase 3（除錯與協作）進行中:`requesting-code-review`（PR #8）、`receiving-code-review`（PR #9）已合併;本批 `dispatching-parallel-agents` 已於目前分支完成初譯,尚待獨立語意 review 與合併。合併後 Phase 3 只剩 `systematic-debugging`。
 
 ## Active Branch / PR
 
-- Branch: `claude/pr2-review-zh-localization-koxhdq`（前一批 PR 合併後,已從最新 `main` 重開,HEAD＝54b2944）
+- Branch: `claude/pr2-review-zh-localization-koxhdq`（前一批 PR 合併後,已從最新 `main` 重開,HEAD＝1feebb4）
 - Base: `main`
 - PR: 尚未開啟
 - Previous delivery:
-  - PR #1–#3 已合併:基礎文件、handoff、Phase 1 全部(`using-superpowers`、`brainstorming`、`writing-plans`、`using-git-worktrees`)。
-  - PR #4–#7 已合併:Phase 2 全部(`executing-plans`、`verification-before-completion`、`finishing-a-development-branch`、`test-driven-development`＋anti-patterns、`subagent-driven-development`＋兩個 prompt reference)。
-  - PR #8 已合併:Phase 3 `requesting-code-review`（＋ `code-reviewer.md`）,reviewer 0/0/0/2-note。
+  - PR #1–#3 已合併:基礎文件、handoff、Phase 1 全部。
+  - PR #4–#7 已合併:Phase 2 全部。
+  - PR #8 已合併:Phase 3 `requesting-code-review`（＋ `code-reviewer.md`）。
+  - PR #9 已合併:Phase 3 `receiving-code-review`（＋ translation-guide §6 雙語 blocklist 規則）,reviewer 0/0/2-minor/1-note,兩 minor 已套用。
 
 ## Current Scope
 
 已進入 `main`:
 
-- `docs/i18n/`:`translation-guide.md`（§6 新增「禁止語 specimen 保留雙語」規則）、`glossary.md`、`roadmap.md`、`behavior-test-cases.md`、`README.md`、`agent-handoff.md`、`NOW.md`
-- Phase 1、Phase 2 全部 skill（見上）
-- Phase 3 skill:`requesting-code-review`（＋ `code-reviewer.md`）
+- `docs/i18n/`:`translation-guide.md`（§6 含雙語 blocklist 規則）、`glossary.md`、`roadmap.md`、`behavior-test-cases.md`、`README.md`、`agent-handoff.md`、`NOW.md`
+- Phase 1、Phase 2 全部 skill
+- Phase 3 skill:`requesting-code-review`（＋ `code-reviewer.md`）、`receiving-code-review`
 
-目前分支尚未合併（Phase 3 第二批）:
+目前分支尚未合併（Phase 3 第三批）:
 
-- `skills/receiving-code-review/SKILL.md`（初譯,單檔）
-- `docs/i18n/translation-guide.md`（§6 新增雙語 blocklist 規則）
-- `docs/i18n/behavior-test-cases.md`（新增 RCV-01–07 情境測試規格）
+- `skills/dispatching-parallel-agents/SKILL.md`（初譯,單檔）
+- `docs/i18n/behavior-test-cases.md`（新增 DPA-01–06 情境測試規格）
 
 ## 本批翻譯不變式（自查已過）
 
-- description 加中英雙段,分隔用「`. `」（對齊多數 skill）。
-- **禁止語 specimen 雙語**（本批關鍵決定,已寫入 translation-guide §6）:must-not-say 清單（`You're absolutely right!`、`Great point!`、`Thanks for…` 等表演性附和）保留英文原句「並」附中文對照——雙語運作的 agent 兩種語言都可能反射性說出,只留一種會漏。而「應該說」的 good response／範例對話只譯為中文。
-- 回應模式 6 步保留英文步驟標籤 `READ／UNDERSTAND／VERIFY／EVALUATE／RESPOND／IMPLEMENT`（中文＋括號英文）。
-- mandatory anchor:絕對不要（NEVER）。12 個 ``` 區塊、Common Mistakes 表 7 列、`gh api …/comments/{id}/replies` 指令、`grep`、`YAGNI`、`bundle ID`／`build target`／`10.15+`／`13+` 等技術 token 逐字保留。
-- 「your human partner」→「你合作的人類使用者」(9 處);line 129 的「your partner」→「你的夥伴」。
+- description 加中英雙段,分隔用「`. `」。
+- 一個 Graphviz `dot` 圖（when_to_use）整塊保留英文。
+- **4 個 ``` 區塊全部保留英文**:dot 圖、`text` 派遣範例（Subagent 呼叫）、`markdown` agent-prompt 範例、Real Example 的 Dispatch 對照。理由:皆為 agent 派遣 payload／技術範例。區塊外散文全數翻譯。
+- 測試檔名逐字保留:`agent-tool-abort.test.ts`、`batch-completion-behavior.test.ts`、`tool-approval-race-conditions.test.ts`;技術 token（timing、race condition、threadId、execution count、timeout）保留。
+- mandatory anchor:「絕對不應繼承」（never inherit）、Common Mistakes ✅ 約束處「不要（Do NOT）改動正式程式碼」。8 個 ✅／❌ 標記保留。
+- 本 skill 無「your human partner」用語。Overview 首段與 `subagent-driven-development` 的委派段用詞一致（術語承接）。
 
 ## 本批獨立 review 結果
 
-未參與初譯的 reviewer 對 skill 與 §6 規則做中英逐段對照:**0 blocker、0 major、2 minor、1 note**。核心判斷(禁止語雙語、good response 只中文的不對稱處理)獲 reviewer 明確認可為 behaviorally sound——英文原句在 `絕對不要（NEVER）`／`❌` 抑制框架下,不會被讀成「允許」。
+未參與初譯的 reviewer 中英逐段對照:**0 blocker、0 major、1 minor、3 note**。reviewer 獨立抽取 4 個 fence 與 `1feebb4` diff,確認全部 byte-identical;14 個標題、Pattern 4 步、Common Mistakes 8 標記、測試檔名與技術 token 數量皆等價。
 
-- Minor 1（已套用）:§6 規則措辭可能誤導——must-not-say specimen 即使出現在範例對話中(如 line 181 標 ❌ 的壞示範)仍應保留雙語,但原措辭「範例對話只譯使用者語言」字面上會叫下個譯者把它單語化。已改為「依是否為偵測 specimen 判定,而非依所在段落」。
-- Minor 2（已套用）:`codebase` 本檔用「程式庫」,glossary 固定為「程式碼庫」。6 處已正規化為程式碼庫,消除 glossary drift。
-- Note（無行為影響）:半形逗號,已在 Backlog。
+- Minor（已套用）:line 138 `refactoring` 依 glossary 應為「重構（refactor）」含英文 anchor（首次出現）→ 改「大型重構（refactoring）後」。
+- Note 1（已套用）:`Do NOT` glossary 標準為「不得（Do NOT）」（比「不要」更強的禁止）→ line 124 改「不得（Do NOT）改動正式程式碼」。
+- Note 2（已套用）:`event-based waiting` fence 內已逐字保留,Results 散文改為 token 並列「event-based waiting（以事件為基礎的等待）」以求跨區塊一致。
+- Note 3（無行為影響,入 Backlog）:5 個半形逗號,留待跨檔 typography 掃描。
 
 ## Current Task
 
@@ -58,22 +60,22 @@ Claude／Anthropic
 
 ### Assignment
 
-初譯 `receiving-code-review`（單檔）並補情境測試規格;新增 translation-guide §6 雙語 blocklist 規則。
+初譯 `dispatching-parallel-agents`（單檔）並補情境測試規格。
 
 ## Boundaries
 
 - 不修改根目錄 `AGENTS.md` 或 `CLAUDE.md`。
 - 不把本 fork 的中文化內容提交到上游。
 - 不以 Anthropic 官方 skill guidance 重構 Superpowers 原有內容。
-- Common Mistakes 表列數、回應模式步驟數與順序、`gh api` 指令、技術 token 皆不可改。
+- Graphviz 圖、4 個 fenced 區塊、測試檔名與技術 token 皆不可改。
 - description 中英段刻意不逐字對稱為合規（translation-guide §2）。
 
 ## Resume Target
 
-1. 獨立語意 review（未參與初譯的 reviewer 做中英逐段對照,特別檢查禁止語雙語決定是否恰當、無行為漂移）。
-2. 執行實際 harness 行為 eval:依 `behavior-test-cases.md` 的 RCV-01–07 跑中文觸發、壓力、反例與英文回歸。**本 session 無法執行**——`evals/`(superpowers-evals)未 clone,需 tmux Claude Code／Codex 環境。
+1. 獨立語意 review（未參與初譯的 reviewer 做中英逐段對照）。
+2. 執行實際 harness 行為 eval:依 `behavior-test-cases.md` 的 DPA-01–06 跑中文觸發、壓力、反例與英文回歸。**本 session 無法執行**——`evals/`(superpowers-evals)未 clone,需 tmux Claude Code／Codex 環境。
 3. 使用者決定是否為本批開 PR 並合併。
-4. Phase 3 其餘:`systematic-debugging`、`dispatching-parallel-agents`。之後 Phase 4(meta 與大型 reference:`writing-skills`、平台 reference、README／install)。
+4. Phase 3 最後一批:`systematic-debugging`（Phase 3 最大,可能含多檔 reference）。之後 Phase 4(meta 與大型 reference:`writing-skills`、平台 reference、README／install)。
 
 ## Backlog（跨檔待整理，非本批 blocker）
 
@@ -85,6 +87,6 @@ Claude／Anthropic
 
 - Handled by: Claude／Anthropic
 - Date: 2026-07-17
-- Task: 初譯 Phase 3 第二批（`receiving-code-review`）＋ translation-guide §6 雙語 blocklist 規則,並補情境測試規格
+- Task: 初譯 Phase 3 第三批（`dispatching-parallel-agents`）並補情境測試規格
 - Required first read: `docs/i18n/agent-handoff.md`
 - Current discussion surface: 目前分支（尚未開 PR）
