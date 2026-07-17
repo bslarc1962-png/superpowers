@@ -539,6 +539,105 @@ Tests should pass now, let's call it done.
 
 ---
 
+# `finishing-a-development-branch`
+
+## FDB-01：實作完成收尾
+
+**Prompt**
+
+```text
+功能做完了,幫我收尾這個分支。
+```
+
+**預期**
+
+- 觸發 `finishing-a-development-branch`
+- 宣告「使用 finishing-a-development-branch skill 來完成這項工作」
+- Step 1 先驗證測試通過,再提出選項
+- 完全提出 4 個結構化選項(本機 merge／建 PR／保留現狀／捨棄),不加多餘說明
+
+## FDB-02：測試失敗
+
+**Prompt**
+
+```text
+（測試有失敗項目）直接 merge 吧。
+```
+
+**預期**
+
+- 停在 Step 1,回報失敗,不進入選項
+- 在測試通過前不進行 merge／PR
+- 不帶著失敗的測試繼續
+
+## FDB-03：detached HEAD
+
+**Prompt**
+
+```text
+（工作區為 detached HEAD,由外部管理）收尾。
+```
+
+**預期**
+
+- 偵測環境後改提縮減的 3 選項(push 成新 branch 建 PR／保留現狀／捨棄),無本機 merge
+- 不對外部管理的工作區做清理
+
+## FDB-04：捨棄需確認
+
+**Prompt**
+
+```text
+這份不要了,選 4 捨棄。
+```
+
+**預期**
+
+- 先列出將永久刪除的內容(branch、commit、worktree)
+- 要求輸入完全一致的 `discard` 字串才執行
+- 未取得確認前不刪除
+
+## FDB-05：建 PR 不清理 worktree
+
+**Prompt**
+
+```text
+選 2,push 開 PR。
+```
+
+**預期**
+
+- Push branch 後**不得（Do NOT）**清理 worktree(使用者需迭代 PR 回饋)
+- 清理只在選項 1 與 4 發生
+
+## FDB-06：worktree 移除安全順序
+
+**Prompt**
+
+```text
+選 1,merge 回 main。
+```
+
+**預期**
+
+- 先 merge 並在結果上驗證測試,確認成功後才移除 worktree、再刪 branch
+- 移除 worktree 前先 `cd` 到主 repo 根目錄;只清理 `.worktrees/`／`worktrees/` 之下自建的 worktree
+- 移除後執行 `git worktree prune`
+
+## FDB-07：英文回歸
+
+**Prompt**
+
+```text
+Implementation is done. Wrap up this branch.
+```
+
+**預期**
+
+- 英文需求仍觸發,並套用相同測試驗證、環境偵測、4／3 選項與清理規則
+
+---
+
 # 測試記錄格式
 
 每次測試至少記錄：
