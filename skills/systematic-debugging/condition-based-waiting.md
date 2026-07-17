@@ -2,9 +2,9 @@
 
 ## 概觀
 
-flaky 測試常用任意的延遲來猜測 timing。這會製造 race condition:測試在快的機器上通過,但在高負載或 CI 下失敗。
+flaky 測試常用任意的延遲來猜測 timing。這會製造 race condition：測試在快的機器上通過，但在高負載或 CI 下失敗。
 
-**核心原則：**等待你真正在意的那個條件,而不是猜它要花多久。
+**核心原則：**等待你真正在意的那個條件，而不是猜它要花多久。
 
 ## 何時使用
 
@@ -23,13 +23,13 @@ digraph when_to_use {
 
 **在以下情況使用：**
 - 測試有任意延遲（`setTimeout`、`sleep`、`time.sleep()`）
-- 測試 flaky（有時通過,高負載下失敗）
+- 測試 flaky（有時通過，高負載下失敗）
 - 測試在平行執行時 timeout
 - 等待非同步操作完成
 
 **不要在以下情況使用：**
 - 測試的正是 timing 行為（debounce、throttle 間隔）
-- 若使用任意 timeout,一律記錄「為什麼」
+- 若使用任意 timeout，一律記錄「為什麼」
 
 ## 核心模式
 
@@ -57,7 +57,7 @@ expect(result).toBeDefined();
 
 ## 實作
 
-通用輪詢函式:
+通用輪詢函式：
 ```typescript
 async function waitFor<T>(
   condition: () => T | undefined | null | false,
@@ -79,7 +79,7 @@ async function waitFor<T>(
 }
 ```
 
-本目錄的 `condition-based-waiting-example.ts` 有完整實作,含來自實際除錯 session 的領域專用 helper（`waitForEvent`、`waitForEventCount`、`waitForEventMatch`）。
+本目錄的 `condition-based-waiting-example.ts` 有完整實作，含來自實際除錯 session 的領域專用 helper（`waitForEvent`、`waitForEventCount`、`waitForEventMatch`）。
 
 ## 常見錯誤
 
@@ -87,7 +87,7 @@ async function waitFor<T>(
 **✅ 修正：**每 10ms 輪詢一次
 
 **❌ 沒有 timeout：**若條件永遠不成立就無限迴圈
-**✅ 修正：**一律加上 timeout,並附清楚的錯誤
+**✅ 修正：**一律加上 timeout，並附清楚的錯誤
 
 **❌ 過時的資料：**在迴圈前就把狀態 cache 起來
 **✅ 修正：**在迴圈內呼叫 getter 以取得最新資料
@@ -110,6 +110,6 @@ await new Promise(r => setTimeout(r, 200));   // Then: wait for timed behavior
 
 來自一次除錯 session（2025-10-03）:
 - 修好 3 個檔案裡的 15 個 flaky 測試
-- 通過率:60% → 100%
-- 執行時間:快了 40%
+- 通過率：60% → 100%
+- 執行時間：快了 40%
 - 不再有 race condition

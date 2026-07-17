@@ -7,9 +7,9 @@ description: "Use when facing 2+ independent tasks that can be worked on without
 
 ## 概觀
 
-你把任務委派給具備隔離 context 的專門 agent。透過精準地打造它們的指示與 context,你確保它們保持專注並成功完成任務。它們絕對不應繼承你這個 session 的 context 或歷史——你為它們精確建構所需的一切。這也保留了你自己的 context 供協調工作使用。
+你把任務委派給具備隔離 context 的專門 agent。透過精準地打造它們的指示與 context，你確保它們保持專注並成功完成任務。它們絕對不應繼承你這個 session 的 context 或歷史——你為它們精確建構所需的一切。這也保留了你自己的 context 供協調工作使用。
 
-當你面對多個不相關的失敗（不同的測試檔、不同的子系統、不同的 bug）時,逐一循序調查是浪費時間。每個調查都是獨立的,可以平行進行。
+當你面對多個不相關的失敗（不同的測試檔、不同的子系統、不同的 bug）時，逐一循序調查是浪費時間。每個調查都是獨立的，可以平行進行。
 
 **核心原則：**每個獨立的問題領域派一個 agent。讓它們並行工作。
 
@@ -135,7 +135,7 @@ Return: Summary of what you found and what you fixed.
 
 ## 來自實際 session 的範例
 
-**情境：**大型重構（refactoring）後,3 個檔案共 6 個測試失敗
+**情境：**大型重構（refactoring）後，3 個檔案共 6 個測試失敗
 
 **失敗：**
 - agent-tool-abort.test.ts：3 個失敗（timing 問題）
@@ -158,12 +158,12 @@ Agent 3 → Fix tool-approval-race-conditions.test.ts
 
 **整合：**所有修正互相獨立、無衝突、完整套件全綠
 
-**省下的時間：**3 個問題平行解決,相對於循序
+**省下的時間：**3 個問題平行解決，相對於循序
 
 ## 主要好處
 
 1. **平行化**——多個調查同時進行
-2. **聚焦**——每個 agent 範圍窄,要追蹤的 context 較少
+2. **聚焦**——每個 agent 範圍窄，要追蹤的 context 較少
 3. **獨立**——agent 之間不互相干擾
 4. **速度**——用 1 個的時間解決 3 個問題
 

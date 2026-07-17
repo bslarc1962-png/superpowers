@@ -4,94 +4,55 @@
 
 ## Current Mode
 
-Phase 1–3 已全部合併。Phase 4（meta 與大型 reference）進行中:`writing-skills/SKILL.md` 本體已合併(PR #12);本批為 `writing-skills` 的 3 個核心 reference（testing-skills-with-subagents、persuasion-principles、examples/CLAUDE_MD_TESTING）已於目前分支完成初譯,尚待獨立語意 review 與合併。
+核心 skill 全數在地化已完成並合併（PR #1–#13,涵蓋 14 個 skill 與全部行為鏈 reference）。目前進入收尾階段:(A) typography 一致性 sweep;(B) README／安裝說明在地化。本批為 (A)。
 
 ## Active Branch / PR
 
-- Branch: `claude/pr2-review-zh-localization-koxhdq`（前一批 PR 合併後,已從最新 `main` 重開,HEAD＝da4df16）
+- Branch: `claude/pr2-review-zh-localization-koxhdq`（每批合併後從最新 `main` 重開）
 - Base: `main`
-- PR: 尚未開啟
-- Previous delivery:
-  - PR #1–#3:基礎文件、handoff、Phase 1 全部。
-  - PR #4–#7:Phase 2 全部。
-  - PR #8–#11:Phase 3 全部（requesting-code-review、receiving-code-review、dispatching-parallel-agents、systematic-debugging＋3 refs）。
-  - PR #12:Phase 4 `writing-skills/SKILL.md` 本體（reviewer 0/0/0/1-note）。
+- Previous delivery: PR #1–#13 全部合併。
 
-## Current Scope
+## 本批範圍(A：typography sweep,純散文正規化)
 
-已進入 `main`:Phase 1–3 全部 skill、`writing-skills/SKILL.md`、`docs/i18n/` 全部文件。
+目標:與既有主流風格一致。量測顯示冒號（474 全形 : 139 半形）、括號（427 : 37）早已以全形為主,只有逗號漂移成半形（264 全形 : 580 半形）。故本批把「緊鄰漢字」的半形逗號、冒號正規化為全形,並統一 `description` 分隔符。
 
-目前分支尚未合併（Phase 4,writing-skills references）:
+- 正規化 `skills/**/*.md`＋`docs/i18n/*.md` 中 fenced 區塊外、inline code 外、緊鄰漢字的半形 `,`→`，`、`:`→`：`(共 645 處,22 檔)。
+- `subagent-driven-development/SKILL.md` 的 `description` 分隔符 `。`→`. `,與其餘 13 個 skill 一致。
+- `translation-guide.md`:§5 新增「標點用全形」durable 慣例;review checklist 補 2 項。
 
-- `skills/writing-skills/testing-skills-with-subagents.md`（初譯,384 行）
-- `skills/writing-skills/persuasion-principles.md`（初譯,187 行）
-- `skills/writing-skills/examples/CLAUDE_MD_TESTING.md`（初譯,189 行）
-- `docs/i18n/behavior-test-cases.md`（新增 WSR-01–05 情境測試規格）
+**不動**:括號（成對配對風險、量少 37,且（English）錨點本就全形）;半形標點保留於英文、程式碼、inline code、URL、數字（`N=28,000`）與 fenced 區塊。
 
-**刻意不譯（使用者已裁示）**:
+## 本批不變式(自查已過)
 
-- `skills/writing-skills/anthropic-best-practices.md`（1150 行）——Anthropic 官方 skill 指引的原封 vendored 副本,非本專案行為核心(專案 CLAUDE.md 明言其 skill 哲學刻意不同於 Anthropic 官方),投報比低。使用者裁示:「如果對我真的沒有幫助就不用譯」→ **跳過,不在地化**。
-- `skills/writing-skills/graphviz-conventions.dot`、`render-graphs.js`——程式碼／腳本。
-
-## 本批翻譯不變式（自查已過）
-
-- 3 檔的「所有 fenced 區塊」逐字保留英文,經 awk 抽取＋diff 確認與 `1ef568f` **byte-identical**:
-  - testing-skills:壓力情境範例、`<Before>/<After>` specimen、合理化表範例、Red Flag 範例、`description` yaml、後設測試區塊(含 `your human partner:`)。
-  - persuasion:7 組 ✅／❌ markdown specimen(示範 skill 撰寫語氣,如 `YOU MUST`／`No exceptions`)。
-  - CLAUDE_MD_TESTING:4 個測試情境 ＋ 5 個文件變體(NULL/A/B/C/D)——這些是 A/B 測試的「受測資料」,翻譯會破壞實驗,必須逐字。
-- mandatory anchor:必要背景（REQUIRED BACKGROUND）、必須（MUST）、不要用於強制遵循（DON'T USE）。
-- RED-GREEN-REFACTOR／RED／GREEN／REFACTOR／VERIFY phase 標籤保留(5× RGR);7 大原則名以「中文（English）」呈現,表格內保留英文原名。
-- 表格:TDD 對應 6／壓力類型 7／Quick Ref 6（testing）、原則組合 4（persuasion）data 列與對應皆等價;19 個 checkbox 保留;citation（Cialdini 2021、Meincke et al. 2025）逐字。
-- refs（`persuasion-principles.md`、`examples/CLAUDE_MD_TESTING.md`、`superpowers:test-driven-development`）逐字;`2025-10-03`、`N=28,000`、百分比保留。
-- 「your human partner」:testing 散文 1 處→「你合作的人類使用者」;fence 內(CLAUDE_MD 情境 4 處、testing 後設測試 1 處)保留英文。
-
-## 本批獨立 review 結果
-
-未參與初譯的 reviewer 逐位 diff 全部 fenced 區塊＋逐段對照:**0 blocker、0 major、0 minor、1 note**,無需修改。fenced 區塊 byte-identical(testing 14/14、persuasion 5/5、CLAUDE_MD 8/8);「your human partner」拆分正確(散文 1 處中文、fence 內全英文);mandatory anchor、RED-GREEN-REFACTOR(5×)、4 個表格與對應、19 checkbox、Cialdini/Meincke citation(含 `N=28,000`／`33% → 72%`／`p < .001`)、cross-ref、section 結構(30/30、15/15、19/19)皆等價。
-
-- Note（入 Backlog）:半形逗號,typography,無行為影響。
-
-## Current Task
-
-### Owner
-
-Claude／Anthropic
-
-### Task Mode
-
-`translate`（本輪已由使用者授權）
-
-### Assignment
-
-初譯 `writing-skills` 的 3 個核心 reference;補情境測試規格;anthropic-best-practices／程式碼刻意不譯。
+- 每個變動檔的「所有 fenced 區塊內容」working-tree vs `HEAD` **byte-identical**（awk 抽取＋字串比對,ALL FENCES BYTE-IDENTICAL）。純散文標點置換,未動任何 specimen／dispatch payload／dot／yaml／測試受測資料。
+- 殘餘「緊鄰漢字的半形逗號／冒號(fence 外)」＝ 0。
+- 14 個 SKILL.md 的 `description` 分隔符皆為「`. `」。
+- 無 `，，`／`::`／`：：` 等重複標點。
 
 ## Boundaries
 
 - 不修改根目錄 `AGENTS.md` 或 `CLAUDE.md`。
 - 不把本 fork 的中文化內容提交到上游。
-- 不以 Anthropic 官方 skill guidance 重構 Superpowers 原有內容。
-- 所有 fenced 區塊(specimen、測試情境、受測文件變體、程式碼、yaml)逐字不可改。
-- `anthropic-best-practices.md`、`.dot`、`.js` 不在本批範圍。
-- description／說服原則等內容屬中立在地化,非改動 skill philosophy。
+- 只改散文標點,不改任何字詞、行為、gate、順序、終止狀態。
+- fenced 區塊、inline code、英文、程式碼、URL、數字內的半形標點不動。
 
 ## Resume Target
 
-1. 獨立語意 review（未參與初譯的 reviewer 做中英逐段對照,含 3 檔 fenced 區塊逐位 diff）。
-2. 執行實際 harness 行為 eval:依 `behavior-test-cases.md` 的 WSR-01–05 跑中文觸發、壓力、反例與英文回歸。**本 session 無法執行**——`evals/` 未 clone,需 tmux 環境。
-3. 使用者決定是否為本批開 PR 並合併。
-4. 本批合併後,`writing-skills` 除 anthropic-best-practices（刻意跳過）與程式碼外全部完成。**核心 skill 全數在地化完畢**。剩餘:平台 reference、README／install 等安裝文件;以及是否處理 `CREATION-LOG.md`、eval fixtures。最後做 Backlog typography 收尾批次。
+1. 本批(typography)合併後,執行 (B):在地化 README／安裝說明。
+   - 主目標:`README.md`(273)、`docs/README.kimi.md`(88)、`docs/README.opencode.md`(163)——皆為安裝／使用說明,對中文使用者直接有用。
+   - 次要:`docs/testing.md`(35,貢獻者測試說明)、`docs/porting-to-a-new-harness.md`(827,harness 移植開發指南——非安裝文件,量大,視情況另批)。
+   - 規則:所有安裝命令、路徑、URL、程式碼、harness 名稱逐字保留;新譯內容一開始就用全形標點。
+2. 行為 eval(`behavior-test-cases.md`)仍無法在本 session 執行——需 tmux 環境,`evals/` 未 clone。durable 已知缺口。
 
-## Backlog（跨檔待整理，非本批 blocker）
+## Backlog(非本批 blocker)
 
-- glossary 首次出現 gloss 慣例執行寬鬆:`baseline`、`harness`、`checkpoint` 等在多個 skill 以裸英文出現,未於各檔首次出現處補中文 gloss。建議累積後一次統一整理。
-- 全形／半形逗號跨檔不一致:PR #1 用全形「，」;PR #3 起多用半形「,」。屬排版一致性,無行為影響。列為專門 typography 批次（只改散文、跳過 ``` 區塊）。
-- description 分隔符不一致:多數 skill 用「`. `」,但 `subagent-driven-development`（PR #7）用全形「。」無空格。留待 typography 掃描一併正規化。
-- `anthropic-best-practices.md`（Phase 4 大型 reference）刻意未在地化——若日後決定要譯,需另開批次(1150 行)。
+- glossary 首次出現 gloss 慣例執行寬鬆:`baseline`、`harness`、`checkpoint` 等在多個 skill 以裸英文出現。屬術語一致性(非 typography),另批處理。
+- `anthropic-best-practices.md`(1150 行)刻意未在地化(使用者裁示「對我沒幫助就不用譯」)、`.dot`／`.js` 程式碼不譯。
 
 ## Last Handoff
 
 - Handled by: Claude／Anthropic
 - Date: 2026-07-17
-- Task: 初譯 Phase 4 `writing-skills` 的 3 個核心 reference,並補情境測試規格
+- Task: typography 一致性 sweep(全形標點正規化＋description 分隔符統一)
 - Required first read: `docs/i18n/agent-handoff.md`
-- Current discussion surface: 目前分支（尚未開 PR）
+- Current discussion surface: 目前分支

@@ -1,11 +1,11 @@
 ---
 name: requesting-code-review
-description: "Use when completing tasks, implementing major features, or before merging to verify work meets requirements. 適用於完成任務、實作重大功能、或 merge 之前,用以驗證成果符合需求。"
+description: "Use when completing tasks, implementing major features, or before merging to verify work meets requirements. 適用於完成任務、實作重大功能、或 merge 之前，用以驗證成果符合需求。"
 ---
 
 # 請求程式碼審查（Requesting Code Review）
 
-派遣一個 code reviewer subagent,在問題擴散之前抓到它們。reviewer 拿到的是為評估精心打造的 context——絕對不是你 session 的歷史。這讓 reviewer 專注於工作產物,而非你的思考過程,也保留你自己的 context 供後續工作使用。
+派遣一個 code reviewer subagent，在問題擴散之前抓到它們。reviewer 拿到的是為評估精心打造的 context——絕對不是你 session 的歷史。這讓 reviewer 專注於工作產物，而非你的思考過程，也保留你自己的 context 供後續工作使用。
 
 **核心原則：**盡早 review、經常 review。
 
@@ -31,7 +31,7 @@ HEAD_SHA=$(git rev-parse HEAD)
 
 **2. 派遣 code reviewer subagent：**
 
-派遣一個 `general-purpose` subagent,填入 [code-reviewer.md](code-reviewer.md) 的模板
+派遣一個 `general-purpose` subagent，填入 [code-reviewer.md](code-reviewer.md) 的模板
 
 **佔位符（Placeholders）：**
 - `{DESCRIPTION}` - 你所建構內容的簡短摘要
@@ -43,7 +43,7 @@ HEAD_SHA=$(git rev-parse HEAD)
 - 立刻修正 Critical 問題
 - 繼續之前先修正 Important 問題
 - 把 Minor 問題記下留待之後
-- 若 reviewer 判斷有誤,提出反駁（附理由）
+- 若 reviewer 判斷有誤，提出反駁（附理由）
 
 ## 範例
 

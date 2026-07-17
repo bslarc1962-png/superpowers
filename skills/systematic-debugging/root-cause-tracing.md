@@ -2,9 +2,9 @@
 
 ## 概觀
 
-Bug 常常顯現在 call stack 的深處（git init 在錯誤的目錄、檔案建在錯誤的位置、資料庫用錯誤的路徑開啟）。你的直覺是在錯誤出現的地方修,但那是在治標。
+Bug 常常顯現在 call stack 的深處（git init 在錯誤的目錄、檔案建在錯誤的位置、資料庫用錯誤的路徑開啟）。你的直覺是在錯誤出現的地方修，但那是在治標。
 
-**核心原則：**沿著呼叫鏈反向追蹤,直到找到最初的觸發點,然後在源頭修正。
+**核心原則：**沿著呼叫鏈反向追蹤，直到找到最初的觸發點，然後在源頭修正。
 
 ## 何時使用
 
@@ -42,7 +42,7 @@ Error: git init failed in ~/project/packages/core
 await execFileAsync('git', ['init'], { cwd: projectDir });
 ```
 
-### 3. 追問:是什麼呼叫了它？
+### 3. 追問：是什麼呼叫了它？
 ```typescript
 WorktreeManager.createSessionWorktree(projectDir, sessionId)
   → called by Session.initializeWorkspace()
@@ -65,7 +65,7 @@ Project.create('name', context.tempDir); // Accessed before beforeEach!
 
 ## 加上 Stack Trace
 
-當你無法手動追蹤時,加上 instrumentation:
+當你無法手動追蹤時，加上 instrumentation:
 
 ```typescript
 // Before the problematic operation
@@ -96,7 +96,7 @@ npm test 2>&1 | grep 'DEBUG git init'
 
 ## 找出是哪個測試造成污染
 
-若某個東西在測試期間出現,但你不知道是哪個測試:
+若某個東西在測試期間出現，但你不知道是哪個測試：
 
 使用本目錄的二分搜尋腳本 `find-polluter.sh`:
 
@@ -104,9 +104,9 @@ npm test 2>&1 | grep 'DEBUG git init'
 ./find-polluter.sh '.git' 'src/**/*.test.ts'
 ```
 
-逐一執行測試,在第一個污染者處停下。用法見腳本。
+逐一執行測試，在第一個污染者處停下。用法見腳本。
 
-## 實際範例:空的 projectDir
+## 實際範例：空的 projectDir
 
 **症狀：**`.git` 被建在 `packages/core/`（原始碼）
 
@@ -119,7 +119,7 @@ npm test 2>&1 | grep 'DEBUG git init'
 
 **根本原因：**頂層變數初始化時存取了空值
 
-**修正：**把 tempDir 改成一個 getter,若在 beforeEach 之前被存取就丟錯
+**修正：**把 tempDir 改成一個 getter，若在 beforeEach 之前被存取就丟錯
 
 **同時加上 defense-in-depth：**
 - Layer 1：Project.create() 驗證目錄
@@ -151,12 +151,12 @@ digraph principle {
 }
 ```
 
-**絕對不要（NEVER）只修錯誤出現的地方。**往回追蹤,找到最初的觸發點。
+**絕對不要（NEVER）只修錯誤出現的地方。**往回追蹤，找到最初的觸發點。
 
 ## Stack Trace 小技巧
 
 **在測試中：**用 `console.error()` 而非 logger——logger 可能被抑制
-**在操作之前：**在危險操作之前記錄,而不是等它失敗之後
+**在操作之前：**在危險操作之前記錄，而不是等它失敗之後
 **納入 context：**目錄、cwd、環境變數、時間戳
 **擷取 stack：**`new Error().stack` 顯示完整的呼叫鏈
 
@@ -166,4 +166,4 @@ digraph principle {
 - 透過 5 層追蹤找到根本原因
 - 在源頭修正（getter 驗證）
 - 加上 4 層防禦
-- 1847 個測試通過,零污染
+- 1847 個測試通過，零污染

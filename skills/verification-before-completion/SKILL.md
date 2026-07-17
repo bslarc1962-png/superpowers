@@ -7,11 +7,11 @@ description: "Use when about to claim work is complete, fixed, or passing, befor
 
 ## 概觀
 
-在未驗證的情況下宣稱工作完成,是不誠實,不是有效率。
+在未驗證的情況下宣稱工作完成，是不誠實，不是有效率。
 
-**核心原則：**先有證據,再宣稱,永遠如此。
+**核心原則：**先有證據，再宣稱，永遠如此。
 
-**違反這條規則的字面,就是違反這條規則的精神。**
+**違反這條規則的字面，就是違反這條規則的精神。**
 
 ## 鐵律（The Iron Law）
 
@@ -20,7 +20,7 @@ description: "Use when about to claim work is complete, fixed, or passing, befor
 NO COMPLETION CLAIMS WITHOUT FRESH VERIFICATION EVIDENCE
 ```
 
-如果你沒有在這則訊息中執行過驗證命令,你就不能宣稱它通過。
+如果你沒有在這則訊息中執行過驗證命令，你就不能宣稱它通過。
 
 ## 把關流程（The Gate Function）
 
@@ -58,7 +58,7 @@ NO COMPLETION CLAIMS WITHOUT FRESH VERIFICATION EVIDENCE
 - 相信 agent 的 success 回報
 - 依賴片段的驗證
 - 心想「就這麼一次」
-- 累了,想把工作做完就好
+- 累了，想把工作做完就好
 - **任何在未執行驗證下就暗示成功的措辭**
 
 ## 防止合理化
@@ -113,7 +113,7 @@ NO COMPLETION CLAIMS WITHOUT FRESH VERIFICATION EVIDENCE
 - 出貨了未定義的 function——會 crash
 - 出貨了缺漏的需求——功能不完整
 - 時間浪費在假的完成 → 重新導正 → 返工
-- 違反：「誠實是核心價值。如果你說謊,你會被取代。」
+- 違反：「誠實是核心價值。如果你說謊，你會被取代。」
 
 ## 何時適用
 
