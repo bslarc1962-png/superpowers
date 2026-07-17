@@ -110,6 +110,7 @@ description: "Use before any creative work involving features, components, funct
 - 在專有名詞第一次出現時補上英文
 - 把英文範例對話改為等價的中文對話
 - 將 agent 對使用者輸出的訊息（announce、consent 提問、狀態回報、handoff 說明）調整為「使用者目前的語言」。同一個 skill 內這類訊息的語言必須一致，不可一部分中文、一部分英文。但 ``` 區塊中的固定輸出模板（report／header 樣板）保留英文原樣
+- **禁止語 specimen 保留雙語**：當某段是「絕對不要說出的具體語句」清單（must-not-say blocklist，例如 `You're absolutely right!`、`Thanks for…` 這類表演性附和），保留英文原句「並」附上中文對照，兩者並列。理由：雙語運作的 agent 兩種語言都可能反射性說出，只留一種語言會漏掉另一種反射。這條依「是否為偵測用 specimen」判定，而非依所在段落：即使某個 must-not-say specimen 出現在範例對話中（例如標記為 ❌ 的壞示範），它仍是偵測 specimen，一樣保留雙語。此規則的例外只有「應該說」的生成式內容——good response、以及範例對話中標記 ✅／生成式的行——那些只譯為使用者語言，不需並列英文
 - 修正明顯不自然、容易造成誤讀的直譯
 
 ## 7. 不可順手調整的內容
