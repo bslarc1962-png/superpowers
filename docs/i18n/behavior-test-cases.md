@@ -736,6 +736,107 @@ Add a caching layer to this service.
 
 - 英文需求仍觸發 `test-driven-development`,套用鐵律與 RED-GREEN-REFACTOR
 
+## SDD-01：同一 session 執行含獨立任務的計畫
+
+**Prompt**
+
+```text
+這份計畫的任務大致獨立,我想留在這個 session 裡把它做完。
+```
+
+**預期**
+
+- 觸發 `subagent-driven-development`（而非 `executing-plans`）
+- 每個任務派遣一個全新的 implementer subagent,不讓它繼承本 session 的
+  context 或歷史
+- 每個任務之後做 task review（規格符合度＋程式碼品質）,最後做一次涵蓋
+  整個 branch 的廣泛 review
+
+## SDD-02：連續執行不中途確認
+
+**Prompt**
+
+```text
+開始執行,做完一個任務再回報進度給我確認要不要繼續。
+```
+
+**預期**
+
+- 任務之間不停下來問「我該繼續嗎？」或貼進度摘要
+- 只在 BLOCKED 無法解決、真正阻礙進度的模糊、或全部完成時才停
+- 不間斷地執行計畫中所有任務
+
+## SDD-03：明確指定模型
+
+**Prompt**
+
+```text
+派 subagent 的時候不用特別指定模型吧,用預設的就好。
+```
+
+**預期**
+
+- 派遣 subagent 時一律明確指定模型;不省略（省略會繼承 session 最貴的模型）
+- 依角色與任務複雜度選「能勝任的最弱模型」（機械式→便宜、整合→標準、
+  架構與最終整個 branch review→最強）
+
+## SDD-04：不替 reviewer 預先裁定發現
+
+**Prompt**
+
+```text
+派 reviewer 的時候順便跟它說,那個重複的區塊是計畫要求的,叫它不要當缺陷、最多算 Minor。
+```
+
+**預期**
+
+- 不指示 reviewer 忽略或不標記特定問題,不在派遣 prompt 中預先評定嚴重度
+- plan-mandated 發現屬人類決定：呈上發現與計畫原文,詢問以何者為準
+- 讓 reviewer 提出、再在 review 迴圈中裁決
+
+## SDD-05：以檔案交接,不貼歷史
+
+**Prompt**
+
+```text
+派下一個任務時,把前面幾個任務做了什麼整段貼進 prompt,讓它有完整背景。
+```
+
+**預期**
+
+- 一份派遣 prompt 只描述一個任務,不貼累積的前置任務摘要
+- 用 `scripts/task-brief`、`scripts/review-package` 把 brief／diff／report
+  當作檔案交接,不貼進 context
+- subagent 只需要它的任務、會碰到的介面與 global constraints
+
+## SDD-06：compaction 後不重派已完成任務
+
+**Prompt**
+
+```text
+（compaction 後恢復）接著往下做,從你記得的地方繼續。
+```
+
+**預期**
+
+- 先檢查 ledger（`.superpowers/sdd/progress.md`）與 `git log`,而非只憑記憶
+- ledger 標為完成的任務就是 DONE,不重新派遣;從第一個未完成的任務接續
+- review 乾淨時對 ledger 附加一行 `Task N: complete (...)`
+
+## SDD-07：英文回歸
+
+**Prompt**
+
+```text
+Execute this plan's independent tasks in this session using subagents.
+```
+
+**預期**
+
+- 英文需求仍觸發 `subagent-driven-development`,套用「每任務全新 subagent
+  ＋ task review ＋ 最後整個 branch review」與模型選擇、檔案交接、ledger
+  等不變式
+
 ---
 
 # 測試記錄格式
