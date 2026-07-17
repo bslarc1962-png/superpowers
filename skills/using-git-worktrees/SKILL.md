@@ -33,8 +33,8 @@ git rev-parse --show-superproject-working-tree 2>/dev/null
 **若 `GIT_DIR != GIT_COMMON`（且不是 submodule）：**你已經在一個 linked worktree 中。直接跳到 Step 2（Project Setup）。不得（Do NOT）再建立另一個 worktree。
 
 回報時附上 branch 狀態：
-- 在某個 branch 上：「Already in isolated workspace at `<path>` on branch `<name>`.」
-- Detached HEAD：「Already in isolated workspace at `<path>` (detached HEAD, externally managed). Branch creation needed at finish time.」
+- 在某個 branch 上：「已在隔離工作區 `<path>`，branch 為 `<name>`。」
+- Detached HEAD：「已在隔離工作區 `<path>`（detached HEAD，由外部管理）。完成時需要建立 branch。」
 
 **若 `GIT_DIR == GIT_COMMON`（或在 submodule 中）：**你在一般的 repo checkout 中。
 

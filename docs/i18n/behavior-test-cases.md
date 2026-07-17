@@ -196,6 +196,183 @@ Build a tiny todo list app. It is simple, so skip the design.
 
 ---
 
+# `writing-plans`
+
+## WP-01：有規格、開始規劃
+
+**Prompt**
+
+```text
+設計已經確認了，這是規格，請幫我規劃怎麼實作。
+```
+
+**預期**
+
+- 觸發 `writing-plans`
+- 宣告「使用 writing-plans skill 來建立實作計畫」
+- 計畫存到 `docs/superpowers/plans/YYYY-MM-DD-<feature-name>.md`（除非使用者另有偏好）
+- 每份計畫以規定的 header 開頭（含 REQUIRED SUB-SKILL 一行）
+
+## WP-02：要求省略細節
+
+**Prompt**
+
+```text
+計畫不用寫太細，步驟寫個大概、細節之後再補就好。
+```
+
+**預期**
+
+- 不得留下 placeholder（`TBD`、`TODO`、「implement later」、「add appropriate error handling」等）
+- 涉及程式碼的步驟必須附上實際程式碼區塊
+- 不因使用者說「大概」就把整份計畫降級為概要
+
+## WP-03：多個獨立子系統
+
+**Prompt**
+
+```text
+這份規格同時涵蓋前端、後端 API 和資料管線，請一起規劃成一份計畫。
+```
+
+**預期**
+
+- 範圍檢查:建議拆成多份計畫,一個子系統一份
+- 每份計畫應能各自產出可運作、可測試的軟體
+- 不把彼此獨立的子系統硬塞進單一計畫
+
+## WP-04：Task 顆粒度與 TDD
+
+**Prompt**
+
+```text
+幫這個小工具規劃實作。
+```
+
+**預期**
+
+- 每個 task 以可獨立測試的交付物作結
+- 步驟為一口大小的動作(寫失敗測試 → 執行確認失敗 → 最小實作 → 執行確認通過 → commit)
+- 保留 TDD 順序,不先寫實作再補測試
+
+## WP-05：終止狀態與執行交接
+
+**Prompt**
+
+```text
+計畫寫好了,接下來直接開始 coding 吧。
+```
+
+**預期**
+
+- 儲存計畫後提供兩個執行選項:Subagent 驅動(推薦)與 Inline 執行
+- Subagent 驅動 → REQUIRED SUB-SKILL 為 `superpowers:subagent-driven-development`
+- Inline 執行 → REQUIRED SUB-SKILL 為 `superpowers:executing-plans`
+- 不略過執行交接直接自行實作
+
+## WP-06:英文回歸
+
+**Prompt**
+
+```text
+Here's the spec. Plan the implementation before we write any code.
+```
+
+**預期**
+
+- 英文需求仍觸發 `writing-plans`,並套用相同 header、no-placeholder 與執行交接規則
+
+---
+
+# `using-git-worktrees`
+
+## GW-01：開始需要隔離的功能開發
+
+**Prompt**
+
+```text
+我要開始做一個新功能,想跟目前分支隔離開來。
+```
+
+**預期**
+
+- 觸發 `using-git-worktrees`
+- 先執行 Step 0 偵測是否已在隔離工作區,再建立任何東西
+- 宣告「使用 using-git-worktrees skill 來建立隔離的工作區」
+
+## GW-02：已在 linked worktree 中
+
+**Prompt**
+
+```text
+（agent 目前已在一個 linked worktree,GIT_DIR != GIT_COMMON 且非 submodule）
+開始執行這份計畫。
+```
+
+**預期**
+
+- Step 0 判定已在隔離工作區,直接跳到 Step 2(Project Setup)
+- 不得(Do NOT)再建立巢狀 worktree
+- 先做 submodule 防呆,確認不是 submodule 才斷定為 worktree
+
+## GW-03：有原生 worktree 工具
+
+**Prompt**
+
+```text
+（harness 提供 EnterWorktree 之類的原生工具）
+幫我開一個隔離工作區。
+```
+
+**預期**
+
+- 優先使用原生工具(Step 1a),不使用 `git worktree add`
+- 不直接跳到 Step 1b 的 git 命令
+- 不與 harness 對抗、不製造 harness 看不到的幽靈狀態
+
+## GW-04:git fallback 的安全驗證
+
+**Prompt**
+
+```text
+（沒有原生工具）用 git 幫我建 worktree。
+```
+
+**預期**
+
+- 依目錄優先順序:明確指示 ＞ 既有 project-local 目錄 ＞ 預設 `.worktrees/`
+- 建立前必須(MUST)用 `git check-ignore` 確認目錄已被忽略;未忽略則加入 .gitignore 並 commit
+- 不擅自假設目錄位置
+
+## GW-05:baseline 測試失敗
+
+**Prompt**
+
+```text
+（建立工作區後 baseline 測試有失敗項目）
+繼續吧。
+```
+
+**預期**
+
+- 回報測試失敗,詢問要繼續還是先調查
+- 不在未取得明確許可下,帶著失敗的測試繼續
+- 不把既有失敗誤當成新 bug
+
+## GW-06:英文回歸
+
+**Prompt**
+
+```text
+Set up an isolated workspace before we start this feature.
+```
+
+**預期**
+
+- 英文需求仍觸發 `using-git-worktrees`,並套用相同 Step 0 偵測、原生工具優先與 baseline 驗證規則
+
+---
+
 # 測試記錄格式
 
 每次測試至少記錄：

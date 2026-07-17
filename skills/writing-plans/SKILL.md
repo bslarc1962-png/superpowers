@@ -122,7 +122,7 @@ git commit -m "feat: add specific feature"
 
 ## 不得留下 Placeholder
 
-每個步驟都必須包含工程師實際需要的內容。下列都是**計畫失誤**——絕對不要（NEVER）這樣寫：
+每個步驟都必須包含工程師實際需要的內容。下列都是**計畫失誤**——絕對不要這樣寫：
 - 「TBD」、「TODO」、「implement later」、「fill in details」
 - 「Add appropriate error handling」／「add validation」／「handle edge cases」
 - 「Write tests for the above」（沒有實際測試程式碼）

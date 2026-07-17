@@ -109,7 +109,7 @@ description: "Use before any creative work involving features, components, funct
 - 將複雜段落改成條列
 - 在專有名詞第一次出現時補上英文
 - 把英文範例對話改為等價的中文對話
-- 將宣告句調整為「使用者目前的語言」
+- 將 agent 對使用者輸出的訊息（announce、consent 提問、狀態回報、handoff 說明）調整為「使用者目前的語言」。同一個 skill 內這類訊息的語言必須一致，不可一部分中文、一部分英文。但 ``` 區塊中的固定輸出模板（report／header 樣板）保留英文原樣
 - 修正明顯不自然、容易造成誤讀的直譯
 
 ## 7. 不可順手調整的內容
