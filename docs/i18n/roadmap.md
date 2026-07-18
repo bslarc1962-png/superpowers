@@ -1,6 +1,6 @@
 # zh-TW 中文化 Roadmap
 
-> **狀態：實質完成（2026-07）。**下列所有 Phase 的 skill 與文件皆已在地化並合併（PR #1–#17）。本文保留原始規劃順序作為歷史紀錄;各項已勾選為完成。少數刻意留英或尚未處理的項目集中於文末「[剩餘與刻意未譯](#剩餘與刻意未譯)」。目前短期狀態一律以 [NOW.md](NOW.md) 為準。
+> **狀態：完成（2026-07）。**下列所有 Phase 的 skill 與面向使用者的文件皆已在地化並合併至 `main`。本文保留原始規劃順序作為歷史紀錄;各項已勾選為完成。刻意留英項目與環境限制集中於文末「[剩餘與刻意未譯](#剩餘與刻意未譯)」。目前短期狀態一律以 [NOW.md](NOW.md) 為準。
 
 中文化採小批次、可審查、可回退的方式進行。排序依據不是檔案長度，而是 skill 在整體工作流程中的位置與控制風險。
 
@@ -76,7 +76,7 @@
 
 - [x] `writing-skills`
 - [x] 平台 reference：Codex、Pi、Antigravity 等
-- [ ] Visual Companion 文件（`skills/brainstorming/visual-companion.md`，291 行；目前仍為英文，見文末「剩餘與刻意未譯」）
+- [x] Visual Companion 文件（`skills/brainstorming/visual-companion.md`）
 - [x] testing anti-patterns 與其他大型 reference
 - [x] README 與安裝文件
 
@@ -165,15 +165,11 @@ reviewer 不應審查自己剛完成的初譯。主要工作：
 
 ## 剩餘與刻意未譯
 
-收尾時盤點的完整狀態（以繁中字元是否存在為準）。
-
-### 尚未在地化（可選，非 blocker）
-
-- `skills/brainstorming/visual-companion.md`（291 行）——使用者導向的視覺陪伴指南，目前仍為英文。屬選用功能說明，面向終端使用者仍有價值，值得另開一小批處理。
-- 少數 subagent prompt 檔仍以英文為主：`skills/brainstorming/spec-document-reviewer-prompt.md`、`skills/subagent-driven-development/implementer-prompt.md`（僅少量中文）。這些是派給 subagent 的指令模板，行為敏感度高。
+收尾時盤點的完整狀態（以繁中字元是否存在為準）。**面向終端中文使用者的所有內容皆已在地化**（含 `visual-companion.md`，收官批完成）。以下為刻意留英項目與環境限制，非缺口。
 
 ### 刻意留英（設計決定，不譯）
 
+- 派給 subagent 的指令模板：`skills/brainstorming/spec-document-reviewer-prompt.md`、`skills/subagent-driven-development/implementer-prompt.md`。行為敏感度高、非終端使用者直接閱讀，保留原文以免影響 subagent 行為。
 - `skills/writing-skills/anthropic-best-practices.md`（約 1150 行）——外部方法論全文，刻意保留原文。
 - 工具對應 reference（`skills/using-superpowers/references/*-tools.md`）——action → 真實工具名稱的技術對照，保留英文以與 harness 工具名一致。
 - 測試 fixture 與內部紀錄（`systematic-debugging/test-*.md`、`CREATION-LOG.md` 等）——非使用者內容。

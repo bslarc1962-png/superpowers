@@ -49,8 +49,8 @@ Agent 接手中文化任務時先讀：
 | README／各 harness 安裝說明 | 完成 |
 | 移植開發者指南（`porting-to-a-new-harness.md`） | 完成 |
 | Mermaid 流程圖對照頁（`skill-flowcharts.md`） | 完成 |
-| `visual-companion.md`、部分 subagent prompt 檔 | 尚未在地化（可選，見 roadmap 文末） |
-| `anthropic-best-practices.md`、工具對應 reference、`.dot`／`.js` | 刻意留英 |
+| `visual-companion.md`（視覺陪伴指南） | 完成 |
+| subagent prompt 檔、`anthropic-best-practices.md`、工具對應 reference、`.dot`／`.js` | 刻意留英（見 roadmap 文末） |
 
 ## 基本策略
 
