@@ -30,22 +30,27 @@ Agent 接手中文化任務時先讀：
 
 1. [translation-guide.md](translation-guide.md)：翻譯規則與審查清單
 2. [glossary.md](glossary.md)：固定術語與保留字
-3. [roadmap.md](roadmap.md)：翻譯順序、PR 切分與多 agent 分工
+3. [roadmap.md](roadmap.md)：翻譯順序、PR 切分與多 agent 分工（含完成狀態與剩餘項目）
 4. [behavior-test-cases.md](behavior-test-cases.md)：行為等價測試案例
 5. [agent-handoff.md](agent-handoff.md)：跨 agent 交接協定
-6. [NOW.md](NOW.md)：目前短期狀態與下一步
+6. [skill-flowcharts.md](skill-flowcharts.md)：各 skill 流程圖的 Mermaid 對照（GitHub inline review 用；canonical 仍為各 `SKILL.md` 的 ` ```dot `）
+7. [NOW.md](NOW.md)：目前短期狀態與下一步
 
 ## 目前狀態
 
+實質完成（2026-07,PR #1–#17 皆已合併）。逐項狀態見 [roadmap.md](roadmap.md)。
+
 | 類別 | 狀態 |
 |---|---|
-| 中文化規則 | 初版 |
-| 固定術語表 | 初版 |
-| 行為測試規格 | 初版 |
-| Agent 交接協定 | 初版 |
-| `using-superpowers` | 第一版翻譯，等待獨立 review |
-| `brainstorming` | 第一版翻譯，等待獨立 review |
-| 其他 skills | 尚未開始 |
+| 中文化規則、術語表、交接協定、行為測試規格 | 完成 |
+| 全部 14 支 skill（`SKILL.md`） | 完成 |
+| 行為鏈 reference 子檔（root-cause-tracing、testing-anti-patterns、persuasion-principles 等） | 完成 |
+| Typography 一致性 sweep | 完成 |
+| README／各 harness 安裝說明 | 完成 |
+| 移植開發者指南（`porting-to-a-new-harness.md`） | 完成 |
+| Mermaid 流程圖對照頁（`skill-flowcharts.md`） | 完成 |
+| `visual-companion.md`、部分 subagent prompt 檔 | 尚未在地化（可選，見 roadmap 文末） |
+| `anthropic-best-practices.md`、工具對應 reference、`.dot`／`.js` | 刻意留英 |
 
 ## 基本策略
 
