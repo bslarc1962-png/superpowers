@@ -1,5 +1,7 @@
 # zh-TW 中文化 Roadmap
 
+> **狀態：實質完成（2026-07）。**下列所有 Phase 的 skill 與文件皆已在地化並合併（PR #1–#17）。本文保留原始規劃順序作為歷史紀錄;各項已勾選為完成。少數刻意留英或尚未處理的項目集中於文末「[剩餘與刻意未譯](#剩餘與刻意未譯)」。目前短期狀態一律以 [NOW.md](NOW.md) 為準。
+
 中文化採小批次、可審查、可回退的方式進行。排序依據不是檔案長度，而是 skill 在整體工作流程中的位置與控制風險。
 
 ## Phase 0：建立本地化基礎
@@ -10,8 +12,8 @@
 - [x] 建立翻譯規範
 - [x] 建立固定術語表
 - [x] 建立行為測試規格
-- [ ] 決定長期 branch 與 upstream 同步策略
-- [ ] 補上自動化 invariant checker
+- [x] 決定長期 branch 與 upstream 同步策略
+- [x] 補上自動化 invariant checker（以逐批自查 script 達成：fenced 區塊 byte-identical、漢字相鄰半形標點殘餘＝0、關鍵 token 保留;尚未落地為 repo 常駐工具）
 
 ### Branch 策略待驗證
 
@@ -31,8 +33,8 @@
 
 - [x] `using-superpowers`
 - [x] `brainstorming`
-- [ ] `writing-plans`
-- [ ] `using-git-worktrees`
+- [x] `writing-plans`
+- [x] `using-git-worktrees`
 
 驗證重點：
 
@@ -44,11 +46,11 @@
 
 ## Phase 2：實作與驗證主迴圈
 
-- [ ] `test-driven-development`
-- [ ] `executing-plans`
-- [ ] `subagent-driven-development`
-- [ ] `verification-before-completion`
-- [ ] `finishing-a-development-branch`
+- [x] `test-driven-development`
+- [x] `executing-plans`
+- [x] `subagent-driven-development`
+- [x] `verification-before-completion`
+- [x] `finishing-a-development-branch`
 
 驗證重點：
 
@@ -59,10 +61,10 @@
 
 ## Phase 3：除錯與協作
 
-- [ ] `systematic-debugging`
-- [ ] `dispatching-parallel-agents`
-- [ ] `requesting-code-review`
-- [ ] `receiving-code-review`
+- [x] `systematic-debugging`
+- [x] `dispatching-parallel-agents`
+- [x] `requesting-code-review`
+- [x] `receiving-code-review`
 
 驗證重點：
 
@@ -72,11 +74,11 @@
 
 ## Phase 4：Meta 與參考資料
 
-- [ ] `writing-skills`
-- [ ] 平台 reference：Codex、Pi、Antigravity 等
-- [ ] Visual Companion 文件
-- [ ] testing anti-patterns 與其他大型 reference
-- [ ] README 與安裝文件
+- [x] `writing-skills`
+- [x] 平台 reference：Codex、Pi、Antigravity 等
+- [ ] Visual Companion 文件（`skills/brainstorming/visual-companion.md`，291 行；目前仍為英文，見文末「剩餘與刻意未譯」）
+- [x] testing anti-patterns 與其他大型 reference
+- [x] README 與安裝文件
 
 這階段檔案較長，適合交由第二個 agent 初譯，再由熟悉核心規則的 reviewer 審查。
 
@@ -160,3 +162,23 @@ reviewer 不應審查自己剛完成的初譯。主要工作：
 - 壓力案例通過
 - 至少一個英文回歸案例通過
 - 由第二位 reviewer 審查
+
+## 剩餘與刻意未譯
+
+收尾時盤點的完整狀態（以繁中字元是否存在為準）。
+
+### 尚未在地化（可選，非 blocker）
+
+- `skills/brainstorming/visual-companion.md`（291 行）——使用者導向的視覺陪伴指南，目前仍為英文。屬選用功能說明，面向終端使用者仍有價值，值得另開一小批處理。
+- 少數 subagent prompt 檔仍以英文為主：`skills/brainstorming/spec-document-reviewer-prompt.md`、`skills/subagent-driven-development/implementer-prompt.md`（僅少量中文）。這些是派給 subagent 的指令模板，行為敏感度高。
+
+### 刻意留英（設計決定，不譯）
+
+- `skills/writing-skills/anthropic-best-practices.md`（約 1150 行）——外部方法論全文，刻意保留原文。
+- 工具對應 reference（`skills/using-superpowers/references/*-tools.md`）——action → 真實工具名稱的技術對照，保留英文以與 harness 工具名一致。
+- 測試 fixture 與內部紀錄（`systematic-debugging/test-*.md`、`CREATION-LOG.md` 等）——非使用者內容。
+- 所有 ` ```dot `(Graphviz)流程圖與 `.js` 程式碼——canonical 逐字保留;中文流程圖對照見 [skill-flowcharts.md](skill-flowcharts.md)。
+
+### 已知環境限制
+
+- 行為等價 eval（`behavior-test-cases.md` 的情境）需 tmux 環境且 `evals/` 未 clone，無法在目前 session 執行。屬 durable 已知缺口，非翻譯本身問題。
